@@ -36,20 +36,7 @@
 
         <div class="sidebar-wrapper" id="sidebar-wrapper">
             <ul class="nav">
-                <li class="nav-item dropdown">
-                    <a class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="now-ui-icons location_world"></i>
-                        <p>
-                            <span class="d-lg-none d-md-block">Some Actions</span>
-                        </p>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                <li>
+               <li>
                     <a href="./dashboard.html">
                         <i class="now-ui-icons design_app"></i>
                         <p>Dashboard</p>
@@ -68,11 +55,15 @@
                         <p>Bug</p>
                     </a>
                 </li>
-                <li>
-                    <a href="./notifications.html">
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="now-ui-icons ui-1_bell-53"></i>
-                        <p>Reports</p>
+                        Reports<span class="sub-arrow"></span>
                     </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Project Reports</a>
+                        <a class="dropdown-item" href="#">Bug Reports</a>
+                        </div>
                 </li>
                 <li>
                     <a href="./user.html">
@@ -144,7 +135,7 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                <a href="#" class="" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
