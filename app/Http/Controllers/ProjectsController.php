@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProjectsController extends Controller
 {
@@ -15,8 +17,14 @@ class ProjectsController extends Controller
     public function index()
     {
         //
-    }
+        if (Auth::check()) {
 
+            $projects = Project::all();
+            return view('projects.index', ['projects=> $projects']);
+
+        }
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -25,6 +33,7 @@ class ProjectsController extends Controller
     public function create()
     {
         //
+
     }
 
     /**

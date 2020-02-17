@@ -33,3 +33,8 @@ Route::prefix('admin')->group(function() {
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
 
 });
+
+
+Route::resource('projects','ProjectsController');
+Route::resource('bugs','BugsController');
+Route::resource('users','UsersController');

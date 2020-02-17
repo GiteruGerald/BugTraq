@@ -37,14 +37,14 @@
         <div class="sidebar-wrapper" id="sidebar-wrapper">
             <ul class="nav">
                <li>
-                    <a href="./dashboard.html">
+                    <a href="{{url('/home')}}">
                         <i class="now-ui-icons design_app"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li>
                <!--TODO:change these routes and Icon logos-->
-                    <a href="./icons.html">
+                    <a href="{{url('projects')}}">
                         <i class="now-ui-icons education_atom"></i>
                         <p>Projects</p>
                     </a>
