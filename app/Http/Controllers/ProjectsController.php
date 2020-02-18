@@ -20,7 +20,7 @@ class ProjectsController extends Controller
         if (Auth::check()) {
 
             $projects = Project::all();
-            return view('projects.index', ['projects=> $projects']);
+            return view('projects.index', ['projects' => $projects]);
 
         }
 
@@ -33,7 +33,7 @@ class ProjectsController extends Controller
     public function create()
     {
         //
-
+        return view('projects.create');
     }
 
     /**
@@ -45,6 +45,16 @@ class ProjectsController extends Controller
     public function store(Request $request)
     {
         //
+        if(Auth::check()) {
+            $project = Project::create($request->all());
+            //if project was created successfully
+            if ($project) {
+                return redirect()->route('projects.show', ['project' => $project->id])
+                    ->with('success', 'Project created successfully');
+            }
+        }
+        //if not created successfully
+        return back()->withInput()->with('errors','Error creating new project');
     }
 
     /**

@@ -10,8 +10,13 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title"> List Of Projects</h4>
-                </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h4 class="card-title"> List Of Projects</h4></div>
+                        <div class="col-md-3">
+                        <a class="pull-right btn btn-primary btn-sm" href="/projects/create">Create new </a></div>
+                    </div>
+            </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">
@@ -19,9 +24,7 @@
                             <th>
                                 Name
                             </th>
-                            <th>
-                                Project Manager
-                            </th>
+
                             <th>
                                 Type
                             </th>
@@ -29,32 +32,18 @@
                                 Issues
                             </th>
                             <th class="text-right">
-                                Created At
+                                Created On
                             </th>
                             </thead>
                             <tbody>
-                            <tr>
-
-
-                            </tr>
-                            <tr>
-
-                            </tr>
-                            <tr>
-
-                            </tr>
-                            <tr>
-
-                            </tr>
-                            <tr>
-
-                            </tr>
-                            <tr>
-
-                            </tr>
-                            <tr>
-
-                            </tr>
+                            @foreach($projects as $project)
+                                <tr>
+                                    <td><a href="/projects/{{$project->id}}" >{{$project->pj_name}}</a></td>
+                                    <td>{{$project->pj_type}}</td>
+                                    <td>0</td>
+                                    <td class="text-right">{{$project->created_at}}</td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
