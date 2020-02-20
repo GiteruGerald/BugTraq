@@ -44,9 +44,20 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //$project= Project::create([
+        //                'name'=>$request->input('name'),
+        //                'description'=>$request->input('description'),
+        //                'company_id'=>$request->input('company_id'),
+        //                'user_id'=>Auth::user()->id//or also 'user_id'=>$request->user()->id
+        //            ]);
         if(Auth::check()) {
-            $project = Project::create($request->all());
+            $project = Project::create([
+                'pj_name'=>$request->input('pj_name'),
+                'pj_type'=>$request->input('pj_type'),
+                'pj_description' =>$request->input('pj_description'),
+                'pj_manager' => $request->input('pj_manager'),
+                'user_id'=>Auth::user()->id
+            ]);
             //if project was created successfully
             if ($project) {
                 return redirect()->route('projects.show', ['project' => $project->id])
@@ -66,6 +77,9 @@ class ProjectsController extends Controller
     public function show(Project $project)
     {
         //
+        $project = Project::where('id',$project->id)->first();
+
+        return view('projects.show',['project'=>$project]);
     }
 
     /**

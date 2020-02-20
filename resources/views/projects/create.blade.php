@@ -13,7 +13,7 @@
             {{csrf_field() }}
             <div class="card-body">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Project Name</label>
+                    <label for="inputName">Project Name</label>
                     <input type="text" class="form-control" name="pj_name" placeholder="Enter name" required>
                 </div>
                 <div class="form-group">

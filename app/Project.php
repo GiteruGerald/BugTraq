@@ -12,6 +12,7 @@ class Project extends Model
         'pj_type',
         'pj_description',
         'pj_manager',
+        'user_id',
     ];
 
     public function bugs (){

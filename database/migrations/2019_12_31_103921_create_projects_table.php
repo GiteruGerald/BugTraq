@@ -17,6 +17,7 @@ class CreateProjectsTable extends Migration
             $table->increments('id');
             $table->string('pj_name');
             $table->string('pj_type');
+            $table->integer('user_id');
             $table->longText('pj_description')->nullable();
             $table->string('pj_manager');
             $table->foreign('pj_manager')->references('name')->on('users');
