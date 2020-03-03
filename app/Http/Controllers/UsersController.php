@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -15,6 +16,8 @@ class UsersController extends Controller
     public function index()
     {
         //
+
+        return view('users.index');
     }
 
     /**
@@ -47,6 +50,9 @@ class UsersController extends Controller
     public function show(User $user)
     {
         //
+        $user = User::where('id',$user->id)->first();
+        //dd($user);
+        return view('users.show',['users'=>$user]);
     }
 
     /**
@@ -58,6 +64,10 @@ class UsersController extends Controller
     public function edit(User $user)
     {
         //
+        $user = User::find($user->id);
+
+      //  return view('users.edit',['user'=>$user]);
+        return view('users.edit')->with('user', $user);
     }
 
     /**
@@ -69,7 +79,34 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        //save data
+       /* $projectUpdate = Project::where('id',$project->id)
+            ->update([
+                'name'=> $request->input('name'),
+                'description'=> $request->input('description')
+
+            ]);
+        //if project was created successfully
+        if($projectUpdate){
+            return redirect()->route('projects.show',['project'=>$project->id])
+                ->with('success','Project updated successfully');
+        }
+        //redirect
+        return back()->withInput();*/
+
+       $userUpdate = User::where('id',$user->id)
+           ->update([
+               'name'=> $request->input('name'),
+               'email'=>$request->input('email'),
+                'phone_no'=>$request->input('phone')
+           ]);
+       //if user was edited successfully
+       if($userUpdate){
+           return redirect()->route('users.show',['user'=>$user->id])
+               ->with('success','User Details updated successfully');
+       }
+       //redirect
+        return back()->withInput();
     }
 
     /**

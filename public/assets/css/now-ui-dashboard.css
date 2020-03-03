@@ -4178,7 +4178,7 @@ Created using IcoMoon - icomoon.io
 .main-panel>.content {
   padding: 0 30px 30px;
   min-height: calc(100vh - 123px);
-  margin-top: 25px;
+  margin-top: -25px;
 }
 
 .main-panel>.navbar {
@@ -4230,7 +4230,7 @@ Created using IcoMoon - icomoon.io
 }
 
 .panel-header-sm {
-  height: 83px;
+  height: 115px;
 }
 
 .panel-header-lg {

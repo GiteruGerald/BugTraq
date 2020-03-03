@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bug;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BugsController extends Controller
 {
@@ -15,6 +16,12 @@ class BugsController extends Controller
     public function index()
     {
         //
+        if (Auth::check()) {
+
+            $bugs = Bug::all();
+            return view('bugs.index', ['bugs' => $bugs]);
+
+        }
     }
 
     /**

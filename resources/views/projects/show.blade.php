@@ -1,25 +1,38 @@
-@extends('layouts.master')
+@extends('layouts.dashboard')
+@section('title')
+    Projects | BugTraq
+    @endsection
+
 @section('content')
 
+    <div class="content-wrapper">
 
-    <main role="main">
-        <div class="col-md-9 col-lg-9 col-sm-9 pull-left">
-
-
-            <section class="well well-lg">
-                <div class="container-fluid">
-                    <h1 class="jumbotron-heading">{{$project->pj_name}}</h1>
-                    <p class="lead text-muted">{{$project->pj_description}}</p>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card" style="margin-top: 3rem;
+                margin-left: 2rem;
+                margin-right: 2rem;">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h4 class="card-title">{{$project->pj_name}}</h4>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                           <div class="card-body">
+                                <p class="lead text-muted">{{$project->pj_description}}</p>
+                           </div>
+                        </div>
+                    </div>
+                    </div>
                 </div>
-            </section>
-
         </div>
-        <!--Beginning of sidebar-->
-        <div class="col-sm-3 col-md-3 col-lg-3 pull-right">
-                <p>Hello Sidebar</p>
-        </div>
-    </main>
 
+
+    </div>
+    <!--TODO:Check this go to top page-->
     <!--   <footer class="text-muted">
             <div class="container">
                 <p class="float-center">
@@ -30,7 +43,10 @@
             </div>
         </footer>
     -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="/docs/4.2/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/docs/4.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
 
+@endsection
+@section('scripts')
+   <!-- <script src="../../assets/demo/demo.js"></script> -->
+
+    <script src="../../../public/plugins/jquery/jquery.min.js"></script>
 @endsection

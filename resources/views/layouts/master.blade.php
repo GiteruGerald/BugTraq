@@ -14,11 +14,13 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!-- CSS Files -->
+
+
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../assets/demo/demo.css" rel="stylesheet" />
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet"
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet"/>
 
 </head>
 
@@ -50,9 +52,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="./map.html">
-                        <i class="fa fa-tachometer-alt"></i>
-                        <p>Bug</p>
+                    <a href="{{url('bugs')}}">
+                        <i class="fa fa-bug"></i>
+                        <p>Bugs</p>
                     </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -66,7 +68,7 @@
                         </div>
                 </li>
                 <li>
-                    <a href="./user.html">
+                    <a href="/users/{{Auth::user()->id}}">
                         <i class="now-ui-icons users_single-02"></i>
                         <p>User Profile</p>
                     </a>

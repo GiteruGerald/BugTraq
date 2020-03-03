@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
 
 
 class ProjectsController extends Controller
 {
-    /**
+    /**w
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -44,12 +45,7 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //$project= Project::create([
-        //                'name'=>$request->input('name'),
-        //                'description'=>$request->input('description'),
-        //                'company_id'=>$request->input('company_id'),
-        //                'user_id'=>Auth::user()->id//or also 'user_id'=>$request->user()->id
-        //            ]);
+
         if(Auth::check()) {
             $project = Project::create([
                 'pj_name'=>$request->input('pj_name'),
