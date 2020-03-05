@@ -9,9 +9,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="card" style="margin-top: 3rem;
-                margin-left: 2rem;
-                margin-right: 2rem;">
+                <div class="card" style="margin: 3rem;">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-9">
@@ -30,7 +28,50 @@
                 </div>
         </div>
 
+        <div class="container">
+            <div class="row" style="background: white; margin-left: 3rem; margin-right: 3rem">
+                <div class="col-lg-10 col-md-9 col-sm-9">
+                    <h4 class="card-title"> List Of Bugs</h4>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-3">
+                    <a href="/bugs/create/{{$project->id}}" class="pull-right btn btn-primary btn-sm ">Report Bug</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                        <th>
+                            Name
+                        </th>
 
+                        <th>
+                            Type
+                        </th>
+
+                        <th class="text-right">
+                            Reported On
+                        </th>
+                        <th class="text-right">
+                            Date Modified
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        </thead>
+                        <tbody>
+                        @foreach($project->bugs as $bugs)
+                            <tr>
+                                <td><a href="/bugs/{{$bugs->id}}" >{{$bugs->title}}</a></td>
+                                <td>{{$bugs->type}}</td>
+                                <td class="text-right">{{$bugs->created_at}}</td>
+                                <td class="text-right">{{$bugs->updated_at}}</td>
+                                <td>{{$bugs->status}}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+        </div>
     </div>
     <!--TODO:Check this go to top page-->
     <!--   <footer class="text-muted">

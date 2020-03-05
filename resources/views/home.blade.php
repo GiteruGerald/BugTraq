@@ -21,7 +21,7 @@
                                               </div>
                                           @endif
 
-                                          You are logged in as <strong>User</strong>!
+                                          You are logged in as <strong>{{ Auth::user()->user_group }}</strong>!
                                       </div>
                                   </div>
                               </div>

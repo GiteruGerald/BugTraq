@@ -9,7 +9,8 @@ class Bug extends Model
     //
     protected $fillable=[
         'description',
-        'project_name',
+        'title',
+        'reporter',
         'project_id',
         'assigned',
         'type',

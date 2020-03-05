@@ -19,8 +19,10 @@ class ProjectsController extends Controller
     {
         //
         if (Auth::check()) {
-
-            $projects = Project::all();
+        //to pick projects by a certain user
+            $projects = Project::where('user_id', Auth::user()->id)->get();
+            //to view all projects
+                //$projects = Project::all();
             return view('projects.index', ['projects' => $projects]);
 
         }

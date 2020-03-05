@@ -13,7 +13,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-9">
-                            <h4 class="card-title"> All Bugs</h4></div>
+                            <h4 class="card-title"> My Bugs</h4></div>
                     </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -26,20 +26,20 @@
                                 Priority
                             </th>
                             <th>
-                                Bug
+                                Bug Title
                             </th>
 
                             <th>
                                 Created
                             </th>
                             <th>
-                                User
+                                Reporter
                             </th>
                             <th>
-                                Project
+                                Dev Assigned
                             </th>
                             <th>
-                                Due
+                                Due Date
                             </th>
 
                             <th class="text-right">
@@ -49,10 +49,14 @@
                             <tbody>
                             @foreach($bugs as $bug)
                                 <tr>
-                                    <td><a href="/bugs/{{$bug->id}}" >{{$bug->pj_name}}</a></td>
-                                    <td>{{$bug->pj_type}}</td>
-                                    <td>0</td>
-                                    <td class="text-right">{{$bug->created_at}}</td>
+                                    <td>{{$bug->id}}></td>
+                                    <td>{{$bug->priority}}</td>
+                                    <td>{{$bug->title}}</td>
+                                    <td>{{$bug->created_at}}</td>
+                                    <td>{{$bug->reporter}}</td>
+                                    <td>{{$bug->assigned}}</td>
+                                    <td>{{$bug->due_date}}</td>
+                                    <td>{{$bug->status}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

@@ -15,8 +15,11 @@ class Project extends Model
         'user_id',
     ];
 
-    public function bugs (){
-        return $this->hasMany('App\Models\Bug');
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+    public function bugs(){
+        return $this->hasMany('App\Bug');
     }
 
 }
