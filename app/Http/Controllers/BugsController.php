@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bug;
+use App\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +19,7 @@ class BugsController extends Controller
         //
         if (Auth::check()) {
 
-            $bugs = Bug::all();
+            $bugs = Bug::where('reporter',Auth::user()->name)->get();
             return view('bugs.index', ['bugs' => $bugs]);
 
         }
@@ -29,9 +30,15 @@ class BugsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($project_id =null)//null is the default value assigned if id not entered
     {
         //
+        $projects = null;
+
+        if(!$project_id){
+            $projects = Project::where('user_id',Auth::user()->id)->get();
+        }
+        return view('bugs.create',['project_id'=>$project_id,'projects'=>$projects]);
     }
 
     /**
@@ -43,6 +50,28 @@ class BugsController extends Controller
     public function store(Request $request)
     {
         //
+
+        if(Auth::check()) {
+            $bug = Bug::create([
+                'project_id'=>$request->input('project_id'),
+                'title'=>$request->input('title'),
+                'reporter'=>Auth::user()->name ,
+                'type'=>$request->input('bug_type'),
+                'description' =>$request->input('description'),
+                'priority'=>$request->input('priority'),
+                'assigned' => $request->input('assigned'),
+                'due_date'=>$request->input('due_date')
+            ]);
+                //dd($bug);
+            //if bug was created successfully
+            if ($bug) {
+                return redirect()->route('bugs.show', ['bug' => $bug->id])
+                    ->with('success', 'Bug created successfully');
+            }
+        }
+        //if not created successfully
+        return back()->withInput()->with('errors','Error creating new bug');
+
     }
 
     /**

@@ -10,7 +10,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card" style="margin: 2rem;">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-9">

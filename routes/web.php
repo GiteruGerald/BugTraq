@@ -22,11 +22,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-
 Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
@@ -34,7 +29,11 @@ Route::prefix('admin')->group(function() {
 
 });
 
+Route::middleware(['auth'])->group(function () {
 
-Route::resource('projects','ProjectsController');
-Route::resource('bugs','BugsController');
-Route::resource('users','UsersController');
+    Route::get('bugs/create/{project_id?}', 'BugsController@create');
+    Route::resource('projects', 'ProjectsController');
+    Route::resource('bugs', 'BugsController');
+    Route::resource('users', 'UsersController');
+
+});

@@ -196,7 +196,7 @@
             <a href="{{url('/home')}}" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Dashboard
+                Home
               </p>
             </a>
           </li>
