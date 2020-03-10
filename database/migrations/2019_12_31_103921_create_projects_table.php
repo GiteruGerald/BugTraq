@@ -20,6 +20,7 @@ class CreateProjectsTable extends Migration
             $table->integer('user_id');
             $table->longText('pj_description')->nullable();
             $table->string('pj_manager');
+            $table->string('members')->nullable();
             $table->foreign('pj_manager')->references('name')->on('users');
             $table->timestamps();
         });

@@ -121,6 +121,7 @@
                                 <label for="userGroup" class="col-md-4 control-label">User Role</label>
                                 <div class="col-7">
                                     <select class="form-control select2bs4" name="user_group">
+                                        <option>Manager</option>
                                         <option>Test Engineer</option>
                                         <option>Developer</option>
                                     </select>
