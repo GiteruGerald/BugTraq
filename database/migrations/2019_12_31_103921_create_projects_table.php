@@ -17,11 +17,11 @@ class CreateProjectsTable extends Migration
             $table->increments('id');
             $table->string('pj_name');
             $table->string('pj_type');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
             $table->longText('pj_description')->nullable();
-            $table->string('pj_manager');
+
             $table->string('members')->nullable();
-            $table->foreign('pj_manager')->references('name')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

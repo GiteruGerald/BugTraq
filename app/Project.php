@@ -11,7 +11,6 @@ class Project extends Model
         'pj_name',
         'pj_type',
         'pj_description',
-        'pj_manager',
         'user_id',
     ];
 
