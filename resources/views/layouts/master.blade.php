@@ -246,7 +246,7 @@
 
 
                     <li class="nav-item">
-                        <a href="/users/{{Auth::user()->id}}" class="nav-link">
+                        <a href="/admin/users" class="nav-link">
                             <i class="nav-icon fas fa-user-alt"></i>
                             <p>
                                 Users
@@ -277,7 +277,7 @@
 
     <!-- Main Footer -->
     <footer class="main-footer">
-        <strong>Copyright &copy; 2019 <a href=url{{'/home'}}>BugTraq.io</a>.</strong>
+        <strong>Copyright &copy; 2019 <a href="{{route('admin.dashboard')}}">BugTraq.io</a>.</strong>
         All rights reserved.
         <div class="float-right d-none d-sm-inline-block">
             <b>Version</b> 1.0

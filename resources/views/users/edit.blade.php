@@ -281,6 +281,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        <!--TODO : edit this field to first name and last name
                                             <div class="row">
                                                 <div class="col-md-5 px-3">
                                                     <div class="form-group">

@@ -18,7 +18,7 @@
                         <div class="author">
                             <a href="#">
                                 <img class="avatar border-gray" src="" alt="...">
-                                <h5 class="title">{{Auth::user()->name}}</h5>
+                                <h5 class="title">{{Auth::user()->name.' '.Auth::user()->lastname}}</h5>
                             </a>
                             <p class="description">
                                 {{Auth::user()->user_group}}
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-7" style="margin-top: 3rem">
+            <div class="col-md-7" style=" margin-top: 3rem">
                 <div class="card">
                     <div class="card-header">
                         <h1 class="title">Profile</h1>

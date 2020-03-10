@@ -19979,7 +19979,7 @@ html.maximized-card {
 
 .login-box,
 .register-box {
-  width: 360px;
+  width: 510px;
 }
 
 @media (max-width: 576px) {
