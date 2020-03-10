@@ -15,19 +15,20 @@ class CreateBugsTable extends Migration
     {
         Schema::create('bugs', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->string('title');
+            $table->longText('description');
+
             $table->integer('project_id');
             $table->foreign('project_id')->references('id')->on('users');
-
-            $table->string('project_name');
-            $table->foreign('project_name')->references('pj_name')->on('projects');
-
-            $table->longText('description');
 
             $table->string('assigned');
             $table->foreign('assigned')->references('name')->on('users');
 
             $table->string('type');
             $table->date('due_date');
+
+            $table->string('reporter');
 
             $table->string('priority');
             $table->foreign('priority')->references('impact')->on('priorities');

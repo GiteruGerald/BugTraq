@@ -19,6 +19,7 @@ class CreateAdminsTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('emp_id');
+            $table->string('user_group')->default('Admin');
             $table->rememberToken();
             $table->timestamps();
         });
