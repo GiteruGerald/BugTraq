@@ -28,6 +28,9 @@ Route::prefix('admin')->group(function() {
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
     Route::get('/projects','AdminController@showprojects')->name('admin.project');
     Route::get('/bugs','AdminController@showbugs')->name('admin.bug');
+    Route::get('/users','AdminController@showusers')->name('admin.users');
+    Route::post('projects/destroyPj', 'AdminController@destroyProject')->name('projects.destroyPj');
+
 });
 
 Route::middleware(['auth'])->group(function () {

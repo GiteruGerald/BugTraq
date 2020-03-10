@@ -112,5 +112,13 @@ class ProjectsController extends Controller
     public function destroy(Project $project)
     {
         //
+        $findProject = Project::find( $project->id);
+        //if(Auth::guard('admin')){
+            if($findProject ->delete()){
+                return redirect()->route('admin.projects')
+                    ->with('success','Project deleted successfully');
+            }
+            return back()->withInput()->with('errors','Project could not be deleted');
+      //  }
     }
 }
