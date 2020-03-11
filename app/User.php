@@ -34,7 +34,18 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function  projects(){
-        return $this-> belongsTo('App\Models\Project');
+    public function projects()
+    {
+        return $this->belongsTo('App\Project');
     }
+
+    public function tasks()
+    {
+        return $this->belongsToMany('App\Task');
+    }
+
+    public function comments(){
+        return $this->morphMany('App\Comment','commentable');
+    }
+
 }

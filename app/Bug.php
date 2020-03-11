@@ -8,8 +8,8 @@ class Bug extends Model
 {
     //
     protected $fillable=[
-        'description',
         'title',
+        'description',
         'reporter',
         'project_id',
         'assigned',
@@ -20,15 +20,18 @@ class Bug extends Model
     ];
 
     public function projects(){
-        $this->belongsTo('App\Models\Project');
+        return $this->belongsTo('App\Project');
     }
     public function users(){
-        $this->hasOne('App\Models\User');
+        return $this->hasOne('App\User');
     }
     public function priority(){
-        $this->hasOne('App\Models\Priority');
+        return $this->hasOne('App\Priority');
     }
     public function status(){
-        $this->hasOne('App\Models\BugStatus');
+        return $this->hasOne('App\BugStatus');
+    }
+    public function comments(){
+        return $this->morphMany('App\Comment','commentable');
     }
 }

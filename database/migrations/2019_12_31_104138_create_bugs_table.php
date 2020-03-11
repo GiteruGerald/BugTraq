@@ -33,7 +33,7 @@ class CreateBugsTable extends Migration
             $table->string('priority');
             $table->foreign('priority')->references('impact')->on('priorities');
 
-            $table->string('status');
+            $table->string('status')->default('To Do');
             $table->foreign('status')->references('status')->on('bug_statuses');
 
             $table->timestamps();

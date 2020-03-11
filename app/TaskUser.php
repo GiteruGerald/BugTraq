@@ -4,11 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProjectUser extends Model
+class TaskUser extends Model
 {
     //
     protected $fillable = [
-      'project_id',
+      'task_id',
       'user_id',
     ];
+
+    public function users(){
+        return $this->belongsTo('App\User');
+    }
 }

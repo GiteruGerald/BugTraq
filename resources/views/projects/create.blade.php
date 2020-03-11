@@ -35,10 +35,6 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Project Manager</label>
-                                    <input type="text" class="form-control" name="pj_manager" placeholder="Enter name">
-                                </div>
-                                <div class="form-group">
                                     <label>Project Description</label>
                                     <textarea class="form-control" rows="3" name="pj_description" placeholder="Enter ... " required></textarea>
                                 </div>
