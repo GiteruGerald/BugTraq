@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Bug;
 use App\Project;
+use App\ProjectUser;
+use App\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -17,14 +20,19 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        //
-        if (Auth::check()) {
+
+        $pjID =DB::table('projects')->pluck('id');
+       //TODO - define view for developers and Testesr
+        if (Auth::user()->user_group=='Manager') {
         //to pick projects by a certain user
             $projects = Project::where('user_id', Auth::user()->id)->get();
+            $bugcount = Bug::where('project_id',$pjID)->count();
             //to view all projects
                 //$projects = Project::all();
-            return view('projects.index', ['projects' => $projects]);
+            return view('projects.index', ['projects' => $projects,'bugCount'=> $bugcount]);
 
+        }else{
+            $project = ProjectUser::where('user_id','project_id');
         }
 
     }
@@ -35,8 +43,18 @@ class ProjectsController extends Controller
      */
     public function create()
     {
-        //
-        return view('projects.create');
+        //Table::select('name','surname')->where('id', 1)->get();
+        $users = DB::table('users')->where('user_group', 'Manager')->get();
+       /*Model::where('id', 1)
+            ->pluck('name', 'surname')
+            ->all();*/
+       /*$users = User::where('user_group','Manager')
+            ->pluck('name','lastname')
+             ->all();*/
+
+
+       //return($users->name);
+       return view('projects.create',['users' =>$users]);
     }
 
     /**
@@ -47,18 +65,20 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
+        //$users = DB::table('users')->where('user_group', 'Manager')->get();
 
+        $testers = DB::table('users')->where('user_group','Test Engineer')->get();
         if(Auth::check()) {
             $project = Project::create([
                 'pj_name'=>$request->input('pj_name'),
                 'pj_type'=>$request->input('pj_type'),
                 'pj_description' =>$request->input('pj_description'),
-                'pj_manager' => $request->input('pj_manager'),
+                'owner' => $request->input('owner'),
                 'user_id'=>Auth::user()->id
             ]);
             //if project was created successfully
             if ($project) {
-                return redirect()->route('projects.show', ['project' => $project->id])
+                return redirect()->route('projects.show', ['project' => $project->id,'testers'=> $testers ])
                     ->with('success', 'Project created successfully');
             }
         }
@@ -75,9 +95,10 @@ class ProjectsController extends Controller
     public function show(Project $project)
     {
         //
+        $testers = DB::table('users')->where('user_group','Test Engineer')->get();
         $project = Project::where('id',$project->id)->first();
 
-        return view('projects.show',['project'=>$project]);
+        return view('projects.show',['project'=>$project ,'testers'=> $testers]);
     }
 
     /**
@@ -89,6 +110,10 @@ class ProjectsController extends Controller
     public function edit(Project $project)
     {
         //
+        $project = Project::find($project->id);
+        $users = DB::table('users')->where('user_group', 'Manager')->get();
+
+        return view('projects.edit',['project' => $project,'users' => $users]);
     }
 
     /**
@@ -101,6 +126,23 @@ class ProjectsController extends Controller
     public function update(Request $request, Project $project)
     {
         //
+        $testers = DB::table('users')->where('user_group','Test Engineer')->get();
+
+        $projectUpdate = Project::where('id',$project->id)
+           ->update([
+               'pj_name'=> $request->input('title'),
+               'owner'=> $request->input('owner'),
+               'pj_description' => $request-> input('pj_description')
+
+           ]);
+       //if project was created successfully
+       if($projectUpdate){
+           return redirect()->route('projects.show',['project'=>$project->id,'testers'=> $testers])
+               ->with('success','Project updated successfully');
+       }
+       //redirect
+       return back()->withInput();
+
     }
 
     /**
@@ -120,5 +162,27 @@ class ProjectsController extends Controller
             }
             return back()->withInput()->with('errors','Project could not be deleted');
       //  }
+    }
+
+    public  function addtester(Request $request){
+        //adds tester by manager to project
+        //take a project, add a tester to it
+        //TODO ...error adding user, add first
+        $testers = DB::table('users')->where('user_group','Test Engineer')->get();
+
+        $project =Project::find($request->input('project_id'));
+
+        if(Auth::user()->id == $project->user_id){
+
+        $tester = User::where('email',$request->input('email'))->first();
+            if($tester && $project){
+                $project->users()->attach($tester->id);
+                    return redirect()->route('projects.show',['project'=>$project->id,'testers'=> $testers])
+                    ->with('success',$request->input('email').' was added to the project successfully');
+            }
+
+        }
+        return redirect()->route('projects.show',['project'=>$project->id,'testers'=> $testers])
+            ->with('errors','Error adding user to project');
     }
 }

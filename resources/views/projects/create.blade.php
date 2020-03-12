@@ -5,7 +5,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card" style="margin: 3rem;">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-9">
@@ -16,35 +16,57 @@
                              <!-- /.card-header -->
                         <!-- form start -->
                     <div class="row">
-                        <div class="col-md-7">
+                        <div class="col-12">
                         <form action ="{{route('projects.store')}}" method="post">
                             {{csrf_field() }}
                             <div class="card-body">
-
-                                <div class="form-group">
-                                    <label for="inputName">Project Name</label>
-                                    <input type="text" class="form-control" name="pj_name" placeholder="Enter name" required>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <label for="inputName">Project Title</label>
+                                            <input type="text" class="form-control" name="pj_name" placeholder="Enter name" required>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="projectType">Select TYPE</label>
-                                    <select class="form-control" name="pj_type">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="owner">Owner</label>
+                                            <select class="form-control" name="owner">
+                                               @foreach($users as $user)
+                                                     <option value="{{$user->name.' '.$user->lastname}}">{{$user->name.' '.$user->lastname}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
 
-                                        <option>Maintenance</option>
-                                        <option>Conversion</option>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="projectType">Select Type</label>
+                                            <select class="form-control" name="pj_type">
 
-                                    </select>
+                                                <option>Maintenance</option>
+                                                <option>Conversion</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Project Description</label>
-                                    <textarea class="form-control" rows="3" name="pj_description" placeholder="Enter ... " required></textarea>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <label>Project Description</label>
+                                            <textarea class="form-control" rows="2" name="pj_description" placeholder="Enter ... " required></textarea>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
-                            <!-- /.card-body -->
-
                             <div class="card-footer">
                                 <input type="submit" class="btn btn-primary" value="Submit">
                             </div>
+
+
                         </form>
                         </div>
                     </div>

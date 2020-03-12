@@ -18,9 +18,10 @@ class CreateProjectsTable extends Migration
             $table->string('pj_name');
             $table->string('pj_type');
             $table->integer('user_id')->unsigned();
+            $table->string('owner');
             $table->longText('pj_description')->nullable();
 
-            $table->string('members')->nullable();
+            $table->string('issues')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

@@ -9,6 +9,7 @@
 
     <div class="content-wrapper">
         <div class="row">
+
             <div class="col-md-4 px-5">
                 <div class="card card-user" style="margin-top: 3rem">
                     <div class="image">
