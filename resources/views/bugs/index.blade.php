@@ -13,8 +13,13 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-9">
-                            <h4 class="card-title"> My Bugs</h4></div>
-                    </div>
+                            @if(Auth::user()->user_group=='Manager')
+                            <h4 class="card-title">All Bugs Reported</h4></div>
+                                @else
+                                    <h4 class="card-title"> List of Bugs</h4></div>
+                                @endif
+
+                </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">

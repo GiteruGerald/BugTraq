@@ -10,11 +10,12 @@ class Project extends Model
     protected $fillable=[
         'pj_name',
         'pj_type',
+        'owner',
         'pj_description',
         'user_id',
     ];
 
-    public function user(){
+    public function users(){
         return $this->belongsToMany('App\User');
     }
     public function bugs(){

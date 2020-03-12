@@ -10,7 +10,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="card" style="margin: 2rem;">
+                 <div class="card" style="margin: 2rem;">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-9">
@@ -46,27 +46,16 @@
                                 <tbody>
                                 @foreach($projects as $project)
                                     <tr>
-                                        <td><a href="/projects/{{$project->id}}" >{{$project->pj_name}}</a></td>
+                                        <td>{{$project->pj_name}}</td>
                                         <td>{{$project->pj_type}}</td>
-                                        <td>0</td>
-                                        <td>{{$project->pj_manager}}</td>
+                                        {{--TODO : Check this count function--}}
+                                        <td>{{$bugCount}}</td>
+                                        <td>{{$project->owner}}</td>
                                         <td class="text-right">{{$project->created_at}}</td>
                                         <td>
 
                                         <a class="btn btn-sm btn-success" href="{{route('projects.show',$project->id)}}">Show</a>
                                         <a class="btn btn-sm btn-warning" href="{{route('projects.edit',$project->id)}}">Edit</a>
-                                        <a class="btn btn-sm btn-danger" href="#"
-                                           onclick="
-                                                    var result=confirm('Are you sure you want to delete this Project?');
-                                                        if (result){
-                                                            event.preventDefault();
-                                                            document.getElementById('delete-form').submit();
-                                                        } ">
-                                            Delete</a>
-                                        <form id="delete-form" action="{{route('projects.destroy',[$project->id])}}" method="get" style="display: none">
-                                            <input type="hidden" name="_method" value="delete">
-                                            {{csrf_field()}}
-                                        </form>
                                         </td>
                                     </tr>
                                     @endforeach
