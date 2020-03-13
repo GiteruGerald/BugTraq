@@ -175,14 +175,24 @@ class ProjectsController extends Controller
         if(Auth::user()->id == $project->user_id){
 
         $tester = User::where('email',$request->input('email'))->first();
+        //Checks if user is already added to the project
+            $projectUser = ProjectUser::where('user_id',$tester->id)
+                                       ->where('project_id',$project->id)
+                                        ->first();
+            if($projectUser){
+                //if user already exists
+                return redirect()->route('projects.show',['project'=>$project->id,'testers'=> $testers])
+                    ->with('success',$request->input('email').' is already a member of this project');
+            }
+
             if($tester && $project){
-                $project->users()->attach($tester->id);
+                $project->users()->attach($tester->id);// can use toggle instead of attach, to remove user if alrady in DB
                     return redirect()->route('projects.show',['project'=>$project->id,'testers'=> $testers])
                     ->with('success',$request->input('email').' was added to the project successfully');
             }
 
         }
         return redirect()->route('projects.show',['project'=>$project->id,'testers'=> $testers])
-            ->with('errors','Error adding user to project');
+            ->with('success','Error adding user to project');
     }
 }
