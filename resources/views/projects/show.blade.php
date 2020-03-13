@@ -148,7 +148,7 @@
                                 <label>Select Test Engineer(s)</label>
                                             <select multiple class="form-control" name="email" >
                                                @foreach($testers as $tester)
-                                                    <option value="{{$tester->id}}">{{$tester->name.' '.$tester->lastname}}</option>
+                                                    <option value="{{$tester->email}}">{{$tester->name.' '.$tester->lastname}}</option>
                                                    @endforeach
                                             </select>
                                         </div>
