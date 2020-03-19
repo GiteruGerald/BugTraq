@@ -31,9 +31,11 @@
                         <div class="col-lg-10 col-md-9 col-sm-9">
                             <h4 class="card-title"> List Of Bugs</h4>
                         </div>
+                        @if(Auth::user()->user_group =='Test Engineer')
                         <div class="col-lg-2 col-md-3 col-sm-3">
                             <a href="/bugs/create/{{$project->id}}" class="pull-right btn btn-primary btn-sm ">Report Bug</a>
                         </div>
+                        @endif
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-primary">
@@ -78,10 +80,14 @@
             <div class="col-sm-3 col-md-3 col-lg-3 pr-4 pt-5 pull-right">
                 <div class="sidebar-module sidebar-module-inset">
                     <div class="sidebar-module">
+                        @if(Auth::user()->user_group=='Manager')
                         <h4>Actions</h4>
                         <ol class="list-unstyled">
                             <li><a href="/projects/{{$project->id}}/edit"><i class="fas fa-edit"></i>Edit</a></li>
                             <li><a href="/projects/create"><i class="fas fa-briefcase"></i>Create new project</a></li>
+                            <li><a href="#add-tester" data-toggle="modal" data-target="#add-tester">
+                                    <i class="fas fa-id-badge"></i>Assign Tester</a></li>
+
 
                             <br/>
                             @if($project->user_id==Auth::user()->id)
@@ -107,11 +113,11 @@
                                 </li>
 
                             @endif
-                            <li><a href="#add-tester" data-toggle="modal" data-target="#add-tester">Assign Tester</a></li>
 
                         </ol>
                         <hr/>
                         <br/>
+                        @endif
                         <h4>Team Members</h4>
                         <ol class="list-unstyled">
                             @foreach($project->users as $tester)
@@ -120,13 +126,7 @@
                         </ol>
                     </div>
 
-                    <!--       <div class="sidebar-module">
-                           <h4>Members</h4>
-                           <ol class="list-unstyled">
-                               <li><a href="#">March 2014</a></li>
-                           </ol>
-                       </div>
-                   -->
+
                 </div><!--end of sidebar-->
             </div>
         </div><!-- end of major row-->
