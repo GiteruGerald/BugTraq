@@ -288,7 +288,7 @@
                                             <select class="form-control" name="owner">
                                                 <option>...</option>
                                                 @foreach($users as $user)
-                                                    <option value="{{$user->name.' '.$user->lastname}}">{{$user->name.' '.$user->lastname}}></option>
+                                                    <option value="{{$user->name.' '.$user->lastname}}">{{$user->name.' '.$user->lastname}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

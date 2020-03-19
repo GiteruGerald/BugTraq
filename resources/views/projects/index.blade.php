@@ -14,10 +14,16 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-9">
-                                <h4 class="card-title"> List Of Projects</h4></div>
-                            <div class="col-md-3">
-                            <a class="pull-right btn btn-primary btn-sm" href="/projects/create">Create new </a></div>
-                        </div>
+                                @if(Auth::user()->user_group=='Manager')
+                                    <h4 class="card-title"> List Of Projects</h4></div>
+
+                                    <div class="col-md-3">
+                                        <a class="pull-right btn btn-primary btn-sm" href="/projects/create">Create new </a></div>
+                                     </div>
+                                @else
+                                    <h4 class="card-title"> Projects Assigned</h4></div>
+                                @endif
+
                 </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -55,7 +61,9 @@
                                         <td>
 
                                         <a class="btn btn-sm btn-success" href="{{route('projects.show',$project->id)}}">Show</a>
+                                            @if(Auth::user()->user_group=='Manager')
                                         <a class="btn btn-sm btn-warning" href="{{route('projects.edit',$project->id)}}">Edit</a>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach

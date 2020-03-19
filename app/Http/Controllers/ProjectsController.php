@@ -31,8 +31,18 @@ class ProjectsController extends Controller
                 //$projects = Project::all();
             return view('projects.index', ['projects' => $projects,'bugCount'=> $bugcount]);
 
-        }else{
-            $project = ProjectUser::where('user_id','project_id');
+        }elseif(Auth::user()->user_group=='Test Engineer'){
+            $bugcount = Bug::where('project_id',$pjID)->count();
+
+            $projects = DB::table('projects')
+                ->join('project_user','project_user.project_id','projects.id')
+                ->where('project_user.user_id',Auth::user()->id)
+                ->get();
+    //dd($projectsAssigned);
+          //  $projects = Project::where('id',$projectsAssigned)->get();
+
+            return view('projects.index', ['projects' => $projects,'bugCount'=> $bugcount]);
+           // return view($projects);
         }
 
     }
@@ -127,7 +137,7 @@ class ProjectsController extends Controller
     {
         //
         $testers = DB::table('users')->where('user_group','Test Engineer')->get();
-
+        //TODO - how to update user id of manager too
         $projectUpdate = Project::where('id',$project->id)
            ->update([
                'pj_name'=> $request->input('title'),
