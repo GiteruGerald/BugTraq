@@ -34,11 +34,12 @@ class ProjectsController extends Controller
         }elseif(Auth::user()->user_group=='Test Engineer'){
             $bugcount = Bug::where('project_id',$pjID)->count();
 
-            $projects = DB::table('projects')
-                ->join('project_user','project_user.project_id','projects.id')
-                ->where('project_user.user_id',Auth::user()->id)
-                ->get();
-    //dd($projectsAssigned);
+        $projects = DB::table('project_user')
+            ->join('projects','projects.id','project_user.project_id')
+            ->where('project_user.user_id',Auth::user()->id )
+            ->get();
+
+        //dd($projectsAssigned);
           //  $projects = Project::where('id',$projectsAssigned)->get();
 
             return view('projects.index', ['projects' => $projects,'bugCount'=> $bugcount]);
@@ -161,13 +162,14 @@ class ProjectsController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
+    //TODO: Works so add restrictions and appropriate views so that admin and manager can delete
     public function destroy(Project $project)
     {
         //
         $findProject = Project::find( $project->id);
         //if(Auth::guard('admin')){
             if($findProject ->delete()){
-                return redirect()->route('admin.projects')
+                return redirect()->route('admin.project')
                     ->with('success','Project deleted successfully');
             }
             return back()->withInput()->with('errors','Project could not be deleted');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bug;
 use App\Project;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,12 +34,16 @@ class BugsController extends Controller
     public function create($project_id =null)//null is the default value assigned if id not entered
     {
         //
+        $devs = User::where('user_group','Developer')->get();
+
         $projects = null;
 
         if(!$project_id){
             $projects = Project::where('user_id',Auth::user()->id)->get();
+        }else{
+            $projects = Project::where('id',$project_id)->first();
         }
-        return view('bugs.create',['project_id'=>$project_id,'projects'=>$projects]);
+        return view('bugs.create',['project_id'=>$project_id,'projects'=>$projects,'devs'=> $devs]);
     }
 
     /**
@@ -50,12 +55,11 @@ class BugsController extends Controller
     public function store(Request $request)
     {
         //
-
         if(Auth::check()) {
             $bug = Bug::create([
                 'project_id'=>$request->input('project_id'),
                 'title'=>$request->input('title'),
-                'reporter'=>Auth::user()->name ,
+                'reporter'=>Auth::user()->name.' '.Auth::user()->lastname,
                 'type'=>$request->input('bug_type'),
                 'description' =>$request->input('description'),
                 'priority'=>$request->input('priority'),
@@ -65,7 +69,8 @@ class BugsController extends Controller
                 //dd($bug);
             //if bug was created successfully
             if ($bug) {
-                return redirect()->route('bugs.show', ['bug' => $bug->id])
+                return redirect()->to('/projects/'.$request->input('project_id'))
+                //return redirect()->route('bugs.show', ['bug' => $bug->id])
                     ->with('success', 'Bug created successfully');
             }
         }
