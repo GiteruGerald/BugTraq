@@ -29,7 +29,7 @@
                 <div class="container">
                     <div class="row" style="background: white; margin-left: 3rem; margin-right: 3rem">
                         <div class="col-lg-10 col-md-9 col-sm-9">
-                            <h4 class="card-title"> List Of Bugs</h4>
+                            <h4 class="card-title"> Bugs Reported</h4>
                         </div>
                         @if(Auth::user()->user_group =='Test Engineer')
                         <div class="col-lg-2 col-md-3 col-sm-3">
@@ -46,7 +46,16 @@
                                 <th>
                                     Type
                                 </th>
-
+                                @if(Auth::user()->user_group=='Manager'||'Developer')
+                                    <th>
+                                        Issued by
+                                    </th>
+                                    @endif
+                                @if(Auth::user()->user_group=='Manager'||'Test Engineer')
+                                    <th>
+                                        Dev Assigned
+                                    </th>
+                                    @endif
                                 <th class="text-right">
                                     Reported On
                                 </th>
@@ -62,6 +71,14 @@
                                     <tr>
                                         <td><a href="/bugs/{{$bugs->id}}" >{{$bugs->title}}</a></td>
                                         <td>{{$bugs->type}}</td>
+                                        <!--TODO try correcting this if stmts-->
+                                        @if(Auth::user()->user_group=='Manager'||'Developer')
+                                            <td>{{$bugs->reporter}}</td>
+                                        @endif
+                                            @if(Auth::user()->user_group=='Manager'||'Test Engineer')
+                                            <td>{{$bugs->assigned}}</td>
+                                        @endif
+
                                         <td class="text-right">{{$bugs->created_at}}</td>
                                         <td class="text-right">{{$bugs->updated_at}}</td>
                                         <td>{{$bugs->status}}</td>

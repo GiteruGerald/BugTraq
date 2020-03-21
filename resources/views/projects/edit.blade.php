@@ -286,7 +286,7 @@
                                     <div class="form-group">
                                             <label for="owner">Change Owner</label>
                                             <select class="form-control" name="owner">
-                                                <option>...</option>
+                                                <option value="">...</option>
                                                 @foreach($users as $user)
                                                     <option value="{{$user->name.' '.$user->lastname}}">{{$user->name.' '.$user->lastname}}</option>
                                                 @endforeach
