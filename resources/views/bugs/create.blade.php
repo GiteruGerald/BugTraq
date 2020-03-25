@@ -94,6 +94,7 @@
                                     </div>
                                 </div>
                                 </div>
+                                        <!--TODO : add attachment section -->
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="form-group">

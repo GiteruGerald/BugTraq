@@ -7,6 +7,7 @@ use App\Project;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BugsController extends Controller
 {
@@ -18,12 +19,18 @@ class BugsController extends Controller
     public function index()
     {
         //
-        if (Auth::check()) {
+        if (Auth::user()->user_group=='Test Engineer') {
 
-            $bugs = Bug::where('reporter',Auth::user()->name)->get();
-            return view('bugs.index', ['bugs' => $bugs]);
-
+            $bugs = Bug::where('reporter', Auth::user()->name . ' ' . Auth::user()->lastname)->get();
         }
+
+
+
+        if (Auth::user()->user_group=='Developer'){
+            $bugs = Bug::where('assigned',Auth::user()->name.' '.Auth::user()->lastname)->get();
+        }
+
+        return view('bugs.index', ['bugs' => $bugs]);
     }
 
     /**
@@ -88,6 +95,15 @@ class BugsController extends Controller
     public function show(Bug $bug)
     {
         //
+        $bug = Bug::where('id',$bug->id)->first();
+
+        //TODO ; Edit this to get project name display
+        //$project = DB::table('projects')
+            // ->select('pj_name')
+            //leftJoin('bugs','projects.id','bugs.project_id')
+            //->get();
+
+        return view('bugs.show',['bug'=>$bug]);
     }
 
     /**
@@ -111,6 +127,16 @@ class BugsController extends Controller
     public function update(Request $request, Bug $bug)
     {
         //
+        $bugUpdate = Bug::where('id',$bug->id)
+            ->update([
+                'status'=> $request->input('status')
+            ]);
+        if($bugUpdate){
+            return redirect()->to('/bugs/'.$bug->id)
+            ->with('success','Bug Status changed successfully');
+
+
+        }
     }
 
     /**
