@@ -98,9 +98,9 @@ class BugsController extends Controller
         $bug = Bug::where('id',$bug->id)->first();
 
         //TODO ; Edit this to get project name display
-        //$project = DB::table('projects')
-            // ->select('pj_name')
-            //leftJoin('bugs','projects.id','bugs.project_id')
+       // $project = DB::table('bugs')
+         //   ->join('projects','projects.id','bugs.project_id')
+           // ->where('bugs.assigned','projects.id','bugs.project_id')
             //->get();
 
         return view('bugs.show',['bug'=>$bug]);

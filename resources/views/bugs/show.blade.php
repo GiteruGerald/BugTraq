@@ -17,10 +17,6 @@
                                     <div class="col-md-9">
                                         <h4 class="card-title">{{$bug->title}}</h4>
 
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                                <i class="fas fa-minus"></i></button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
