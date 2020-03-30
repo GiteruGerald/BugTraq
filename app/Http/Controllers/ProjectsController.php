@@ -25,7 +25,7 @@ class ProjectsController extends Controller
        //TODO - define view for developers and Testesr
         if (Auth::user()->user_group=='Manager') {
         //to pick projects by a certain user
-            $projects = Project::where('user_id', Auth::user()->id)->get();
+            $projects = Project::where('owner', Auth::user()->name.' '.Auth::user()->lastname)->get();
             $bugcount = Bug::where('project_id',$pjID)->count();
             //to view all projects
                 //$projects = Project::all();
@@ -155,9 +155,9 @@ class ProjectsController extends Controller
                'pj_description' => $request-> input('pj_description')
 
            ]);
-       //if project was created successfully
+       //if project was edited successfully
        if($projectUpdate){
-           return redirect()->route('projects.show',['project'=>$project->id,'testers'=> $testers])
+           return redirect()->route('projects.index')
                ->with('success','Project updated successfully');
        }
        //redirect
@@ -178,8 +178,8 @@ class ProjectsController extends Controller
         $findProject = Project::find( $project->id);
         //if(Auth::guard('admin')){
             if($findProject ->delete()){
-                return redirect()->route('admin.project')
-                    ->with('success','Project deleted successfully');
+                return redirect()->route('projects.index')
+                    ->with('success',".$findProject->pj_name.".' project deleted successfully');
             }
             return back()->withInput()->with('errors','Project could not be deleted');
       //  }

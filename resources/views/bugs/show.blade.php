@@ -55,8 +55,7 @@
                                                         <div class="form-group row">
                                                             <label class="control-label text-right col-md-5">Project:</label>
                                                             <div class="col-md-7">
-                                                                <!--TODO : get this right to display the project name-->
-                                                                <p class="form-control-static"></p>
+                                                                <p class="form-control-static">{{$bug->projects->pj_name}}</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -66,13 +65,19 @@
                                                             <label class="control-label text-right col-md-5">Status:</label>
                                                             <div class="col-md-7">
                                                                 <select class="form-control" name="status" value="{{$bug->status}}">
+                                                                    <option value="">...</option>
                                                                     <option value="Assigned">Assigned</option>
                                                                     <option value="In Progress (By Dev)">In Progress (By Dev)</option>
                                                                     <option value="In Review(By QA)">In Review(By QA)</option>
-                                                                    <option value="Approved">Approved</option>
-                                                                    <option value="Complete">Complete</option>
-                                                                    <option value="Deferred">Deferred</option>
-
+                                                                    @if(Auth::user()->user_group=='Test Engineer' || Auth::user()->user_group=='Developer')
+                                                                    <option value="Approved" disabled>Approved</option>
+                                                                    <option value="Complete" disabled>Complete</option>
+                                                                    <option value="Deferred" disabled>Deferred</option>
+                                                                        @else
+                                                                        <option value="Approved">Approved</option>
+                                                                        <option value="Complete">Complete</option>
+                                                                        <option value="Deferred">Deferred</option>
+                                                                        @endif
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -161,11 +166,14 @@
                 </div>
                 &nbsp;
                 <!--For Bug Comments-->
-               <div class="row">
-                   <div class="col-12">
+              @include('partials.comments')
+
+                <!--To add comments-->
+                <div class="row">
+                    <div class="col-12">
                         <div class="card" style="margin-left: 3rem;">
                             <div class="card-header">
-                                <h3 class="card-title">Recent Comments</h3>
+                                <h3 class="card-title">Add Comment</h3>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -180,65 +188,38 @@
 
                                         <div class="row">
                                             <div class="col-12">
-                                                <h4>Recent Activity</h4>
-                                                <div class="post">
-                                                    <div class="user-block">
-                                                        <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
-                                                        <span class="username">
-                                  <a href="#">Jonathan Burke Jr.</a>
-                                </span>
-                                                        <span class="description">Shared publicly - 7:45 PM today</span>
+                                                <form method ="post" action="{{route('comments.store')}}">
+                                                      {{csrf_field()}}
+
+                                                    <input type="hidden" name="commentable_type" value="App\Bug">
+                                                    <input type="hidden" name="commentable_id" value="{{$bug->id}}">
+
+                                                    <div class="form-group">
+                                                        <label for="comment-content">Comment.</label>
+                                                        <textarea placeholder="Enter comment"
+                                                                  style="resize: vertical"
+                                                                  id="comment-content"
+                                                                  name="body"
+                                                                  rows="2" spellcheck="false"
+                                                                  class="form-control autosize-target text-left">
+                                                        </textarea>
                                                     </div>
-                                                    <!-- /.user-block -->
-                                                    <p>
-                                                        Lorem ipsum represents a long-held tradition for designers,
-                                                        typographers and the like. Some people hate it and argue for
-                                                        its demise, but others ignore.
-                                                    </p>
+                                                    <div class="form-group">
+                                                        <label for="comment-content">Proof of work done(Url/Photos)</label>
+                                                        <textarea placeholder="Enter url of screenshots"
+                                                                  style="resize:vertical"
+                                                                  id="comment-content"
+                                                                  name="url"
+                                                                  rows="2" spellcheck="false"
+                                                                  class="form-control autosize-target text-left">
 
-                                                    <p>
-                                                        <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 1 v2</a>
-                                                    </p>
-                                                </div>
-
-                                                <div class="post clearfix">
-                                                    <div class="user-block">
-                                                        <img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image">
-                                                        <span class="username">
-                                  <a href="#">Sarah Ross</a>
-                                </span>
-                                                        <span class="description">Sent you a message - 3 days ago</span>
+                                                         </textarea>
                                                     </div>
-                                                    <!-- /.user-block -->
-                                                    <p>
-                                                        Lorem ipsum represents a long-held tradition for designers,
-                                                        typographers and the like. Some people hate it and argue for
-                                                        its demise, but others ignore.
-                                                    </p>
-                                                    <p>
-                                                        <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 2</a>
-                                                    </p>
+                                                <div class="form-group">
+                                                    <input type="submit" class="btn btn-primary"
+                                                           value="Post"/>
                                                 </div>
-
-                                                <div class="post">
-                                                    <div class="user-block">
-                                                        <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
-                                                        <span class="username">
-                                  <a href="#">Jonathan Burke Jr.</a>
-                                </span>
-                                                        <span class="description">Shared publicly - 5 days ago</span>
-                                                    </div>
-                                                    <!-- /.user-block -->
-                                                    <p>
-                                                        Lorem ipsum represents a long-held tradition for designers,
-                                                        typographers and the like. Some people hate it and argue for
-                                                        its demise, but others ignore.
-                                                    </p>
-
-                                                    <p>
-                                                        <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> Demo File 1 v1</a>
-                                                    </p>
-                                                </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -246,8 +227,8 @@
                                 </div>
                             </div>
                         </div>
-                   </div>
-               </div>
+                    </div>
+                </div>
 
 
             </div>

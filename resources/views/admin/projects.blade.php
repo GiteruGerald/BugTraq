@@ -59,6 +59,7 @@
 
                                                 <a class="btn btn-sm btn-success" href="{{route('projects.show',$project->id)}}">Show</a>
                                                 <a class="btn btn-sm btn-warning" href="{{route('projects.edit',$project->id)}}">Edit</a>
+                                            @if(Auth::guard('admin'))
                                                 <a class="btn btn-sm btn-danger" href="#"
                                                    onclick="
                                                     var result=confirm('Are you sure you want to delete this Project?');
@@ -67,10 +68,11 @@
                                                             document.getElementById('delete-form').submit();
                                                         } ">
                                                     Delete</a>
-                                            <form id="delete-form" action="{{route('projects.destroyPj',[$project->id])}}" method="get" style="display: none">
+                                            <form id="delete-form" action="{{route('projects.destroy',[$project->id]) }}" method="post" style="display: none">
                                                 <input type="hidden" name="_method" value="delete">
                                                 {{csrf_field()}}
                                             </form>
+                                                @endif
                                         </td>
                                     </tr>
                                 @endforeach

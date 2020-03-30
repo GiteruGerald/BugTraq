@@ -39,5 +39,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('projects', 'ProjectsController');
     Route::resource('bugs', 'BugsController');
     Route::resource('users', 'UsersController');
-
+    Route::resource('comments','CommentsController');
 });
