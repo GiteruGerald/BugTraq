@@ -277,7 +277,7 @@
                                 <div class="col-md-5 px-3">
                                     <div class="form-group">
                                         <label for="project-name">Project Title</label>
-                                        <input type="text" class="form-control" name="title" placeholder="Title" value="{{$project->pj_name}}">
+                                        <input type="text" class="form-control" name="title"  value="{{$project->pj_name}}">
                                     </div>
                                 </div>
                             </div>
@@ -298,7 +298,7 @@
                                 <div class="col-md-6 px-3">
                                     <div class="form-group">
                                         <label>Project Description</label>
-                                        <textarea class="form-control" rows="2" name="pj_description" placeholder="Enter ... " required></textarea>
+                                        <textarea class="form-control" rows="2" name="pj_description" placeholder="Enter ... " required>{{$project->pj_description}}</textarea>
                                     </div>
                                 </div>
                             </div>

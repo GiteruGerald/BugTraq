@@ -29,6 +29,9 @@ class BugsController extends Controller
         if (Auth::user()->user_group=='Developer'){
             $bugs = Bug::where('assigned',Auth::user()->name.' '.Auth::user()->lastname)->get();
         }
+        else{
+            $bugs = Bug::all();
+        }
 
         return view('bugs.index', ['bugs' => $bugs]);
     }
@@ -97,13 +100,9 @@ class BugsController extends Controller
         //
         $bug = Bug::where('id',$bug->id)->first();
 
-        //TODO ; Edit this to get project name display
-       // $project = DB::table('bugs')
-         //   ->join('projects','projects.id','bugs.project_id')
-           // ->where('bugs.assigned','projects.id','bugs.project_id')
-            //->get();
+        $comments = $bug->comments;
 
-        return view('bugs.show',['bug'=>$bug]);
+        return view('bugs.show',['bug'=>$bug,'comments'=>$comments]);
     }
 
     /**

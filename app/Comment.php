@@ -16,6 +16,12 @@ class Comment extends Model
     ];
 
     public function commentable(){
+
         return $this->morphTo();
+    }
+//todo: user this ro return project associated with a bug
+    public function user()
+    {
+        return $this->hasOne('App\User','id','user_id');
     }
 }

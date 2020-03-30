@@ -20,7 +20,7 @@ class Bug extends Model
     ];
 
     public function projects(){
-        return $this->belongsTo('App\Project');
+        return $this->hasOne('App\Project','id','project_id');
     }
     public function users(){
         return $this->hasOne('App\User');
@@ -34,4 +34,5 @@ class Bug extends Model
     public function comments(){
         return $this->morphMany('App\Comment','commentable');
     }
+
 }
