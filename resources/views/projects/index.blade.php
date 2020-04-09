@@ -54,7 +54,7 @@
                                     <tr>
                                         <td>{{$project->pj_name}}</td>
                                         <td>{{$project->pj_type}}</td>
-                                        {{--TODO : Check this count function--}}
+                                        {{--TODO : Check this count function huh--}}
                                         <td>{{$bugCount}}</td>
                                         <td>{{$project->owner}}</td>
                                         <td class="text-right">{{$project->created_at}}</td>
