@@ -10,6 +10,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card" style="margin: 2rem;">
+                {!! $chart->container() !!}
+            </div>
+            <div class="card" style="margin: 2rem;">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-9">
@@ -86,5 +89,7 @@
 @endsection
 
 @section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
 
+    {!! $chart->script() !!}
 @endsection

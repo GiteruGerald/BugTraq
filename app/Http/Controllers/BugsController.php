@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Bug;
 use App\Project;
 use App\User;
+use App\Charts\BugChart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,16 @@ class BugsController extends Controller
      */
     public function index()
     {
-        //
+        $bug = Bug::orderBy('project_id')
+                    ->pluck('status','project_id');
+        //return $bug->keys();
+
+        //return $bug->values();
+        $chart = new BugChart;
+        $chart->labels($bug->keys());
+        $chart->dataset('My dataset 1', 'radar', $bug->values());
+
+
         if (Auth::user()->user_group=='Test Engineer') {
 
             $bugs = Bug::where('reporter', Auth::user()->name . ' ' . Auth::user()->lastname)->get();
@@ -33,7 +43,7 @@ class BugsController extends Controller
             $bugs = Bug::all();
         }
 
-        return view('bugs.index', ['bugs' => $bugs]);
+        return view('bugs.index', compact('bugs','chart'));
     }
 
     /**

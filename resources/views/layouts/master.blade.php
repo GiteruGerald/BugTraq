@@ -265,9 +265,14 @@
         @include('partials.errors')
         @include('partials.success')
 
+
         @yield('content')
+
+
     </div>
     <!-- /.content-wrapper -->
+
+
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
@@ -287,6 +292,7 @@
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
+
 <!-- jQuery -->
 <script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap -->
