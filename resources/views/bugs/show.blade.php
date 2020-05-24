@@ -73,11 +73,14 @@
                                                                     <option value="Approved" disabled>Approved</option>
                                                                     <option value="Complete" disabled>Complete</option>
                                                                     <option value="Deferred" disabled>Deferred</option>
-                                                                        @else
+
+                                                                    @else
                                                                         <option value="Approved">Approved</option>
                                                                         <option value="Complete">Complete</option>
                                                                         <option value="Deferred">Deferred</option>
-                                                                        @endif
+                                                                        <option value="Rejected">Rejected</option>
+
+                                                                    @endif
                                                                 </select>
                                                             </div>
                                                         </div>

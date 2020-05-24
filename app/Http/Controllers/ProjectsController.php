@@ -176,6 +176,7 @@ class ProjectsController extends Controller
     {
         //
         $findProject = Project::find( $project->id);
+        //TODO : Also find bug attached to this project and delete it( Current Bug)
         //if(Auth::guard('admin')){
             if($findProject ->delete()){
                 return redirect()->route('projects.index')

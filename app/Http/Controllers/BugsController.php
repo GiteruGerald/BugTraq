@@ -19,14 +19,19 @@ class BugsController extends Controller
      */
     public function index()
     {
-        $bug = Bug::orderBy('project_id')
-                    ->pluck('status','project_id');
+       // $bug = Bug::orderBy('project_id')
+                   // ->pluck('project_id','status');
+
+        $bug = DB::table('bugs')
+            ->select('status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->pluck('total','status');
         //return $bug->keys();
 
         //return $bug->values();
         $chart = new BugChart;
         $chart->labels($bug->keys());
-        $chart->dataset('My dataset 1', 'radar', $bug->values());
+        $chart->dataset('My dataset 1', 'pie', $bug->values());
 
 
         if (Auth::user()->user_group=='Test Engineer') {

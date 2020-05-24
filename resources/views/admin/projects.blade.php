@@ -62,7 +62,7 @@
                                             @if(Auth::guard('admin'))
                                                 <a class="btn btn-sm btn-danger" href="#"
                                                    onclick="
-                                                    var result=confirm('Are you sure you want to delete this Project?');
+                                                    var result=confirm('Are you sure you want to delete this Project({{$project->id}})?');
                                                         if (result){
                                                             event.preventDefault();
                                                             document.getElementById('delete-form').submit();
