@@ -18,6 +18,10 @@ Route::get('/dash', function () {
     return view('dashboard.dashboard');
 });
 
+Route::get('/calendar',function (){
+    return view('calendar');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -40,4 +44,4 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('bugs', 'BugsController');
     Route::resource('users', 'UsersController');
     Route::resource('comments','CommentsController');
-});
+    });

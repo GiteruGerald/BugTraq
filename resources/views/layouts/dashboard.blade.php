@@ -17,6 +17,14 @@
   <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- fullCalendar -->
+    <link rel="stylesheet" href="{{asset('plugins/fullcalendar/main.min.css') }}">
+    <link rel="stylesheet" href="{{asset('plugins/fullcalendar-daygrid/main.min.css') }}">
+    <link rel="stylesheet" href="{{asset('plugins/fullcalendar-timegrid/main.min.css') }}">
+    <link rel="stylesheet" href="{{asset('plugins/fullcalendar-bootstrap/main.min.css') }}">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -183,7 +191,7 @@
           <img src="{{asset('dist/img/gerry.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Gerry J</a>
+          <a href="#" class="d-block">{{Auth::user()->name.' '.Auth::user()->lastname}}</a>
         </div>
       </div>
 
@@ -202,7 +210,7 @@
           </li>
           <li class="nav-item">
             <a href="{{url('projects')}}" class="nav-link">
-              <i class="nav-icon fas fa-calendar-alt"></i>
+              <i class="nav-icon fas fa-briefcase"></i>
               <p>
                 Projects
               </p>
@@ -215,6 +223,14 @@
               <i class="nav-icon fas fa-bug"></i>
               <p>
                 Bugs
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" >
+            <a href="{{url('calendar')}}" class="nav-link">
+              <i class="nav-icon fas fa-calendar-alt"></i>
+              <p>
+                My Timesheet
               </p>
             </a>
           </li>
@@ -290,6 +306,8 @@
 <script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!--jQuery UI -->
+<script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- overlayScrollbars -->
 <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
@@ -309,6 +327,16 @@
 
 <!-- PAGE SCRIPTS -->
 <script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script>
+<!-- CALENDAR SCRIPTS -->
+<!-- fullCalendar 2.2.5 -->
+<script src="{{ asset('plugins/moment/moment.min.js')}}"></script>
+<script src="{{ asset('plugins/fullcalendar/main.min.js')}}"></script>
+<script src="{{ asset('plugins/fullcalendar-daygrid/main.min.js')}}"></script>
+<script src="{{ asset('plugins/fullcalendar-timegrid/main.min.js')}}"></script>
+<script src="{{ asset('plugins/fullcalendar-interaction/main.min.js')}}"></script>
+<script src="{{ asset('plugins/fullcalendar-bootstrap/main.min.js')}}"></script>
+
+
 @yield('scripts')
 </body>
 </html>

@@ -24,6 +24,8 @@ class CreateProjectsTable extends Migration
             $table->string('issues')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

@@ -177,9 +177,15 @@ class ProjectsController extends Controller
         //
         $findProject = Project::find( $project->id);
         //TODO : Also find bug attached to this project and delete it( Current Bug)
+
+        if($findProject->bugs()->count()){
+            return back()->with('success',".$project->pj_name.".' cannot be deleted, has bug records');
+        }
         //if(Auth::guard('admin')){
             if($findProject ->delete()){
-                return redirect()->route('projects.index')
+                return
+                    //redirect()->route('projects.index')
+                    back()
                     ->with('success',".$findProject->pj_name.".' project deleted successfully');
             }
             return back()->withInput()->with('errors','Project could not be deleted');

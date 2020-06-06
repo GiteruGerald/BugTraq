@@ -7,6 +7,7 @@
 
 @section('content')
     <div class="content-wrapper">
+
     <div class="row">
         <div class="col-md-12">
             <div class="card" style="margin: 2rem;">
@@ -84,8 +85,7 @@
         </div>
 
     </div>
-    </div>
-    </div>
+
 @endsection
 
 @section('scripts')

@@ -37,6 +37,8 @@ class CreateBugsTable extends Migration
             $table->foreign('status')->references('status')->on('bug_statuses');
 
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

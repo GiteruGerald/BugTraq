@@ -74,7 +74,7 @@
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
-                        <a href="{{ url('admin.dashboard') }}"> Admin Login</a>
+        {{--TODO Check this--}}              <a href="{{ route('admin.login') }}"> Admin Login</a>
                     @endauth
 
                 </div>
