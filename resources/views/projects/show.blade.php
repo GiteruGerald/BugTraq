@@ -36,6 +36,9 @@
                             <a href="/bugs/create/{{$project->id}}" class="pull-right btn btn-primary btn-sm ">Report Bug</a>
                         </div>
                         @endif
+                        @if(count($project->bugs) < 1)
+                            <p> No reported bugs found</p>
+                        @else
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-primary">
@@ -87,6 +90,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        @endif
                     </div>
                 </div>
                 </div>

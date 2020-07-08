@@ -33,16 +33,11 @@ class BugsController extends Controller
         $chart->labels($bug->keys());
         $chart->dataset('My dataset 1', 'pie', $bug->values());
 
-
-        if (Auth::user()->user_group=='Test Engineer') {
-
-            $bugs = Bug::where('reporter', Auth::user()->name . ' ' . Auth::user()->lastname)->get();
-        }
-
-
-
         if (Auth::user()->user_group=='Developer'){
             $bugs = Bug::where('assigned',Auth::user()->name.' '.Auth::user()->lastname)->get();
+        }
+        elseif (Auth::user()->user_group=='Test Engineer'){
+            $bugs = Bug::where('reporter', Auth::user()->name .' '.Auth::user()->lastname)->get();
         }
         else{
             $bugs = Bug::all();

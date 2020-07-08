@@ -44,4 +44,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('bugs', 'BugsController');
     Route::resource('users', 'UsersController');
     Route::resource('comments','CommentsController');
-    });
+    Route::get('bug_reports','ReportsController@bugs');
+    Route::get('project_reports','ReportsController@projects');
+    Route::get('pdfexport','ReportsController@pdf_export');
+    Route::get('reports/pdfexport/{id}','ReportsController@pdf_export');
+});

@@ -10,9 +10,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="card" style="margin: 2rem;">
-                {!! $chart->container() !!}
-            </div>
+
             <div class="card" style="margin: 2rem;">
                 <div class="card-header">
                     <div class="row">
@@ -61,22 +59,29 @@
                                 Action
                             </th>
                             </thead>
+
                             <tbody>
-                            @foreach($bugs as $bug)
+                            @if(count($bugs) < 1)
                                 <tr>
-                                    <td>{{$bug->id}}></td>
-                                    <td>{{$bug->priority}}</td>
-                                    <td>{{$bug->title}}</td>
-                                    <td>{{$bug->created_at}}</td>
-                                    <td>{{$bug->reporter}}</td>
-                                    <td>{{$bug->assigned}}</td>
-                                    <td>{{$bug->due_date}}</td>
-                                    <td>{{$bug->status}}</td>
-                                    <td>
-                                        <a class="btn btn-sm btn-success" href="{{route('bugs.show',$bug->id)}}">Show</a>
-                                    </td>
+                                    <td>No bugs found</td>
                                 </tr>
-                            @endforeach
+                            @else
+                                    @foreach($bugs as $bug)
+                                        <tr>
+                                            <td>{{$bug->id}}></td>
+                                            <td>{{$bug->priority}}</td>
+                                            <td>{{$bug->title}}</td>
+                                            <td>{{$bug->created_at}}</td>
+                                            <td>{{$bug->reporter}}</td>
+                                            <td>{{$bug->assigned}}</td>
+                                            <td>{{$bug->due_date}}</td>
+                                            <td>{{$bug->status}}</td>
+                                            <td>
+                                                <a class="btn btn-sm btn-success" href="{{route('bugs.show',$bug->id)}}">Show</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

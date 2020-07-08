@@ -15,7 +15,7 @@
                         <div class="row">
                             <div class="col-md-9">
                                 @if(Auth::user()->user_group=='Manager')
-                                    <h4 class="card-title"> List Of Projects</h4></div>
+                                    <h4 class="card-title"> Your Projects</h4></div>
 
                                     <div class="col-md-3">
                                         <a class="pull-right btn btn-primary btn-sm" href="/projects/create">Create new </a></div>
@@ -39,9 +39,11 @@
                                 <th>
                                     Issues
                                 </th>
+                                @if(Auth::user()->user_group=='Test Engineer' || Auth::user()->user_group=='Developer')
                                 <th>
                                     Manager
                                 </th>
+                                @endif
                                 <th class="text-right">
                                     Created On
                                 </th>
@@ -50,13 +52,21 @@
                                 </th>
                                 </thead>
                                 <tbody>
+                                @if(count($projects) < 1)
+                                    <tr>
+                                        <td>No projects found</td>
+                                    </tr>
+                                @else
                                 @foreach($projects as $project)
                                     <tr>
                                         <td>{{$project->pj_name}}</td>
                                         <td>{{$project->pj_type}}</td>
                                         {{--TODO : Check this count function huh--}}
-                                        <td>{{$bugCount}}</td>
+                                        <td> {{ count($project->bugs->toArray())  }} </td>
+
+                                     @if(Auth::user()->user_group=='Test Engineer' || Auth::user()->user_group=='Developer')
                                         <td>{{$project->owner}}</td>
+                                     @endif
                                         <td class="text-right">{{$project->created_at}}</td>
                                         <td>
 
@@ -67,6 +77,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
