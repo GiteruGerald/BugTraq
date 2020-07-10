@@ -74,7 +74,7 @@ class ProjectsController extends Controller
 
 
        //return($users->name);
-       return view('projects.create',['users' =>$users]);
+       return view('projects.create',['users' => $users]);
     }
 
     /**
@@ -184,8 +184,8 @@ class ProjectsController extends Controller
         //if(Auth::guard('admin')){
             if($findProject ->delete()){
                 return
-                    //redirect()->route('projects.index')
-                    back()
+                    redirect()->route('projects.index')
+                   // back()
                     ->with('success',".$findProject->pj_name.".' project deleted successfully');
             }
             return back()->withInput()->with('errors','Project could not be deleted');

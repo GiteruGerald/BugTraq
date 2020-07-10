@@ -34,7 +34,7 @@ Route::prefix('admin')->group(function() {
     Route::get('/bugs','AdminController@showbugs')->name('admin.bug');
     Route::get('/users','AdminController@showusers')->name('admin.users');
     Route::post('projects/destroyPj', 'AdminController@destroyProject')->name('projects.destroyPj');
-
+    Route::get('/pj_details/{id}','AdminController@show_project_details');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -47,5 +47,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('bug_reports','ReportsController@bugs');
     Route::get('project_reports','ReportsController@projects');
     Route::get('pdfexport','ReportsController@pdf_export');
-    Route::get('reports/pdfexport/{id}','ReportsController@pdf_export');
+    Route::get('/dynamic_pdf/pdf','ReportsController@pdf');
 });

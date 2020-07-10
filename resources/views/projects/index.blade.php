@@ -36,9 +36,11 @@
                                 <th>
                                     Type
                                 </th>
-                                <th>
+                                @if(Auth::user()->user_group=='Manager')
+                                    <th>
                                     Issues
                                 </th>
+                                    @endif
                                 @if(Auth::user()->user_group=='Test Engineer' || Auth::user()->user_group=='Developer')
                                 <th>
                                     Manager
@@ -61,9 +63,10 @@
                                     <tr>
                                         <td>{{$project->pj_name}}</td>
                                         <td>{{$project->pj_type}}</td>
-                                        {{--TODO : Check this count function huh--}}
-                                        <td> {{ count($project->bugs->toArray())  }} </td>
+                                    @if(Auth::user()->user_group=='Manager')
 
+                                        <td> {{count($project->bugs->toArray())}} </td>
+                                        @endif
                                      @if(Auth::user()->user_group=='Test Engineer' || Auth::user()->user_group=='Developer')
                                         <td>{{$project->owner}}</td>
                                      @endif

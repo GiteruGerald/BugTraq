@@ -74,7 +74,6 @@
                                     <tr>
                                         <td><a href="/bugs/{{$bugs->id}}" >{{$bugs->title}}</a></td>
                                         <td>{{$bugs->type}}</td>
-                                        <!--TODO try correcting this if stmts-->
                                         @if(Auth::user()->user_group=='Manager'||'Developer')
                                             <td>{{$bugs->reporter}}</td>
                                         @endif

@@ -15,8 +15,7 @@
                         <div class="row">
                             <div class="col-md-9">
                                 <h4 class="card-title"> List Of Projects</h4></div>
-                            <div class="col-md-3">
-                                <a class="pull-right btn btn-primary btn-sm" href="/projects/create">Create new </a></div>
+
                         </div>
                     </div>
                     <div class="card-body">
@@ -50,15 +49,13 @@
                                 @foreach($projects as $project)
                                     <tr>
                                         <td><b>{{++$i}}.</b></td>
-                                        <td><a href="/projects/{{$project->id}}" >{{$project->pj_name}}</a></td>
+                                        <td>{{$project->pj_name}}</td>
                                         <td>{{$project->pj_type}}</td>
-                                        <td>0</td>
-                                        <td>{{$project->pj_manager}}</td>
+                                        <td>{{count($project->bugs->toArray())}}</td>
+                                        <td>{{$project->owner}}</td>
                                         <td class="text-right">{{$project->created_at}}</td>
                                         <td>
-
-                                                <a class="btn btn-sm btn-success" href="{{route('projects.show',$project->id)}}">Show</a>
-                                                <a class="btn btn-sm btn-warning" href="{{route('projects.edit',$project->id)}}">Edit</a>
+                                                <a class="btn btn-sm btn-success" href="{{url('admin/pj_details/'.$project->id)}}">Show</a>
                                             @if(Auth::guard('admin'))
                                                 <a class="btn btn-sm btn-danger" href="#"
                                                    onclick="

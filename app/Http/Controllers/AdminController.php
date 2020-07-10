@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Bug;
 use App\Project;
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,6 +59,9 @@ class AdminController extends Controller
 
     public function destroyProject(Project $project){
         $findProject = Project::find( $project->id);
+        if($findProject->bugs()->count()){
+            return back()->with('success',".$project->pj_name.".' cannot be deleted, has bug records');
+        }
         //if(Auth::guard('admin')){
         if($findProject ->delete()){
             return redirect()->route('admin.projects')
@@ -65,5 +69,12 @@ class AdminController extends Controller
         }
         return back()->withInput()->with('errors','Project could not be deleted');
         //
+    }
+
+    public function show_project_details($id){
+        $project = Project::where('id',$id)->first();
+        $testers = DB::table('users')->where('user_group','Test Engineer')->get();
+
+        return view('admin.pj_details',compact('project','testers'));
     }
 }
