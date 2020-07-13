@@ -56,6 +56,10 @@ class AdminController extends Controller
             return view ('admin.users',['users'=> $users]);
         }
     }
+    public function edit_user($id){
+        $user = User::where('id',$id)->first();
+        return view('admin.edit_user',compact('user'));
+    }
 
     public function destroyProject(Project $project){
         $findProject = Project::find( $project->id);
@@ -71,10 +75,19 @@ class AdminController extends Controller
         //
     }
 
+    public function update_user(Request $request,User $user){
+        $userUpdate = User::where('id',$user->id)
+            ->update([
+//                TODO:Resume Here
+            ]);
+    }
+
     public function show_project_details($id){
         $project = Project::where('id',$id)->first();
         $testers = DB::table('users')->where('user_group','Test Engineer')->get();
 
         return view('admin.pj_details',compact('project','testers'));
     }
+
+
 }

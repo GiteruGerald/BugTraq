@@ -141,7 +141,7 @@
         </div>
         <!-- /.modal -->
 
-
+    </div>
 
 @endsection
 @section('scripts')

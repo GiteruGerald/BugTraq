@@ -1,3 +1,5 @@
+<!-- Pushed this page only to be only Admin View -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +29,7 @@
     <div class="card">
         <div class="card-body register-card-body">
             <h4 class="login-box-msg">Register a new membership</h4>
-<hr>
+                <hr>
             <form action="{{ route('register') }}" method="post">
                {{ csrf_field() }}
 

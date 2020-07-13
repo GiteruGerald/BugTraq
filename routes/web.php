@@ -21,7 +21,9 @@ Route::get('/dash', function () {
 Route::get('/calendar',function (){
     return view('calendar');
 });
-
+Route::get('user_reg',function (){
+    return view('admin/user_reg');
+});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -35,6 +37,10 @@ Route::prefix('admin')->group(function() {
     Route::get('/users','AdminController@showusers')->name('admin.users');
     Route::post('projects/destroyPj', 'AdminController@destroyProject')->name('projects.destroyPj');
     Route::get('/pj_details/{id}','AdminController@show_project_details');
+    Route::get('/user_edit/{id}', 'AdminController@edit_user');
+    Route::post('/user_edit/{id}','AdminController@update_user');
+
+    Route::view('/user_reg','admin/user_reg');
 });
 
 Route::middleware(['auth'])->group(function () {

@@ -16,7 +16,8 @@
                             <div class="col-md-9">
                                 <h4 class="card-title"> List Of Users</h4></div>
                             <div class="col-md-3">
-                                <a class="pull-right btn btn-primary btn-sm" href="/users/create">Create new </a></div>
+                                <!--TODO: Check this route -->
+                                <a class="pull-right btn btn-primary btn-sm" href="{{url('user_reg')}}"><i class="fas fa-user-plus"></i> Register New user </a></div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -33,18 +34,14 @@
                                 <th>
                                     Employee ID
                                 </th>
-                                <th>
-                                    Department
-                                </th>
+
                                 <th>
                                     Post
                                 </th>
                                 <th>
                                     Contact Phone
                                 </th>
-                                <th class="text-right">
-                                    Joining Date
-                                </th>
+
                                 <th width="180px">
                                     Action
                                 </th>
@@ -55,13 +52,10 @@
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->emp_id}}</td>
-                                        <td>{{$user->dept}}</td>
                                         <td>{{$user->user_group}}</td>
                                         <td>{{$user->phone_no}}</td>
-                                        <td class="text-right">{{$user->created_at}}</td>
                                         <td>
-                                            <a class="btn btn-sm btn-success" href="{{route('users.show',$user->id)}}">Show</a>
-                                            <a class="btn btn-sm btn-warning" href="{{route('users.edit',$user->id)}}">Edit</a>
+                                            <a class="btn btn-sm btn-warning" href="{{url('admin/user_edit',$user->id)}}">Edit</a>
                                             <a class="btn btn-sm btn-danger" href="#"
                                                onclick="
                                                     var result=confirm('Are you sure you want to delete this User?');
