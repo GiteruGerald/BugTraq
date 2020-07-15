@@ -175,6 +175,7 @@ class ProjectsController extends Controller
     public function destroy(Project $project)
     {
         //
+        
         $findProject = Project::find( $project->id);
         //TODO : Also find bug attached to this project and delete it( Current Bug)
 

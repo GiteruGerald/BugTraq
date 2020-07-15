@@ -11,18 +11,18 @@
             <div class="col-md-12">
                 <div class="card" style="margin: 3rem;">
                     <div class="card-header">
-                        <h3 class="title">Edit {{ $user->name }}'s Details</h3>
+                        <h3 class="title">Delete {{ $user->name }}'s Details</h3>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{action('AdminController@update_user', $user->$id)}}" >
+                        <form method="post" action="{{route('admin.users.destroy', $user->id)}}" >
                         {{--<form method="post" action ="{{route('users.update',[$user()->id])}}">--}}
                             {{csrf_field() }}
-                            <input type="hidden" name="_method" value="put">
+                            <input type="hidden" name="_method" value="delete">
                             <div class="row">
                                 <div class="col-md-5 px-3">
                                     <div class="form-group">
                                         <label for="email">First Name</label>
-                                        <input type="text" class="form-control" name="fname" placeholder="Email" value="{{$user->name}}">
+                                        <input type="text" class="form-control" name="fname" placeholder="Email" value="{{$user->name}}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-5 px-3">
@@ -54,7 +54,7 @@
                                 <div class="form-group">
                                     <div class="col-md-3 px-3">
                                         <input type="submit" class="btn btn-primary btn-sm"
-                                               value="Save Changes"/>
+                                               value="Delete User"/>
                                     </div>
                                 </div>
                             </div>

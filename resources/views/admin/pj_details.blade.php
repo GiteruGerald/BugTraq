@@ -95,10 +95,35 @@
             <div class="col-sm-3 col-md-3 col-lg-3 pr-4 pt-5 pull-right">
                 <div class="sidebar-module sidebar-module-inset">
                     <div class="sidebar-module">
+                        <h4>Actions</h4>
+                        <ol class="list-unstyled">
+
+                        <li>
+                            <i class="fa fa-power-off" aria-hidden="true"></i>
+                            <a href="#"
+                               onclick="
+                        var result=confirm('Are you sure you wish to delete this Project?');
+                            if(result){
+                                event.preventDefault();
+                                document.getElementById('delete-form').submit();
+
+                       }
+                            "
+                            >
+                                Delete
+                            </a>
+                            <form id="delete-form" action="{{route('admin.projects.destroy',$project->id) }}"
+                                  method="POST" style="display:none;">
+                                <input type="hidden" name="_method" value="delete">
+                                {{csrf_field()}}
+                            </form>
+                        </li>
+                        </ol>
+                        <br>
                         <h4>Team Members</h4>
                         <ol class="list-unstyled">
                             @foreach($project->users as $tester)
-                                <li><a href="#">{{$tester->email}}</a> </li>
+                                <li><a href="{{url('admin/user_details/'.$tester->id)}}">{{$tester->email}}</a> </li>
                             @endforeach
                         </ol>
                     </div>
@@ -107,39 +132,6 @@
                 </div><!--end of sidebar-->
             </div>
         </div><!-- end of major row-->
-
-        <div class="modal fade" id="add-tester">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Assign Tester for {{$project->pj_name}}</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{route('projects.addtester')}}" method="POST">
-                            {{csrf_field()}}
-                            <input type="hidden" class="form-control" name="project_id" value="{{$project->id}}">
-                            <div class="form-group">
-                                <label>Select Test Engineer(s)</label>
-                                <select multiple class="form-control" name="email" >
-                                    @foreach($testers as $tester)
-                                        <option value="{{$tester->email}}">{{$tester->name.' '.$tester->lastname}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <hr>
-                            <button type="submit" class="btn btn-primary btn-sm">Add Tester</button>
-                        </form>
-                    </div>
-
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
 
     </div>
 

@@ -23,7 +23,7 @@
                             <table class="table">
                                 <thead class=" text-primary">
                                 <th>
-                                    No.
+
                                 </th>
                                 <th>
                                     Name
@@ -42,7 +42,7 @@
                                     Created On
                                 </th>
                                 <th width="180px">
-                                    Action
+
                                 </th>
                                 </thead>
                                 <tbody>
@@ -56,20 +56,8 @@
                                         <td class="text-right">{{$project->created_at}}</td>
                                         <td>
                                                 <a class="btn btn-sm btn-success" href="{{url('admin/pj_details/'.$project->id)}}">Show</a>
-                                            @if(Auth::guard('admin'))
-                                                <a class="btn btn-sm btn-danger" href="#"
-                                                   onclick="
-                                                    var result=confirm('Are you sure you want to delete this Project({{$project->id}})?');
-                                                        if (result){
-                                                            event.preventDefault();
-                                                            document.getElementById('delete-form').submit();
-                                                        } ">
-                                                    Delete</a>
-                                            <form id="delete-form" action="{{route('projects.destroy',[$project->id]) }}" method="post" style="display: none">
-                                                <input type="hidden" name="_method" value="delete">
-                                                {{csrf_field()}}
-                                            </form>
-                                                @endif
+
+
                                         </td>
                                     </tr>
                                 @endforeach

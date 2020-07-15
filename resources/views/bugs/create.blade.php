@@ -39,8 +39,9 @@
                                <div class="col-5">
                                    <div class="form-group">
                                        <label for="bugType">Select TYPE</label>
-                                       <select class="form-control" name="bug_type">
-
+                                       <select class="form-control" name="bug_type" required>
+                                           <option value="">...</option>
+5
                                            <option>Functional</option>
                                            <option>Communication
                                            <option>Missing Commands</option>
@@ -56,7 +57,7 @@
                                <div class="col-5">
                                    <div class="form-group">
                                        <label for="Assigned">Assign To:(Dev)</label>
-                                       <select class="form-control" name="assigned" data-placeholder="...">
+                                       <select class="form-control" name="assigned" data-placeholder="..." required>
                                            <option value="">...</option>
                                            @foreach($devs as $dev)
                                                <option value="{{$dev->name.' '.$dev->lastname}}">{{$dev->name.' '.$dev->lastname}}</option>
@@ -69,7 +70,9 @@
                                 <div class="col-5">
                                 <div class="form-group">
                                         <label for="bugType">Select Priority</label>
-                                        <select class="form-control" name="priority">
+                                        <select class="form-control" name="priority" required>
+                                            <option value="">...</option>
+
                                             <option>Major</option>
                                             <option>Medium</option>
                                             <option>Minor</option>
@@ -88,7 +91,7 @@
                                               </span>
                                             </div>
 
-                                            <input type="text" name="due_date" class="form-control float-right" id="reservation" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                            <input type="text" name="due_date" class="form-control float-right" id="reservation" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask required>
                                         </div>
                                         <!-- /.input group -->
                                     </div>

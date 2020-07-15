@@ -24,6 +24,7 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-primary">
+
                                 <th>
                                     Name
                                 </th>
@@ -49,25 +50,15 @@
                                 <tbody>
                                 @foreach($users as $user)
                                     <tr>
-                                        <td>{{$user->name}}</td>
+                                        <td><b>{{++$i}}</b></td>
+                                        <td>{{$user->name.' '.$user->lastname}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->emp_id}}</td>
                                         <td>{{$user->user_group}}</td>
                                         <td>{{$user->phone_no}}</td>
                                         <td>
-                                            <a class="btn btn-sm btn-warning" href="{{url('admin/user_edit',$user->id)}}">Edit</a>
-                                            <a class="btn btn-sm btn-danger" href="#"
-                                               onclick="
-                                                    var result=confirm('Are you sure you want to delete this User?');
-                                                        if (result){
-                                                            event.preventDefault();
-                                                            document.getElementById('delete-form').submit();
-                                                        } ">
-                                                Delete</a>
-                                            <form id="delete-form" action="" method="post" style="display: none">
-                                                <input type="hidden" name="_method" value="delete">
-                                                {{csrf_field()}}
-                                            </form>
+                                            <a class="btn btn-sm btn-success" href="{{url('admin/user_details/'.$user->id)}}">Show</a>
+
                                         </td>
                                     </tr>
                                 @endforeach

@@ -52,8 +52,10 @@ class AdminController extends Controller
 
     public function showusers(){
         if(Auth::guard('admin')){
-            $users = User::all();
-            return view ('admin.users',['users'=> $users]);
+            $users = User::latest()->paginate(4);
+            return view ('admin.users',['users'=> $users])
+                ->with('i', (request()->input('page',1)-1)*4);
+
         }
     }
     public function edit_user($id){
@@ -61,25 +63,40 @@ class AdminController extends Controller
         return view('admin.edit_user',compact('user'));
     }
 
-    public function destroyProject(Project $project){
-        $findProject = Project::find( $project->id);
-        if($findProject->bugs()->count()){
+    public function destroyProject($id){
+
+        $projects = Project::latest()->paginate(4);
+
+        $project = Project::where('id',$id)->first();
+        if($project->bugs()->count()){
             return back()->with('success',".$project->pj_name.".' cannot be deleted, has bug records');
         }
         //if(Auth::guard('admin')){
-        if($findProject ->delete()){
-            return redirect()->route('admin.projects')
-                ->with('success','Project deleted successfully');
+        if($project ->delete()){
+            return view('admin.projects', compact('projects','project'))
+                ->with('success','Project deleted successfully')
+                ->with('i', (request()->input('page',1)-1)*4);
         }
         return back()->withInput()->with('errors','Project could not be deleted');
         //
     }
 
     public function update_user(Request $request,User $user){
-        $userUpdate = User::where('id',$user->id)
+        $id = $request->input('id');
+        $user = User::where('id',$id)->first();
+
+        $userUpdate = User::where('id',$id)
             ->update([
-//                TODO:Resume Here
-            ]);
+                    'name'=> $request->input('fname'),
+                    'lastname'=>$request->input('lname'),
+                    'email' => $request->input('email'),
+                    'phone_no' => $request->input('phone')
+
+                    ]);
+        if($userUpdate){
+            return redirect()->route('admin.edit_user',['user'=>$user]);
+        }
+            return back()->withInput();
     }
 
     public function show_project_details($id){
@@ -89,5 +106,23 @@ class AdminController extends Controller
         return view('admin.pj_details',compact('project','testers'));
     }
 
+    public function show_user_details($id)
+    {
+        $user = User::where('id',$id)->first();
+
+        return view ('admin.user_details',compact('user'));
+    }
+    public function userDelete($id)
+    {
+        $users = User::all();
+
+        $user = User::where('id',$id)->first();
+
+         if($user -> delete()){
+             return redirect()->route('admin.users',compact('user','users'))
+                 ->with('success','User deleted');
+         }
+         return back()->with('errors','User could not be deleted');
+    }
 
 }

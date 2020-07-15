@@ -24,6 +24,8 @@ Route::get('/calendar',function (){
 Route::get('user_reg',function (){
     return view('admin/user_reg');
 });
+
+//Route::delete('users/{id}',['as' =>'users.destroy','uses'=>'UsersController@destroy']);
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -35,12 +37,13 @@ Route::prefix('admin')->group(function() {
     Route::get('/projects','AdminController@showprojects')->name('admin.project');
     Route::get('/bugs','AdminController@showbugs')->name('admin.bug');
     Route::get('/users','AdminController@showusers')->name('admin.users');
-    Route::post('projects/destroyPj', 'AdminController@destroyProject')->name('projects.destroyPj');
+    Route::delete('/projects/destroy/{id}','AdminController@destroyProject')->name('admin.projects.destroy');
     Route::get('/pj_details/{id}','AdminController@show_project_details');
+    Route::get('/user_details/{id}','AdminController@show_user_details');
     Route::get('/user_edit/{id}', 'AdminController@edit_user');
-    Route::post('/user_edit/{id}','AdminController@update_user');
+    Route::delete('/users/destroy/{id}', 'AdminController@userDelete')->name('admin.users.destroy');
 
-    Route::view('/user_reg','admin/user_reg');
+   // Route::view('/user_reg','admin/user_reg');
 });
 
 Route::middleware(['auth'])->group(function () {

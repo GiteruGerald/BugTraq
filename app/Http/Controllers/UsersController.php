@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -79,24 +80,11 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //save data
-       /* $projectUpdate = Project::where('id',$project->id)
-            ->update([
-                'name'=> $request->input('name'),
-                'description'=> $request->input('description')
-
-            ]);
-        //if project was created successfully
-        if($projectUpdate){
-            return redirect()->route('projects.show',['project'=>$project->id])
-                ->with('success','Project updated successfully');
-        }
-        //redirect
-        return back()->withInput();*/
 
        $userUpdate = User::where('id',$user->id)
            ->update([
                'name'=> $request->input('name'),
+               'lastname'=>$request->input('lastname'),
                'email'=>$request->input('email'),
                 'phone_no'=>$request->input('phone')
            ]);
@@ -117,6 +105,6 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+
     }
 }

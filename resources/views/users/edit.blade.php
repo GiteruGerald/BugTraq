@@ -277,13 +277,13 @@
                                 <div class="col-md-5 px-3">
                                     <div class="form-group">
                                         <label for="email">First Name</label>
-                                        <input type="text" class="form-control" name="email" placeholder="Email" value="{{$user->name}}">
+                                        <input type="text" class="form-control" name="name" placeholder="Email" value="{{$user->name}}">
                                     </div>
                                 </div>
                                 <div class="col-md-5 px-3">
                                     <div class="form-group">
                                         <label for="email">Last Name</label>
-                                        <input type="text" class="form-control" name="email" placeholder="Email" value="{{$user->lastname}}">
+                                        <input type="text" class="form-control" name="lastname" placeholder="Email" value="{{$user->lastname}}">
                                     </div>
                                 </div>
                             </div>
