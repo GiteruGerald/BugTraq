@@ -177,7 +177,6 @@ class ProjectsController extends Controller
         //
         
         $findProject = Project::find( $project->id);
-        //TODO : Also find bug attached to this project and delete it( Current Bug)
 
         if($findProject->bugs()->count()){
             return back()->with('success',".$project->pj_name.".' cannot be deleted, has bug records');

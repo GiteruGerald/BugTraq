@@ -106,11 +106,37 @@ class AdminController extends Controller
         return view('admin.pj_details',compact('project','testers'));
     }
 
+    public function show_bug_details($id)
+    {
+        $bug = Bug::where('id',$id)->first();
+        $devs = User::where('user_group','Developer')->get();
+
+        return view('admin.bg_details',compact('bug','devs'));
+    }
+
     public function show_user_details($id)
     {
         $user = User::where('id',$id)->first();
 
         return view ('admin.user_details',compact('user'));
+    }
+
+    public function edit_bug(Request $request,$id)
+    {
+
+        $bugUpdate = Bug::where('id',$id)->first()
+        ->update([
+            'type'=>$request->input('bug_type'),
+            'description'=>$request->input('description'),
+            'priority'=>$request->input('priority'),
+            'assigned'=>$request->input('dev'),
+            'due_date'=>$request->input('due_date'),
+            'status'=>$request->input('status')
+        ]);
+        if($bugUpdate){
+            return back()->with('success',"Status successfully changed");
+        }
+
     }
     public function userDelete($id)
     {
@@ -123,6 +149,22 @@ class AdminController extends Controller
                  ->with('success','User deleted');
          }
          return back()->with('errors','User could not be deleted');
+    }
+
+    public function bugDelete($id)
+    {
+        //dd($id);
+        $bugs = Bug::all();
+        $bug = Bug::where('id',$id);
+        $comments = $bug->comments();
+
+
+        if($bug ->delete()){
+            $comments->delete();
+            return view('admin.bugs',compact('bug','bugs'))
+                ->with('success','Bug deleted');
+        }
+        return back()->with('errors','Bug could not be deleted');
     }
 
 }

@@ -24,7 +24,9 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-primary">
+                                <th>
 
+                                </th>
                                 <th>
                                     Name
                                 </th>
@@ -57,13 +59,14 @@
                                         <td>{{$user->user_group}}</td>
                                         <td>{{$user->phone_no}}</td>
                                         <td>
-                                            <a class="btn btn-sm btn-success" href="{{url('admin/user_details/'.$user->id)}}">Show</a>
+                                            <a class="btn btn-sm btn-success" href="{{url('admin/user_details/'.$user->id)}}">Details</a>
 
                                         </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
+                            {!! $users->links() !!}
                         </div>
                     </div>
                 </div>

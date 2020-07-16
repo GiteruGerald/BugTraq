@@ -55,7 +55,7 @@
                                         <td>{{$project->owner}}</td>
                                         <td class="text-right">{{$project->created_at}}</td>
                                         <td>
-                                                <a class="btn btn-sm btn-success" href="{{url('admin/pj_details/'.$project->id)}}">Show</a>
+                                                <a class="btn btn-sm btn-success" href="{{url('admin/pj_details/'.$project->id)}}">Details</a>
 
 
                                         </td>

@@ -39,10 +39,12 @@ Route::prefix('admin')->group(function() {
     Route::get('/users','AdminController@showusers')->name('admin.users');
     Route::delete('/projects/destroy/{id}','AdminController@destroyProject')->name('admin.projects.destroy');
     Route::get('/pj_details/{id}','AdminController@show_project_details');
+    Route::get('/bg_details/{id}','AdminController@show_bug_details');
     Route::get('/user_details/{id}','AdminController@show_user_details');
     Route::get('/user_edit/{id}', 'AdminController@edit_user');
+    Route::put('/bug_edit/{id}','AdminController@edit_bug')->name('admin.bugs.update');
     Route::delete('/users/destroy/{id}', 'AdminController@userDelete')->name('admin.users.destroy');
-
+    Route::delete('/bugs/destroy/{id}','AdminController@bugDelete')->name('admin.bugs.destroy');
    // Route::view('/user_reg','admin/user_reg');
 });
 

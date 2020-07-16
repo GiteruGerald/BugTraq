@@ -46,7 +46,7 @@
                                         Status
                                     </th>
                                     <th width="180px">
-                                        Action
+
                                     </th>
                                     </thead>
                                     <tbody>
@@ -59,22 +59,10 @@
                                             <td>{{$bug->reporter}}</td>
                                             <td>{{$bug->assigned}}</td>
                                             <td>{{$bug->due_date}}</td>
-                                            <td>{{$bug->status}}</td>
+                                            <td class="text-fuchsia text-right">{{$bug->status}}</td>
                                             <td>
-                                                <a class="btn btn-sm btn-success" href="{{route('bugs.show',$bug->id)}}">Show</a>
-                                                <a class="btn btn-sm btn-warning" href="{{route('bugs.edit',$bug->id)}}">Edit</a>
-                                                <a class="btn btn-sm btn-danger" href="#"
-                                                   onclick="
-                                                    var result=confirm('Are you sure you want to delete this Bug?');
-                                                        if (result){
-                                                            event.preventDefault();
-                                                            document.getElementById('delete-form').submit();
-                                                        } ">
-                                                    Delete</a>
-                                                <form id="delete-form" action="" method="post" style="display: none">
-                                                    <input type="hidden" name="_method" value="delete">
-                                                    {{csrf_field()}}
-                                                </form>
+                                                <a class="btn btn-sm btn-success" href="{{url('admin/bg_details/'.$bug->id)}}">Details</a>
+
                                             </td>
                                         </tr>
                                     @endforeach

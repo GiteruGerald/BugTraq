@@ -109,10 +109,11 @@ class BugsController extends Controller
     {
         //
         $bug = Bug::where('id',$bug->id)->first();
+        $devs = User::where('user_group','Developer')->get();
 
         $comments = $bug->comments;
 
-        return view('bugs.show',['bug'=>$bug,'comments'=>$comments]);
+        return view('bugs.show',['bug'=>$bug,'comments'=>$comments,'devs'=>$devs]);
     }
 
     /**
@@ -138,7 +139,12 @@ class BugsController extends Controller
         //
         $bugUpdate = Bug::where('id',$bug->id)
             ->update([
-                'status'=> $request->input('status')
+                'type'=>$request->input('bug_type'),
+                'description'=>$request->input('description'),
+                'priority'=>$request->input('priority'),
+                'assigned'=>$request->input('dev'),
+                'due_date'=>$request->input('due_date'),
+                'status'=>$request->input('status')
             ]);
         if($bugUpdate){
             return redirect()->to('/bugs/'.$bug->id)
@@ -157,5 +163,15 @@ class BugsController extends Controller
     public function destroy(Bug $bug)
     {
         //
+        $findBug = Bug::find($bug->id);
+        //TODO: check if comments are also deleted ($findBug->comments()
+        $comments = $findBug->comments();
+
+        if($findBug ->delete()){
+            $comments->delete();
+            return redirect()->route('bugs.index')
+                ->with('success',".$findBug->title.".' (bug) deleted successfully');
+        }
+        return back()->withInput()->with('errors','Bug could not be deleted');
     }
 }

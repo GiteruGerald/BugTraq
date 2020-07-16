@@ -85,13 +85,8 @@
                                         <label>Due Date:</label>
 
                                         <div class="input-group">
-                                            <div class="input-group-prepend">
-                                              <span class="input-group-text">
-                                                <i class="far fa-calendar-alt"></i>
-                                              </span>
-                                            </div>
 
-                                            <input type="text" name="due_date" class="form-control float-right" id="reservation" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask required>
+                                            <input type="date" name="due_date" class="form-control float-right" id="reservation" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask required>
                                         </div>
                                         <!-- /.input group -->
                                     </div>
