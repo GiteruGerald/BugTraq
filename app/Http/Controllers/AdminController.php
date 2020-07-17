@@ -63,6 +63,42 @@ class AdminController extends Controller
         return view('admin.edit_user',compact('user'));
     }
 
+    public function register_user(Request $request)
+    {
+
+
+        $data = $this->validate($request, [
+            'name' => 'required|string|max:20',
+            'lastname' => 'required|string|max:20',
+            'emp_id' => 'required|string|max:6|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'dept' => 'required|string',
+            'user_group' => 'required|string',
+            'phone_no' => 'required|string|max:13|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+        //dd($data);
+        if($data = false){
+            return back()->withInput()->with('errors',"New User could not be registered");
+        }
+        else {
+            User::create([
+                'name' => $data['name'],
+                'lastname' => $data['lastname'],
+                'emp_id' => $data['emp_id'],
+                'email' => $data['email'],
+                'dept' => $data['dept'],
+                'user_group' => $data['user_group'],
+                'phone_no' => $data['phone_no'],
+                'password' => bcrypt($data['password']),
+            ]);
+
+            $users = User::latest()->paginate(5);
+            return view('admin.users', ['users' => $users])
+                ->with('i', (request()->input('page', 1) - 1) * 5);
+        }
+    }
+
     public function destroyProject($id){
 
         $projects = Project::latest()->paginate(4);

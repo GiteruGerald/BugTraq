@@ -21,9 +21,7 @@ Route::get('/dash', function () {
 Route::get('/calendar',function (){
     return view('calendar');
 });
-Route::get('user_reg',function (){
-    return view('admin/user_reg');
-});
+
 
 //Route::delete('users/{id}',['as' =>'users.destroy','uses'=>'UsersController@destroy']);
 Auth::routes();
@@ -45,7 +43,7 @@ Route::prefix('admin')->group(function() {
     Route::put('/bug_edit/{id}','AdminController@edit_bug')->name('admin.bugs.update');
     Route::delete('/users/destroy/{id}', 'AdminController@userDelete')->name('admin.users.destroy');
     Route::delete('/bugs/destroy/{id}','AdminController@bugDelete')->name('admin.bugs.destroy');
-   // Route::view('/user_reg','admin/user_reg');
+    Route::post('/user_reg','AdminController@register_user')->name('admin.users.create');
 });
 
 Route::middleware(['auth'])->group(function () {
