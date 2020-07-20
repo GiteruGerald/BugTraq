@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mockery\Tests\React_WritableStreamInterface;
 
 class UsersController extends Controller
 {
@@ -80,14 +81,16 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $userUpdate = User::where('id',$user->id)
+            ->update([
+                'name'=> $request->input('name'),
+                'lastname'=>$request->input('lastname'),
+                'email'=>$request->input('email'),
+                'phone_no'=>$request->input('phone'),
 
-       $userUpdate = User::where('id',$user->id)
-           ->update([
-               'name'=> $request->input('name'),
-               'lastname'=>$request->input('lastname'),
-               'email'=>$request->input('email'),
-                'phone_no'=>$request->input('phone')
-           ]);
+            ]);
+
+
        //if user was edited successfully
        if($userUpdate){
            return redirect()->route('users.show',['user'=>$user->id])
@@ -97,6 +100,32 @@ class UsersController extends Controller
         return back()->withInput();
     }
 
+    public function avatarUpload(Request $request)
+    {
+        $this->validate($request,[
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+        if($request->hasFile('image')) {
+
+            $avatar = $request->file('image');
+            $input['imagename'] = time() . '.' . $avatar->getClientOriginalExtension();
+            //dd($input['imagename']);
+            $destinationPath = public_path('uploads/avatars');
+            $avatar->move($destinationPath, $input['imagename']);
+
+            $imgUpdate = User::where('id', Auth::user()->id)
+                ->update([
+                    'avatar' => $input['imagename']
+                ]);
+
+            if ($imgUpdate) {
+                return redirect()->route('users.show', ['user' => Auth::user()->id])
+                    ->with('success', 'Image profile added successfully');
+            }
+        }elseif($request->file('image') == null){
+            return back();
+        }
+    }
     /**
      * Remove the specified resource from storage.
      *

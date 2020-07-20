@@ -57,4 +57,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('project_reports','ReportsController@projects');
     Route::get('pdfexport','ReportsController@pdf_export');
     Route::get('/dynamic_pdf/pdf','ReportsController@pdf');
+    Route::post('fileUpload',[
+    'as' => 'image.add',
+    'uses' => 'UsersController@avatarUpload'
+    ]);
 });

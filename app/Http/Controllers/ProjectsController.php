@@ -22,7 +22,6 @@ class ProjectsController extends Controller
     {
 
         $pjID =DB::table('projects')->pluck('id');
-       //TODO - define view for developers and Testesr
         if (Auth::user()->user_group=='Manager') {
         //to pick projects by a certain user
             $projects = Project::where('owner', Auth::user()->name.' '.Auth::user()->lastname)->get();

@@ -177,7 +177,7 @@
 
                                         <div class="row">
                                             <div class="col-12">
-                                                <form method ="post" action="{{route('comments.store')}}">
+                                                <form method ="post" action="{{route('comments.store')}}" enctype="multipart/form-data">
                                                     {{csrf_field()}}
 
                                                     <input type="hidden" name="commentable_type" value="App\Bug">
@@ -185,25 +185,25 @@
 
                                                     <div class="form-group">
                                                         <label for="comment-content">Comment.</label>
-                                                        <textarea placeholder="Enter comment"
+                                                        <textarea required placeholder="Enter comment"
                                                                   style="resize: vertical "
                                                                   id="comment-content"
                                                                   name="body"
-                                                                  rows="3" spellcheck="false"
+                                                                  rows="2" spellcheck="false"
                                                                   class="form-control autosize-target text-left">
                                                         </textarea>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="comment-content">Proof of work done(Url/Photos)</label>
-                                                        <textarea placeholder="Enter url of screenshots"
+
+                                                        <label for="comment-content">Attachments(Docs/Photos)</label>
+                                                        <input type="file"
                                                                   style="resize:vertical"
                                                                   id="comment-content"
-                                                                  name="url"
-                                                                  rows="2" spellcheck="false"
+                                                                  name="attachment"
+
                                                                   class="form-control autosize-target text-left">
 
-                                                         </textarea>
-                                                    </div>
+
+
                                                     <div class="form-group">
                                                         <input type="submit" class="btn btn-primary"
                                                                value="Post"/>

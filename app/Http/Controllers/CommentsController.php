@@ -37,6 +37,7 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         //
+
         if(Auth::check()) {
             $comment = Comment::create([
                 'body'=>$request->input('body'),
@@ -46,6 +47,19 @@ class CommentsController extends Controller
                 'user_id'=>Auth::user()->id
             ]);
             //if project was created successfully
+
+            if($request->hasFile('attachment')){
+
+                $file = $request->file('attachment');
+                $input['file'] = time() . '.' . $file->getClientOriginalExtension();
+
+                //dd($input['file']);
+                $destinationPath = public_path('uploads/attachments');
+                $file->move($destinationPath, $input['file']);
+
+                $comment = Comment::where('commentable_id',$request->input('commentable_id'))
+                    ->update(['attachments'=> $input['file']]);
+            }
             if ($comment) {
                 return back()->with('success', 'Comment added successfully');
             }

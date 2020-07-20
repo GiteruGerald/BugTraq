@@ -164,7 +164,6 @@ class BugsController extends Controller
     {
         //
         $findBug = Bug::find($bug->id);
-        //TODO: check if comments are also deleted ($findBug->comments()
         $comments = $findBug->comments();
 
         if($findBug ->delete()){

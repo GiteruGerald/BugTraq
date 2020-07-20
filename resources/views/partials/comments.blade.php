@@ -20,7 +20,7 @@
                                 @foreach($comments as $comment)
                                     <div class="post">
                                         <div class="user-block">
-                                            <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
+                                            <img class="img-circle img-bordered-sm" src="../../uploads/avatars/{{$comment->user->avatar}}" alt="user image">
                                             <span class="username">
                                                             <a href="/users/{{$comment->user->id}}">{{$comment->user->name.' '.$comment->user->lastname}} </a>
                                                          </span>
@@ -31,8 +31,15 @@
                                             {{$comment->body}}
                                         </p>
 
-                                        <p><b>Proof :</b>
-                                            <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i>{{$comment->url}}</a>
+                                        <p><b>Attachments :</b>
+                                            <a href="#" class="link-black text-sm" s><i class="fas fa-link mr-1"></i>{{$comment->url}}</a>
+                                            <img class="img-fluid" src="../../uploads/attachments/{{$comment->attachments}}" style="height:250px;width:400px">
+                                            {{--<ul>--}}
+                                                {{--@foreach($comment->attachments as $attachment)--}}
+                                                    {{--<li>{{$attachment}}</li>--}}
+                                                    {{--@endforeach--}}
+
+                                            {{--</ul>--}}
                                         </p>
                                     </div>
 

@@ -10,6 +10,7 @@ class Comment extends Model
     protected $fillable =[
         'body',
         'url',
+        'attachment',
         'commentable_id',
         'commentable_type',
         'user_id',
@@ -19,7 +20,7 @@ class Comment extends Model
 
         return $this->morphTo();
     }
-//todo: user this ro return project associated with a bug
+//todo: use this ro return project associated with a bug
     public function user()
     {
         return $this->hasOne('App\User','id','user_id');

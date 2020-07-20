@@ -142,7 +142,7 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                         <i class="far fa-user"></i>
-                        {{ Auth::user()->name }} <span class="caret"></span>
+                        {{ Auth::user()->name.' '.Auth::user()->lastname }} <span class="caret"></span>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-sm-right">
@@ -180,10 +180,10 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="dist/img/gerry.jpg" class="img-circle elevation-2" alt="User Image">
+                    <img src="../../uploads/avatars/{{Auth::user()->avatar}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Gerry J</a>
+                    <a href="#" class="d-block">{{Auth::user()->name.' '.Auth::user()->lastname}}</a>
                 </div>
             </div>
 
@@ -277,13 +277,13 @@
                                 <div class="col-md-5 px-3">
                                     <div class="form-group">
                                         <label for="email">First Name</label>
-                                        <input type="text" class="form-control" name="name" placeholder="Email" value="{{$user->name}}">
+                                        <input type="text" class="form-control" name="name" placeholder="First Name" value="{{$user->name}}">
                                     </div>
                                 </div>
                                 <div class="col-md-5 px-3">
                                     <div class="form-group">
                                         <label for="email">Last Name</label>
-                                        <input type="text" class="form-control" name="lastname" placeholder="Email" value="{{$user->lastname}}">
+                                        <input type="text" class="form-control" name="lastname" placeholder="Last Name" value="{{$user->lastname}}">
                                     </div>
                                 </div>
                             </div>
@@ -294,6 +294,7 @@
                                         <input type="text" class="form-control" name="email" placeholder="Email" value="{{$user->email}}">
                                     </div>
                                 </div>
+
                             </div>
                             <!--TODO : Try adding change password in User Mode-->
 
@@ -305,6 +306,8 @@
                                     </div>
                                 </div>
                             </div>
+                            <br>
+<hr>
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-md-3 px-3">
@@ -342,6 +345,11 @@
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+    });
+</script>
 <script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

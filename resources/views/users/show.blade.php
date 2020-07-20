@@ -12,15 +12,14 @@
 
             <div class="col-md-4 px-5">
                 <div class="card card-user" style="margin-top: 3rem">
-                    <div class="image">
-                        <img src="" alt="...">
-                    </div>
+
                     <div class="card-body">
                         <div class="author">
-                            <a href="#">
-                                <img class="avatar border-gray" src="" alt="...">
-                                <h5 class="title">{{Auth::user()->name.' '.Auth::user()->lastname}}</h5>
-                            </a>
+
+                                <img class="profile-user-img img-fluid"  src="../../uploads/avatars/{{Auth::user()->avatar}}" alt="..." style="height: 200px;width: 300px;">
+                                &nbsp;
+                                <p class="font-weight-bold">{{Auth::user()->name.' '.Auth::user()->lastname}}</p>
+
                             <p class="description">
                                 {{Auth::user()->user_group}}
                             </p>
@@ -29,6 +28,14 @@
                     </div>
                     <hr>
                     <div class="button-container">
+
+                        <form method="post" action="{{route('image.add')}}" enctype="multipart/form-data">
+                            {{csrf_field() }}
+                            <div class="col-md-2 pr-4">
+                                <input type="file" name="image" id="image">
+                                <input type="submit" value="Change Profile Pic">
+                            </div>
+                        </form>
                         <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
                             <i class="fab fa-facebook-f"></i>
                         </button>
