@@ -13,15 +13,64 @@
                  <div class="card" style="margin: 2rem;">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-9">
-                                @if(Auth::user()->user_group=='Manager')
-                                    <h4 class="card-title"> Your Projects</h4></div>
+                            @if(Auth::user()->user_group=='Manager')
+                            <div class="col-md-7">
+                                    <h4 class="card-title"> Your Projects</h4>
+                               </div>
 
-                                    <div class="col-md-3">
-                                        <a class="pull-right btn btn-primary btn-sm" href="/projects/create">Create new </a></div>
-                                     </div>
+                            <div class="ml-5">
+                                        <a class="pull-right btn btn-primary btn-sm" href="/projects/create">Create new </a>
+                                    </div>
+                            <div class="col-md-3">
+                            <form class="form-inline ml-3">
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control form-control-navbar" type="search" id="search_projects" placeholder="Search" aria-label="Search">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-navbar" type="submit">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                                {{--<div class="input-group mb-3 {{ $errors->has('name') ? ' has-error' : '' }}">--}}
+                                    {{--<label for="name" class="col-md-4 control-label">First Name</label>--}}
+                                    {{--<input id="name" value="{{ old('name') }}"  name="name" type="text" class="form-control" placeholder="First name" required autofocus>--}}
+
+                                    {{--<div class="input-group-append">--}}
+                                        {{--<div class="input-group-text">--}}
+                                            {{--<span class="fas fa-user"></span>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--@if($errors->has('name'))--}}
+                                        {{--<span class="help-block">--}}
+                                    {{--<strong>{{ $errors->first('name') }}</strong>--}}
+                                {{--</span>--}}
+                                    {{--@endif--}}
+                                {{--</div>--}}
+
+                            </div>
+
+                        </div>
+
+
                                 @else
-                                    <h4 class="card-title"> Projects Assigned</h4></div>
+                            <div class="col-md-9">
+                                    <h4 class="card-title"> Projects Assigned</h4>
+                            </div>
+                                <div class="col-md-3">
+                                    <form class="form-inline ml-3">
+                                        <div class="input-group input-group-sm">
+                                            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-navbar" type="submit">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                        </div>
                                 @endif
 
                 </div>
@@ -53,7 +102,7 @@
                                     Action
                                 </th>
                                 </thead>
-                                <tbody>
+                                <tbody id="dynamic_data">
                                 @if(count($projects) < 1)
                                     <tr>
                                         <td>No projects found</td>
@@ -93,5 +142,36 @@
 @endsection
 
 @section('scripts')
+    <script>
+        $('body').on('keyup','#search_projects', function () {
+            var Query = $(this).val();
+            //console.log(Query)
+            $.ajax({
+               method: "POST",
+                url: '{{ route('search_projects') }}',
+                dataType: 'json',
+                data: {
+                    '_token' : '{{ csrf_token() }}',
+                    Query : Query
+                },
+                success: function (res) {
+                    var tableRow = '';
 
+                    $('#dynamic_data').html('');
+
+                    $.each(res, function (index, value) {
+                       tableRow = '<tr><td>'+value.pj_name+'</td>' +
+                           '<td>'+value.pj_type+'</td>' +
+                           '<td>'+value.bugs+'</td>' +
+                           '<td class="text-right">'+value.created_at+'</td>' +
+
+                           '</tr>';
+
+                        $('#dynamic_data').append(tableRow);
+
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

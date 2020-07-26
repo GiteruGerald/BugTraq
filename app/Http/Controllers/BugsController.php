@@ -154,6 +154,31 @@ class BugsController extends Controller
         }
     }
 
+
+    public function search_bugs(Request $request)
+    {
+       if(Auth::user()->user_group == 'Developer'){
+        $bugs = Bug::where('title','like','%' . $request->get('Query').'%')
+            ->where('assigned',Auth::user()->name. ' '.Auth::user()->lastname)
+            ->get();
+            }
+
+        elseif (Auth::user()->user_group == 'Test Engineer'){
+            $bugs = Bug::where('title', 'like','%'. $request->get('Query').'%')
+                ->where('reporter', Auth::user()->name .' '.Auth::user()->lastname)
+                ->get();
+
+        }
+
+        else {
+            $bugs = Bug::where('title','like','%'.$request->get('Query').'%')
+            ->get();
+
+
+        }
+
+        return json_encode($bugs);
+    }
     /**
      * Remove the specified resource from storage.
      *

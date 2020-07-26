@@ -37,7 +37,7 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         //
-
+//TODO : Insert multipe images using foreach
         if(Auth::check()) {
             $comment = Comment::create([
                 'body'=>$request->input('body'),
@@ -51,13 +51,12 @@ class CommentsController extends Controller
             if($request->hasFile('attachment')){
 
                 $file = $request->file('attachment');
-                $input['file'] = time() . '.' . $file->getClientOriginalExtension();
+                $input['file'] = rand() . '.' . $file->getClientOriginalExtension();
 
                 //dd($input['file']);
                 $destinationPath = public_path('uploads/attachments');
                 $file->move($destinationPath, $input['file']);
-
-                $comment = Comment::where('commentable_id',$request->input('commentable_id'))
+                $comment = Comment::where('body',$request->input('body'))
                     ->update(['attachments'=> $input['file']]);
             }
             if ($comment) {

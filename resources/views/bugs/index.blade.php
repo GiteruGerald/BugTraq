@@ -24,7 +24,21 @@
                         @if(Auth::user()->user_group=='Developer')
                                     <h4 class="card-title">Bugs Assigned</h4></div>
                                 @endif
+
+                    <div class="col-md-3">
+                        <form class="form-inline ml-3">
+                            <div class="input-group input-group-sm">
+                                <input class="form-control form-control-navbar" type="search" id="search_bug" placeholder="Search" aria-label="Search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-navbar" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">
@@ -60,7 +74,7 @@
                             </th>
                             </thead>
 
-                            <tbody>
+                            <tbody id="dynamic_data">
                             @if(count($bugs) < 1)
                                 <tr>
                                     <td>No bugs found</td>
@@ -97,4 +111,45 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
 
     {!! $chart->script() !!}
+
+    <script>
+        $('body').on('keyup','#search_bug', function () {
+            var Query = $(this).val();
+           //console.log(Query)
+
+            $.ajax({
+                method: "POST",
+                url : '{{route('search_bugs')}}',
+                dataType: 'json',
+                data : {
+                    '_token' : '{{ csrf_token() }}',
+                    Query: Query
+                },
+                success : function (res) {
+                    //console.log(res)
+                    var tableRow = '';
+
+                    $('#dynamic_data').html('');
+
+                    $.each(res, function (index, value) {
+                       tableRow =  '<tr>' +
+                           '<td>'+ value.id +'</td>' +
+                           '<td>'+ value.priority +'</td>' +
+                           '<td>'+ value.title+'</td>' +
+                           '<td>'+ value.created_at+'</td>' +
+                           '<td>'+ value.reporter+'</td>' +
+                           '<td>'+ value.assigned+'</td>' +
+                           '<td>'+ value.due_date+'</td>' +
+                           '<td>'+ value.status+'</td>' +
+
+
+
+                           '</tr>';
+
+                       $('#dynamic_data').append(tableRow);
+                    });
+                }
+            });
+        }) ;
+    </script>
 @endsection

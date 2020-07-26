@@ -202,11 +202,11 @@
 
                                                                   class="form-control autosize-target text-left">
 
-
+            &nbsp;
 
                                                     <div class="form-group">
                                                         <input type="submit" class="btn btn-primary"
-                                                               value="Post"/>
+                                                               value="Post Comment"/>
                                                     </div>
                                                 </form>
                                             </div>
@@ -399,6 +399,44 @@
 @endsection
 @section('scripts')
     <!-- <script src="../../assets/demo/demo.js"></script> -->
+    <script>
+        // function bigImg(x) {
+        //     x.style.height = "500px";
+        //     x.style.width = "1000px";
+        // }
+        //
+        // function normalImg(x) {
+        //     x.style.height = "150px";
+        //     x.style.width = "250px";
+        // }
+    </script>
+
+    <!-- LightBox -->
+    <script defer>
+        const lightbox = document.createElement('div')
+        lightbox.id = 'lightbox'
+        document.body.appendChild(lightbox)
+
+        const images = document.querySelectorAll('img.img-fluid')
+        images.forEach(image =>{
+            image.addEventListener('click', e =>{
+                lightbox.classList.add('active')
+                const img = document.createElement('img')
+                img.src = image.src
+                while(lightbox.firstChild){
+                    lightbox.removeChild(lightbox.firstChild)
+                }
+                lightbox.appendChild(img)
+            })
+        })
+
+        lightbox.addEventListener('click', e =>{
+            if(e.target !==  e.currentTarget) return
+            lightbox.classList.remove('active')
+        })
+    </script>
+
+
 
     <script src="../../../public/plugins/jquery/jquery.min.js"></script>
 @endsection

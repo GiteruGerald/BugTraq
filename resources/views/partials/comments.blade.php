@@ -33,7 +33,7 @@
 
                                         <p><b>Attachments :</b>
                                             <a href="#" class="link-black text-sm" s><i class="fas fa-link mr-1"></i>{{$comment->url}}</a>
-                                            <img class="img-fluid" src="../../uploads/attachments/{{$comment->attachments}}" style="height:250px;width:400px">
+                                            <img class="img-fluid" src="../../uploads/attachments/{{$comment->attachments}}" alt="..." l style="height:150px;width:250px" onmouseover="bigImg(this)" onmouseout="normalImg(this)">
                                             {{--<ul>--}}
                                                 {{--@foreach($comment->attachments as $attachment)--}}
                                                     {{--<li>{{$attachment}}</li>--}}

@@ -164,13 +164,22 @@ class ProjectsController extends Controller
 
     }
 
+    public function search_projects(Request $request)
+    {
+
+        $projects = Project::where('pj_name','like','%'. $request->get('Query').'%')
+                        ->where('owner', Auth::user()->name.' '.Auth::user()->lastname)
+                        ->get();
+
+        return json_encode($projects);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    //TODO: Works so add restrictions and appropriate views so that admin and manager can delete
     public function destroy(Project $project)
     {
         //
@@ -180,7 +189,7 @@ class ProjectsController extends Controller
         if($findProject->bugs()->count()){
             return back()->with('success',".$project->pj_name.".' cannot be deleted, has bug records');
         }
-        //if(Auth::guard('admin')){
+
             if($findProject ->delete()){
                 return
                     redirect()->route('projects.index')
@@ -188,13 +197,12 @@ class ProjectsController extends Controller
                     ->with('success',".$findProject->pj_name.".' project deleted successfully');
             }
             return back()->withInput()->with('errors','Project could not be deleted');
-      //  }
+
     }
 
     public  function addtester(Request $request){
         //adds tester by manager to project
         //take a project, add a tester to it
-        //TODO ...error adding user, add first
         $testers = DB::table('users')->where('user_group','Test Engineer')->get();
 
         $project =Project::find($request->input('project_id'));
