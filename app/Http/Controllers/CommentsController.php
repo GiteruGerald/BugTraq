@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use Faker\Provider\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,7 +38,7 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         //
-//TODO : Insert multipe images using foreach
+//TODO : Insert multipe images using foreach && able to add documents too
         if(Auth::check()) {
             $comment = Comment::create([
                 'body'=>$request->input('body'),
@@ -97,7 +98,16 @@ class CommentsController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        $commentUpdate = Comment::find($comment->id)
+            ->update([
+                'body'=>$request->input('body'),
+                'url'=>$request->input('url')
+            ]);
+        if ($commentUpdate){
+            return redirect()->to('/bugs/'.$comment->commentable_id)
+                ->with('success','Comment edited successfully');
+        }
+
     }
 
     /**
@@ -109,5 +119,16 @@ class CommentsController extends Controller
     public function destroy(Comment $comment)
     {
         //
+
+        $findComment = Comment::find($comment->id);
+//        dd($findComment);
+
+        if ($findComment->delete()){
+            return redirect()->to('/bugs/'.$comment->commentable_id)
+                ->with('success',"Comment successfully deleted");
+        }else{
+
+        }
+        return back()->with('errors',"Error removing comment");
     }
 }

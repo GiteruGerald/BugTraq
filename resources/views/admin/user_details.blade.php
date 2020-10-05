@@ -53,7 +53,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-md-3 px-3">
-                                        <input type="submit" class="btn btn-primary btn-sm"
+                                        <input type="submit" class="btn btn-danger btn-sm"
                                                value="Delete User"/>
                                     </div>
                                 </div>

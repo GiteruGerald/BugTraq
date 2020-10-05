@@ -147,6 +147,8 @@ class ProjectsController extends Controller
         //
         $testers = DB::table('users')->where('user_group','Test Engineer')->get();
         //TODO - how to update user id of manager too
+        //TODO - perform error checking
+        //TODO - add sweet alerts
         $projectUpdate = Project::where('id',$project->id)
            ->update([
                'pj_name'=> $request->input('title'),

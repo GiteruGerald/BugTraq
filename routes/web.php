@@ -44,6 +44,7 @@ Route::prefix('admin')->group(function() {
     Route::delete('/users/destroy/{id}', 'AdminController@userDelete')->name('admin.users.destroy');
     Route::delete('/bugs/destroy/{id}','AdminController@bugDelete')->name('admin.bugs.destroy');
     Route::post('/user_reg','AdminController@register_user')->name('admin.users.create');
+    Route::post('/projects/edit','AdminController@editProject');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -60,4 +61,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('fileUpload',['as' => 'image.add','uses' => 'UsersController@avatarUpload']);
     Route::post('/projects/search', ['as' => 'search_projects', 'uses' => 'ProjectsController@search_projects']);
     Route::post('bugs/search', ['as' => 'search_bugs', 'uses' => 'BugsController@search_bugs']);
+
 });
