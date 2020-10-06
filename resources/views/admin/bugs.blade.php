@@ -13,7 +13,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-9">
-                                <h4 class="card-title"> List of Bugs</h4></div>
+                                <h4 class="card-title"> List of Bugs Reported</h4></div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -68,6 +68,8 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                {!! $bugs->links() !!}
+
                             </div>
                         </div>
                     </div>

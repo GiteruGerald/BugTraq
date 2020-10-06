@@ -53,7 +53,7 @@
                                                         <div class="form-group row">
                                                             <label class="control-label text-right col-md-5">Project:</label>
                                                             <div class="col-md-7">
-                                                                @if(count($bug->projects) != null)
+                                                                @if($bug->projects)
                                                                 <p class="form-control-static">{{$bug->projects->pj_name}}</p>
                                                                     @else
                                                                     <p class="form-control-static text-danger">Cannot be retrieved</p>

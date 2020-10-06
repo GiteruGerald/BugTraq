@@ -16,7 +16,7 @@
                             <div class="col-md-9">
                                 <h4 class="card-title"> List Of Users</h4></div>
                             <div class="col-md-3">
-                                <!--TODO: Check this route -->
+
                                 <a class="pull-right btn btn-primary btn-sm" href="#new_user" data-toggle="modal"><i class="fas fa-user-plus"></i> Register New user </a></div>
                         </div>
                     </div>

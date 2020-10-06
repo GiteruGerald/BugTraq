@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Bug;
 use App\Project;
 use App\User;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,18 +36,19 @@ class AdminController extends Controller
 
     public function  showprojects(){
         if(Auth::guard('admin')){
-           // $projects = Project::latest()->paginate(5);
-            $projects = Project::latest()->paginate(4);
-            return view('admin.projects',compact('projects'))
-                ->with('i', (request()->input('page',1)-1)*4);
+            $projects = Project::all();
+//            $projects = Project::latest()->paginate(20);
+            return view('admin.projects',compact('projects'));
+//                ->with('i', (request()->input('page',1)-1)*5);
       }
 
     }
 
     public function showbugs(){
         if(Auth::guard('admin')){
-            $bugs = Bug::all();
-            return view('admin.bugs',['bugs'=> $bugs]);
+            $bugs = Bug::latest()->paginate(10);
+            return view('admin.bugs',['bugs'=> $bugs])
+                ->with('i', (request()->input('page',1)-1)*4);
         }
     }
 
@@ -101,20 +103,25 @@ class AdminController extends Controller
 
     public function destroyProject($id){
 
-        $projects = Project::latest()->paginate(4);
+        $project = Project::findOrFail($id);
+        $project->delete();
 
-        $project = Project::where('id',$id)->first();
-        if($project->bugs()->count()){
-            return back()->with('success',".$project->pj_name.".' cannot be deleted, has bug records');
-        }
-        //if(Auth::guard('admin')){
-        if($project ->delete()){
-            return view('admin.projects', compact('projects','project'))
-                ->with('success','Project deleted successfully')
-                ->with('i', (request()->input('page',1)-1)*4);
-        }
-        return back()->withInput()->with('errors','Project could not be deleted');
-        //
+        return response()->json($project);
+
+//        $projects = Project::latest()->paginate(4);
+//
+//        $project = Project::where('id',$id)->first();
+//        if($project->bugs()->count()){
+//            return back()->with('success',".$project->pj_name.".' cannot be deleted, has bug records');
+//        }
+//        //if(Auth::guard('admin')){
+//        if($project ->delete()){
+//            return view('admin.projects', compact('projects','project'))
+//                ->with('success','Project deleted successfully')
+//                ->with('i', (request()->input('page',1)-1)*4);
+//        }
+//        return back()->withInput()->with('errors','Project could not be deleted');
+//        //
     }
 
     public function update_user(Request $request,User $user){
@@ -189,18 +196,32 @@ class AdminController extends Controller
 
     public function bugDelete($id)
     {
-        //dd($id);
-        $bugs = Bug::all();
-        $bug = Bug::where('id',$id);
-        $comments = $bug->comments();
+        $bugs = Bug::latest()->paginate(7);
+        $bug = Bug::where('id',$id)->first();
+
+        //dd($comments);
 
 
         if($bug ->delete()){
-            $comments->delete();
-            return view('admin.bugs',compact('bug','bugs'))
-                ->with('success','Bug deleted');
+            $comments = $bug->comments()->delete();
+
+//            $comments->delete();
+            return redirect()->route('admin.bugs',compact('bugs'))
+                ->with('success','Bug and associated information deleted')
+                ->with('i', (request()->input('page', 1) - 1) * 7);
+
         }
         return back()->with('errors','Bug could not be deleted');
     }
 
+    public  function editProject( Request $request,$id)
+    {
+        $project = Project::find($id);
+        $project->pj_name = $request->pj_name;
+        $project->pj_description = $request->desc;
+
+        $project->save();
+//        dd($project);
+        return response()->json($project);
+    }
 }

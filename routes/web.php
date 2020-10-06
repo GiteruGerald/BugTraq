@@ -32,8 +32,8 @@ Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
-    Route::get('/projects','AdminController@showprojects')->name('admin.project');
-    Route::get('/bugs','AdminController@showbugs')->name('admin.bug');
+    Route::get('/projects','AdminController@showprojects')->name('admin.projects');
+    Route::get('/bugs','AdminController@showbugs')->name('admin.bugs');
     Route::get('/users','AdminController@showusers')->name('admin.users');
     Route::delete('/projects/destroy/{id}','AdminController@destroyProject')->name('admin.projects.destroy');
     Route::get('/pj_details/{id}','AdminController@show_project_details');
@@ -44,7 +44,7 @@ Route::prefix('admin')->group(function() {
     Route::delete('/users/destroy/{id}', 'AdminController@userDelete')->name('admin.users.destroy');
     Route::delete('/bugs/destroy/{id}','AdminController@bugDelete')->name('admin.bugs.destroy');
     Route::post('/user_reg','AdminController@register_user')->name('admin.users.create');
-    Route::post('/projects/edit','AdminController@editProject');
+    Route::put('/projects/{id}','AdminController@editProject')->name('admin.projects.update');
 });
 
 Route::middleware(['auth'])->group(function () {
