@@ -57,7 +57,6 @@ php
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <!--TODO : fix Update Comment-->
                                                                 <form action="{{route('comments.update',$comment->id)}}" method="POST">
                                                                         {{csrf_field()}}
                                                                     <input type="hidden" name="_method" value="put">

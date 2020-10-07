@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="{{asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css') }}">
+
+    <!-- DataTable Css -->
+    <link rel="stylesheet" href="{{asset('dist/css/jquery.datatables.css')}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -279,7 +282,8 @@
 <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.js') }}"></script>
-
+<!-- DataTables -->
+<script src="{{asset('dist/js/jquery.datatables.js')}}"></script>
 <!-- OPTIONAL SCRIPTS -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>
 

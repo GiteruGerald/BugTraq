@@ -59,7 +59,7 @@
                     <a href="#" class="dropdown-item">
                         <!-- Message Start -->
                         <div class="media">
-                            <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                            <img src="../../../public/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
                             <div class="media-body">
                                 <h3 class="dropdown-item-title">
                                     Brad Diesel
@@ -170,8 +170,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{url('home')}}" class="brand-link">
-            <img src="../../../public/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                 style="opacity: .8">
+            <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
             <span class="brand-text font-weight-light">BUG-TRAQ</span>
         </a>
 
@@ -356,7 +355,7 @@
 <!-- overlayScrollbars -->
 <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
-<script src="{{ asset('dist/js/adminlte.js') }}"></script>
+<script src="{{ asset('../dist/js/adminlte.js') }}"></script>
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>

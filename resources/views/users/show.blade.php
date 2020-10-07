@@ -94,7 +94,7 @@
                                 <div class="col-md-4 px-8">
                                     <div class="form-group">
                                         <label>Issues </label>
-                                        <input type="number" class="form-control" disabled="" placeholder="Issues">
+                                        <input type="number" class="form-control" disabled="" placeholder="2">
                                     </div>
                                 </div>
                             </div>

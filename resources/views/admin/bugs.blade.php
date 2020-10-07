@@ -9,7 +9,7 @@
     <div class="content-wrapper">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card" style="margin: 2rem">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-9">
@@ -17,17 +17,16 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table" id="bg_table">
                                     <thead class=" text-primary">
+                                    <th></th>
                                     <th>
-                                        Id
+                                        Bug Title
                                     </th>
                                     <th>
                                         Priority
                                     </th>
-                                    <th>
-                                        Bug Title
-                                    </th>
+
 
                                     <th>
                                         Created
@@ -50,11 +49,12 @@
                                     </th>
                                     </thead>
                                     <tbody>
-                                    @foreach($bugs as $bug)
+                                    @foreach($bugs as $indexKey => $bug)
                                         <tr>
-                                            <td>{{$bug->id}}></td>
-                                            <td>{{$bug->priority}}</td>
+                                            <td><b>{{$indexKey+1}}.</b></td>
                                             <td>{{$bug->title}}</td>
+                                            <td>{{$bug->priority}}</td>
+
                                             <td>{{$bug->created_at}}</td>
                                             <td>{{$bug->reporter}}</td>
                                             <td>{{$bug->assigned}}</td>
@@ -68,7 +68,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-                                {!! $bugs->links() !!}
+
 
                             </div>
                         </div>
@@ -81,5 +81,13 @@
 @endsection
 
 @section('scripts')
-
+    <script>
+        $(document).ready( function () {
+           $('#bg_table').DataTable({
+               "lengthMenu":[[5,10,15,20,-1],[5,10,15,20,"All"]],
+               "searching":      true,
+               "ordering":       true,
+           });
+        });
+    </script>
 @endsection

@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <div class="card" style="margin: 3rem;">
                     <div class="card-header">
-                        <h3 class="title">Delete {{ $user->name }}'s Details</h3>
+                        <h3 class="title">Delete {{ $user->name }}'s Profile</h3>
                     </div>
                     <div class="card-body">
                         <form method="post" action="{{route('admin.users.destroy', $user->id)}}" >
@@ -40,7 +40,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--TODO : Try adding change password in User Mode-->
 
                             <div class="row">
                                 <div class="col-md-5 px-3">

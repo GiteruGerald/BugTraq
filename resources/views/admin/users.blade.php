@@ -22,7 +22,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table id="user_table" class="table">
                                 <thead class=" text-primary">
                                 <th>
 
@@ -50,9 +50,9 @@
                                 </th>
                                 </thead>
                                 <tbody>
-                                @foreach($users as $user)
+                                @foreach($users as $indexKey => $user)
                                     <tr>
-                                        <td><b>{{++$i}}</b></td>
+                                        <td><b>{{$indexKey+1}}.</b></td>
                                         <td>{{$user->name.' '.$user->lastname}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->emp_id}}</td>
@@ -66,7 +66,6 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            {!! $users->links() !!}
                         </div>
                     </div>
                 </div>
@@ -271,5 +270,9 @@
 @endsection
 
 @section('scripts')
-
+    <script>
+        $(document).ready( function () {
+           $('#user_table').DataTable();
+        });
+    </script>
 @endsection

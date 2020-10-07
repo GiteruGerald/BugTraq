@@ -46,17 +46,15 @@ class AdminController extends Controller
 
     public function showbugs(){
         if(Auth::guard('admin')){
-            $bugs = Bug::latest()->paginate(10);
-            return view('admin.bugs',['bugs'=> $bugs])
-                ->with('i', (request()->input('page',1)-1)*4);
+            $bugs = Bug::all();
+            return view('admin.bugs',['bugs'=> $bugs]);
         }
     }
 
     public function showusers(){
         if(Auth::guard('admin')){
-            $users = User::latest()->paginate(4);
-            return view ('admin.users',['users'=> $users])
-                ->with('i', (request()->input('page',1)-1)*4);
+            $users = User::all();
+            return view ('admin.users',['users'=> $users]);
 
         }
     }
@@ -79,8 +77,8 @@ class AdminController extends Controller
             'phone_no' => 'required|string|max:13|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
-        //dd($data);
-        if($data = false){
+//        dd($data);
+        if($data == false){
             return back()->withInput()->with('errors',"New User could not be registered");
         }
         else {
@@ -95,9 +93,9 @@ class AdminController extends Controller
                 'password' => bcrypt($data['password']),
             ]);
 
-            $users = User::latest()->paginate(5);
+            $users = User::all();
             return view('admin.users', ['users' => $users])
-                ->with('i', (request()->input('page', 1) - 1) * 5);
+                ->with('success',"User created successfully");
         }
     }
 

@@ -20,7 +20,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table id="pj_table" class="table">
                                 <thead class=" text-primary">
                                 <th>
 
@@ -48,7 +48,7 @@
                                 <tbody>
                                 @foreach($projects as $indexKey => $project)
                                     <tr class="item{{$project->id}}">
-                                        <td class="col1"><b>{{$indexKey+1}}.</b></td>
+                                        <td class="col1"><b>{{$indexKey +1}}.</b></td>
                                         <td>{{$project->pj_name}}</td>
                                         <td>{{$project->pj_type}}</td>
                                         <td>{{count($project->bugs->toArray())}}</td>
@@ -203,6 +203,16 @@
 
 @section('scripts')
     <script>
+        $(document).ready( function () {
+            $('#pj_table').DataTable({
+                "lengthMenu":[[5,10,15,20,-1],[5,10,15,20,"All"]],
+                "scrollY":       false,
+                "scrollCollapse": true,
+                "paging":         true,
+                "searching":      true,
+                "ordering":       true,
+            });
+        });
         //TODO: Show function  Under review
         $(document).on('click', '.show-modal', function () {
             $('.modal-title').text('Project Details');
