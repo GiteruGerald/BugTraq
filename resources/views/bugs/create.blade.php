@@ -9,7 +9,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-9">
-                                <h4 class="card-title">Report New Bug for <strong><span class="highlight primary">{{$projects->pj_name}}</span></strong></h4>
+                                <h4 class="card-title">Report New Bug for: <strong><span class="highlight primary">{{$projects->pj_name}}</span></strong></h4>
                             </div>
                         </div>
                     </div>
@@ -93,11 +93,20 @@
                                 </div>
                                 </div>
                                         <!--TODO : add attachment section -->
+
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="form-group">
                                             <label>Bug Description</label>
                                             <textarea class="form-control" rows="2" name="description" placeholder="Enter ... " required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <label for="comment-attach">Attachmenst(Docs/Photos)</label>
+                                            <input type="file" style="resize: vertical" name="attachment" class="form-control" multiple>
                                         </div>
                                     </div>
                                 </div>

@@ -132,6 +132,7 @@
                     $('#dynamic_data').html('');
 
                     $.each(res, function (index, value) {
+                        var bugUrl = '/bugs/'+value.id;
                        tableRow =  '<tr>' +
                            '<td>'+ value.id +'</td>' +
                            '<td>'+ value.priority +'</td>' +
@@ -141,7 +142,7 @@
                            '<td>'+ value.assigned+'</td>' +
                            '<td>'+ value.due_date+'</td>' +
                            '<td>'+ value.status+'</td>' +
-
+                           '<td><a class="btn btn-sm btn-success" href="'+bugUrl+'" style="color:white">Show</a> </td>' +
 
 
                            '</tr>';

@@ -52,9 +52,11 @@ class CommentsController extends Controller
             if($request->hasFile('attachment')){
 
                 $file = $request->file('attachment');
-                $input['file'] = rand() . '.' . $file->getClientOriginalExtension();
 
-                //dd($input['file']);
+//                $input['file'] = rand() . '.' . $file->getClientOriginalExtension();
+                $input['file'] =  $file->getClientOriginalName();
+
+//                dd($input['file']);
                 $destinationPath = public_path('uploads/attachments');
                 $file->move($destinationPath, $input['file']);
                 $comment = Comment::where('body',$request->input('body'))
@@ -98,6 +100,8 @@ class CommentsController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
+        //$comment = Comment::find($comment->id);
+
         $commentUpdate = Comment::find($comment->id)
             ->update([
                 'body'=>$request->input('body'),
@@ -124,11 +128,12 @@ class CommentsController extends Controller
 //        dd($findComment);
 
         if ($findComment->delete()){
-            return redirect()->to('/bugs/'.$comment->commentable_id)
-                ->with('success',"Comment successfully deleted");
+//            return redirect()->to('/bugs/'.$comment->commentable_id)
+//                ->with('success',"Comment successfully deleted");
+            return 1;
         }else{
-
+            return 3;
         }
-        return back()->with('errors',"Error removing comment");
+//        return back()->with('errors',"Error removing comment");
     }
 }
