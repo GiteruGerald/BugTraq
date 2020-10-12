@@ -37,7 +37,7 @@
                                             @else
                                                 <p><b>Attachments :</b>
 
-                                                    <a href="../../uploads/attachments/{{$comment->attachments}}" class="link-black text-sm"><i class="fas fa-link mr-1"></i>{{$comment->attachments}}</a>
+                                                    <a href="../../uploads/attachments/{{$comment->attachments}}" target="_blank" class="link-black text-sm"><i class="fas fa-link mr-1"></i>{{$comment->attachments}}</a>
                                                     <img class="img-fluid" src="../../uploads/attachments/{{$comment->attachments}}" alt="..." l style="height:150px;width:250px" onmouseover="bigImg(this)" onmouseout="normalImg(this)">
 
                                                     {{--<ul>--}}

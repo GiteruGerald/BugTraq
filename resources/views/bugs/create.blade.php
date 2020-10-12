@@ -106,7 +106,7 @@
                                     <div class="col-8">
                                         <div class="form-group">
                                             <label for="comment-attach">Attachmenst(Docs/Photos)</label>
-                                            <input type="file" style="resize: vertical" name="attachment" class="form-control" multiple>
+                                            <input type="file" style="resize: vertical" name="attachments[]" class="form-control" multiple>
                                         </div>
                                     </div>
                                 </div>

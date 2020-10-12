@@ -27,3 +27,26 @@
 img.img-fluid{
     cursor: pointer;
 }
+#custom_btn{
+    margin-top: 4px;
+    padding: 5px;
+    color: white;
+    background-color:#007bff;
+    border: 1px solid #000;
+    border-radius: 2px;
+    cursor: pointer;
+}
+#custom_btn:hover{
+    background-color: #343a40;
+}
+#custom_text{
+    /*font-family: sans-serif;*/
+    color: #000;
+}
+#upload_save{
+    padding: 5px;
+    color: white;
+    background-color: #ff18d7;
+    border-radius: 2px;
+    cursor: pointer;
+}

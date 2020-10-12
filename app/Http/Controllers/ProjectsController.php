@@ -189,7 +189,7 @@ class ProjectsController extends Controller
         $findProject = Project::find( $project->id);
 
         if($findProject->bugs()->count()){
-            return back()->with('success',".$project->pj_name.".' cannot be deleted, has bug records');
+            return back()->with('errors',"$project->pj_name.".' cannot be deleted, has bug records');
         }
 
             if($findProject ->delete()){
@@ -219,7 +219,7 @@ class ProjectsController extends Controller
             if($projectUser){
                 //if user already exists
                 return redirect()->route('projects.show',['project'=>$project->id,'testers'=> $testers])
-                    ->with('success',$request->input('email').' is already a member of this project');
+                    ->with('errors',$request->input('email').' is already a member of this project');
             }
 
             if($tester && $project){
@@ -230,6 +230,6 @@ class ProjectsController extends Controller
 
         }
         return redirect()->route('projects.show',['project'=>$project->id,'testers'=> $testers])
-            ->with('success','Error adding user to project');
+            ->with('errors','Error adding user to project');
     }
 }

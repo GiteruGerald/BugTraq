@@ -182,7 +182,6 @@
                                             <div class="col-12">
                                                 <form method ="post" action="{{route('comments.store')}}" enctype="multipart/form-data">
                                                     {{csrf_field()}}
-<!-- TODO: Validate if not empty -->
                                                     <input type="hidden" name="commentable_type" value="App\Bug">
                                                     <input type="hidden" name="commentable_id" value="{{$bug->id}}">
 
@@ -235,7 +234,9 @@
                 <div class="sidebar-module sidebar-module-inset">
                     <div class="sidebar-module">
 
-                        <h4>Actions</h4>
+                        <h4><i class="fas fa-cogs"></i> Actions</h4>
+                        <ul>
+
                         <br class="list-unstyled">
                         @if(Auth::user()->user_group =='Manager')
                             <li><a href="#edit-bug" data-toggle="modal"><i class="fas fa-edit"></i>Edit</a></li>
@@ -261,10 +262,23 @@
                         @else
                             <li><a href="{{url('reports/pdfexport/'.$bug->id)}}"><i class="fas fa-print"></i>Print Bug details </a></li>
                         @endif
-                            <li><i class="fas fa-paperclip"></i> Attachments</li>
 
                         <br/>
+                        </ul>
+                        <h4><i class="fas fa-paperclip"></i> Attachments</h4>
+                        <ol class="list-unstyled">
+                            @foreach($bug->bug_attachments as $att)
+                                <li><i class="fas fa-thumb-tack"></i> <a href="../../uploads/attachments/{{$att->att_name}}" target="_blank">{{$att->att_name}}</a> </li>
+                            @endforeach
                         </ol>
+                        <form method="post" action="{{route('bug_attachment.add')}}" enctype="multipart/form-data">
+                            {{csrf_field() }}
+                            <input type="hidden" class="form-control" name="bug_id" value="{{$bug->id}}">
+                            <input type="file" name="attachments[]" id="real_file" hidden="hidden"  multiple>
+                                    <span id="custom_text">Add attachments</span>
+                                <button type="button" id="custom_btn"><i class="fas fa-plus"></i> </button>
+                                <button type="submit" id="upload_save">Save </button>
+                         </form>
 
                     </div>
 
@@ -370,7 +384,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--TODO : add attachment section -->
                         <div class="row">
                             <div class="col-8">
                                 <div class="form-group">
@@ -448,6 +461,31 @@
         })
     </script>
 
+    <!--Custom Input file Button -->
+    <script>
+        const realInputBtn = document.getElementById("real_file");
+        const customBtn = document.getElementById("custom_btn");
+        const customTxt = document.getElementById("custom_text");
+
+        customBtn.addEventListener('click',function () {
+           realInputBtn.click();
+        });
+        realInputBtn.addEventListener('change',function () {
+            if (realInputBtn.value){
+               if(realInputBtn.files.length > '1'){
+                    customTxt.innerHTML= realInputBtn.files.length+" files chosen";
+
+                }else{
+                   customTxt.innerHTML = realInputBtn.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+
+               }
+
+            }else{
+                customTxt.innerHTML="Add attachment";
+            }
+        });
+    </script>
+    <!--Delete Comment thru Ajax -->
     <script>
 
 

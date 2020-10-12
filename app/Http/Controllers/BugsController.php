@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bug;
+use App\BugAttachment;
 use App\Project;
 use App\User;
 use App\Charts\BugChart;
@@ -179,12 +180,43 @@ class BugsController extends Controller
 
         return json_encode($bugs);
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Bug  $bug
-     * @return \Illuminate\Http\Response
-     */
+
+    public function attachmentUpload(Request $request){
+        $this->validate($request,[
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+        $devs = User::where('user_group','Developer')->get();
+        $bug = Bug::find($request->input('bug_id'));
+        $comments = $bug->comments;
+
+        if ($request->hasFile('attachments')){
+
+                foreach ($request->attachments as $file){
+                    $filename = $file->getClientOriginalName();
+                    //print_r($filename);
+
+                    $destinationPath = public_path('uploads/attachments');
+                    $file->move($destinationPath, $filename);
+
+                    $attAdded = BugAttachment::create([
+                        'att_name'=>$filename,
+                        'bug_id'=>$request->input('bug_id')
+                    ]);
+
+
+                }
+            if ($attAdded){
+                // return view('bugs.show',compact('devs','bug','comments'));
+
+                return redirect()->to('/bugs/'.$bug->id)
+                    ->with('success','Attachments added successfully');
+            }
+            }
+        return back()->with('errors','Error adding attachments');
+
+    }
+
+
     public function destroy(Bug $bug)
     {
         //

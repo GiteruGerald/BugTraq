@@ -13,6 +13,7 @@ class Bug extends Model
         'title',
         'description',
         'reporter',
+        'att_id',
         'project_id',
         'assigned',
         'type',
@@ -37,4 +38,7 @@ class Bug extends Model
         return $this->morphMany('App\Comment','commentable');
     }
 
+    public function bug_attachments(){
+        return $this->hasMany('App\BugAttachment');
+    }
 }

@@ -6,6 +6,7 @@ use App\Comment;
 use Faker\Provider\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Validator;
 
 class CommentsController extends Controller
 {
@@ -40,6 +41,15 @@ class CommentsController extends Controller
         //
 //TODO : Insert multipe images using foreach && able to add documents too
         if(Auth::check()) {
+            $this->validate($request,[
+                'body'=>'required|string',
+                'attachment' => 'mimes:jpeg,png,jpg,mpeg,ogg,mp4,webm,3gp,mov,flv,avi,wmv,ts|max:12000'
+            ],[
+                'body.required' => 'Please fill the comment field before posting comment'
+            ]);
+
+
+
             $comment = Comment::create([
                 'body'=>$request->input('body'),
                 'url'=>$request->input('url'),
