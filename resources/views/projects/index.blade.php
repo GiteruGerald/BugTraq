@@ -160,10 +160,21 @@
                     $('#dynamic_data').html('');
 
                     $.each(res, function (index, value) {
-                       tableRow = '<tr><td>'+value.pj_name+'</td>' +
+                        var pjUrl = '/projects/'+value.id;
+                        var pjEditUrl = '/projects/'+value.id+'/edit';
+
+
+                        tableRow = '<tr>' +
+                            '<td>'+value.pj_name+'</td>' +
                            '<td>'+value.pj_type+'</td>' +
                            '<td>'+value.bugs+'</td>' +
                            '<td class="text-right">'+value.created_at+'</td>' +
+                               //TODO: check this function
+                            '<td>' +
+                                '<a class="btn btn-sm btn-success" href="'+pjUrl+'" style="color:white">Show</a>' +
+                                '<a class="btn btn-sm btn-warning" href="'+pjEditUrl+'">Edit</a>' +
+
+                            ' </td>' +
 
                            '</tr>';
 

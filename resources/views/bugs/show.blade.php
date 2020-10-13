@@ -355,7 +355,7 @@
                             <div class="col-1"></div>
                             <div class="col-5">
                                 <div class="form-group">
-                                    <label>Due Date:</label>
+                                    <label>Extend Due Date:</label>
 
                                     <div class="input-group">
                                         <input type="date" name="due_date" value="{{$bug->due_date}}" class="form-control float-right" id="reservation" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask required>
