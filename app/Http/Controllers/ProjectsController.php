@@ -168,12 +168,35 @@ class ProjectsController extends Controller
 
     public function search_projects(Request $request)
     {
+        if (Auth::user()->user_group=='Manager') {
 
-        $projects = Project::where('pj_name','like','%'. $request->get('Query').'%')
-                        ->where('owner', Auth::user()->name.' '.Auth::user()->lastname)
-                        ->get();
+            $projects = Project::where('pj_name', 'like', '%' . $request->get('Query') . '%')
+                ->where('owner', Auth::user()->name . ' ' . Auth::user()->lastname)
+                ->get();
+            foreach ($projects as $project) {
+                $cnt = $project->bugs()->count();
+                return json_encode(array($projects, $cnt));
 
-        return json_encode($projects);
+            }
+
+        }elseif(Auth::user()->user_group=='Test Engineer'){
+            $projects = DB::table('project_user')
+                ->join('projects','projects.id','project_user.project_id')
+                ->where('pj_name','like','%'. $request->get('Query').'%')
+                ->where('project_user.user_id',Auth::user()->id )
+                ->get();
+
+            return json_encode($projects);
+        }elseif (Auth::user()->user_group == 'Developer'){
+            $projects = DB::table('bugs')
+                ->join('projects','projects.id','bugs.project_id')
+                ->where('pj_name','like','%'. $request->get('Query').'%')
+                ->where('bugs.assigned',Auth::user()->name.' '.Auth::user()->lastname)
+                ->get();
+
+            return json_encode($projects);
+
+        }
     }
 
     /**

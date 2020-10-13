@@ -61,7 +61,7 @@
                                 <div class="col-md-3">
                                     <form class="form-inline ml-3">
                                         <div class="input-group input-group-sm">
-                                            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                                            <input class="form-control form-control-navbar" type="search" id="search_project"   placeholder="Search" aria-label="Search">
                                             <div class="input-group-append">
                                                 <button class="btn btn-navbar" type="submit">
                                                     <i class="fas fa-search"></i>
@@ -160,15 +160,15 @@
                     $('#dynamic_data').html('');
 
                     $.each(res, function (index, value) {
-                        var pjUrl = '/projects/'+value.id;
-                        var pjEditUrl = '/projects/'+value.id+'/edit';
 
+                        var pjUrl = '/projects/'+value[0].id;
+                        var pjEditUrl = '/projects/'+ value[0].id +'/edit';
 
                         tableRow = '<tr>' +
-                            '<td>'+value.pj_name+'</td>' +
-                           '<td>'+value.pj_type+'</td>' +
-                           '<td>'+value.bugs+'</td>' +
-                           '<td class="text-right">'+value.created_at+'</td>' +
+                            '<td>'+value[0].pj_name+'</td>' +
+                           '<td>'+value[0].pj_type+'</td>' +
+                           '<td>'+res[1]+'</td>' +
+                           '<td class="text-right">'+value[0].created_at+'</td>' +
                                //TODO: check this function
                             '<td>' +
                                 '<a class="btn btn-sm btn-success" href="'+pjUrl+'" style="color:white">Show</a>' +
@@ -177,6 +177,45 @@
                             ' </td>' +
 
                            '</tr>';
+
+                        $('#dynamic_data').append(tableRow);
+
+                    });
+                }
+            });
+        });
+        $('body').on('keyup','#search_project', function () {
+            var Query = $(this).val();
+            //console.log(Query)
+            $.ajax({
+                method: "POST",
+                url: '{{ route('search_projects') }}',
+                dataType: 'json',
+                data: {
+                    '_token' : '{{ csrf_token() }}',
+                    Query : Query
+                },
+                success: function (res) {
+                    var tableRow = '';
+
+                    $('#dynamic_data').html('');
+
+                    $.each(res, function (index, value) {
+
+                        var pjUrl = '/projects/'+value.id;
+
+                        tableRow = '<tr>' +
+                            '<td>'+value.pj_name+'</td>' +
+                            '<td>'+value.pj_type+'</td>' +
+                            '<td>'+value.owner+'</td>' +
+                            '<td class="text-right">'+value.created_at+'</td>' +
+                            //TODO: check this function
+                            '<td>' +
+                            '<a class="btn btn-sm btn-success" href="'+pjUrl+'" style="color:white">Show</a>' +
+
+                            ' </td>' +
+
+                            '</tr>';
 
                         $('#dynamic_data').append(tableRow);
 
