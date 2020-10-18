@@ -39,7 +39,6 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         //
-//TODO : Insert multipe images using foreach && able to add documents too
         if(Auth::check()) {
             $this->validate($request,[
                 'body'=>'required|string',

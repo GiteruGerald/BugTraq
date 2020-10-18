@@ -217,23 +217,31 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item" >
+                        <a href="{{url('calendar')}}" class="nav-link">
+                            <i class="nav-icon fas fa-calendar-alt"></i>
+                            <p>
+                                My Timesheet
+                            </p>
+                        </a>
+                    </li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-copy"></i>
                             <p>
-                                Reports
+                                Reports & Analysis
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav.html" class="nav-link">
+                                <a href="{{url('project_reports')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Project Reports</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                                <a href="{{url('bug_reports')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Bug Reports</p>
                                 </a>

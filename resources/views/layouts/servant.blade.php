@@ -43,7 +43,6 @@
                     </a>
                 </li>
                 <li>
-                    <!--TODO:change these routes and Icon logos-->
                     <a href="{{url('projects')}}">
                         <i class="now-ui-icons education_atom"></i>
                         <p>Projects</p>

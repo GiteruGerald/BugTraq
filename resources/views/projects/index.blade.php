@@ -169,7 +169,7 @@
                            '<td>'+value[0].pj_type+'</td>' +
                            '<td>'+res[1]+'</td>' +
                            '<td class="text-right">'+value[0].created_at+'</td>' +
-                               //TODO: check this function
+
                             '<td>' +
                                 '<a class="btn btn-sm btn-success" href="'+pjUrl+'" style="color:white">Show</a>' +
                                 '<a class="btn btn-sm btn-warning" href="'+pjEditUrl+'">Edit</a>' +
@@ -209,7 +209,6 @@
                             '<td>'+value.pj_type+'</td>' +
                             '<td>'+value.owner+'</td>' +
                             '<td class="text-right">'+value.created_at+'</td>' +
-                            //TODO: check this function
                             '<td>' +
                             '<a class="btn btn-sm btn-success" href="'+pjUrl+'" style="color:white">Show</a>' +
 

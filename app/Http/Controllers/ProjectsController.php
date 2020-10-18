@@ -24,7 +24,9 @@ class ProjectsController extends Controller
         $pjID =DB::table('projects')->pluck('id');
         if (Auth::user()->user_group=='Manager') {
         //to pick projects by a certain user
-            $projects = Project::where('owner', Auth::user()->name.' '.Auth::user()->lastname)->get();
+//            $projects = Project::where('owner', Auth::user()->name.' '.Auth::user()->lastname)->get();
+            $projects = Project::where('user_id', Auth::user()->id)->get();
+
             $bugcount = Bug::where('project_id',$pjID)->count();
             //to view all projects
                 //$projects = Project::all();
@@ -146,13 +148,12 @@ class ProjectsController extends Controller
     {
         //
         $testers = DB::table('users')->where('user_group','Test Engineer')->get();
-        //TODO - how to update user id of manager too
-        //TODO - perform error checking
+
         //TODO - add sweet alerts
         $projectUpdate = Project::where('id',$project->id)
            ->update([
                'pj_name'=> $request->input('title'),
-               'owner'=> $request->input('owner'),
+//               'owner'=> $request->input('owner'),
                'pj_description' => $request-> input('pj_description')
 
            ]);
@@ -171,7 +172,7 @@ class ProjectsController extends Controller
         if (Auth::user()->user_group=='Manager') {
 
             $projects = Project::where('pj_name', 'like', '%' . $request->get('Query') . '%')
-                ->where('owner', Auth::user()->name . ' ' . Auth::user()->lastname)
+                ->where('user_id', Auth::user()->id)
                 ->get();
             foreach ($projects as $project) {
                 $cnt = $project->bugs()->count();

@@ -142,7 +142,7 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                         <i class="far fa-user"></i>
-                        {{ Auth::user()->name }} <span class="caret"></span>
+                        {{ Auth::user()->name. ' '.Auth::user()->lastname }} <span class="caret"></span>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-sm-right">
@@ -218,23 +218,31 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item" >
+                        <a href="{{url('calendar')}}" class="nav-link">
+                            <i class="nav-icon fas fa-calendar-alt"></i>
+                            <p>
+                                My Timesheet
+                            </p>
+                        </a>
+                    </li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-copy"></i>
                             <p>
-                                Reports
+                                Reports & Analysis
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav.html" class="nav-link">
+                                <a href="{{url('project_reports')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Project Reports</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                                <a href="{{url('bug_reports')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Bug Reports</p>
                                 </a>
@@ -277,23 +285,23 @@
                                 <div class="col-md-5 px-3">
                                     <div class="form-group">
                                         <label for="project-name">Project Title</label>
-                                        <input type="text" class="form-control" name="title"  value="{{$project->pj_name}}">
+                                        <input type="text" class="form-control" name="title"  value="{{$project->pj_name}}" required>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-5 px-3">
-                                    <div class="form-group">
-                                            <label for="owner">Change Owner</label>
-                                            <select class="form-control" name="owner" required>
-                                                <option value="">...</option>
-                                                @foreach($users as $user)
-                                                    <option value="{{$user->name.' '.$user->lastname}}">{{$user->name.' '.$user->lastname}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                            </div>
+                            {{--<div class="row">--}}
+                                {{--<div class="col-md-5 px-3">--}}
+                                    {{--<div class="form-group">--}}
+                                            {{--<label for="owner">Change Owner</label>--}}
+                                            {{--<select class="form-control" name="owner" required>--}}
+                                                {{--<option value="">...</option>--}}
+                                                {{--@foreach($users as $user)--}}
+                                                    {{--<option value="{{$user->name.' '.$user->lastname}}">{{$user->name.' '.$user->lastname}}</option>--}}
+                                                {{--@endforeach--}}
+                                            {{--</select>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                            {{--</div>--}}
                             <div class="row">
                                 <div class="col-md-6 px-3">
                                     <div class="form-group">

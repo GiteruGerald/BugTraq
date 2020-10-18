@@ -215,7 +215,7 @@
               <p>
                 Projects
               </p>
-                <span class="badge badge-info right">2</span>
+                <span class="badge badge-info right">{{\App\Project::where('user_id', Auth::user()->id)->count()}}</span>
 
             </a>
           </li>
@@ -231,7 +231,7 @@
             <a href="{{url('calendar')}}" class="nav-link">
               <i class="nav-icon fas fa-calendar-alt"></i>
               <p>
-                My Timesheet
+                My Calendar
               </p>
             </a>
           </li>

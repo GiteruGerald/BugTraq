@@ -28,7 +28,7 @@
                              <div class="row">
                                         <div class="col-8">
                                             <div class="form-group">
-                                                <label for="Title">Bug Title</label>
+                                                <label for="Title">Bug Summary</label>
                                                 <input type="text" class="form-control" name="title" placeholder="Enter Title" required>
                                             </div>
                                  </div>
@@ -92,7 +92,6 @@
                                     </div>
                                 </div>
                                 </div>
-                                        <!--TODO : add attachment section -->
 
                                 <div class="row">
                                     <div class="col-8">

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Barryvdh\DomPDF\PDF;
+use PDF;
 use App\Bug;
 use App\Project;
 use App\User;
 use App\Charts\BugChart;
+use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -41,19 +43,13 @@ class ReportsController extends Controller
         return view('reports.projects', ['projects'=>$projects]);
     }
 
-    public function pdf_export(){
-        $bug = Bug::all();
-        $projects = Project::all();
-
-        //To get the chart
-
-
-        $pdf = PDF::loadView('reports.pdf',$bug)->setPaper('a4', 'portrait');
-        $filename = $bug->title;
-
-        return $pdf->stream($filename.'.pdf');
-
-
+    public function bug_export(Request $request){
+//       dd($request->all());
+        $chart = $request->input('chart_data');
+        $data = $request->input('bug_data');
+        $pdf = PDF::loadView('reports/temp',compact('data','chart'));
+//        return $pdf->download('bugs.pdf');
+        return $pdf->stream('bugs.pdf');
     }
 
     public function  pdf(){
@@ -95,8 +91,8 @@ class ReportsController extends Controller
                 <tr>
                      <td>'.$project->pj_name.'</td>
                      <td>'.$project->pj_type.'</td>
-                     {{--TODO : Check this count function huh--}}
-                     <td>Fix This</td>
+//                      Todo: Check this count function huh
+                     <td>'.count($project->bugs->toArray()).'</td>
                      <td>'.$project->owner.'</td>
                      <td class="text-right">'.$project->created_at.'</td>
                    </tr>

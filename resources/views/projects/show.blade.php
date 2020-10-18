@@ -140,7 +140,11 @@
                         <h4>Team Members</h4>
                         <ol class="list-unstyled">
                             @foreach($project->users as $tester)
+                                @if($tester)
                             <li><a href="#">{{$tester->email}}</a> </li>
+                                @else
+                                    <p>No results found</p>
+                                @endif
                             @endforeach
                         </ol>
                     </div>
