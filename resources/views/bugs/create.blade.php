@@ -1,4 +1,6 @@
 @extends('layouts.dashboard')
+@section('title','Bugs')
+
 @section('content')
 
     <div class="content-wrapper">
@@ -101,14 +103,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="form-group">
-                                            <label for="comment-attach">Attachmenst(Docs/Photos)</label>
-                                            <input type="file" style="resize: vertical" name="attachments[]" class="form-control" multiple>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 </div>
 
 

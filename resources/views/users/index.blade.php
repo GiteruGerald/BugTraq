@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    User | BugTraq
+    User Profile
 @endsection
 
 

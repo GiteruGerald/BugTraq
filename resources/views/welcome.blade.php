@@ -13,12 +13,13 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
+                /*background-color: #fff;*/
+                color: #e5f8ff;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
                 height: 100vh;
                 margin: 0;
+                background-image:url({{ asset('dist/img/bg_image.jpg') }});
             }
 
             .full-height {
@@ -50,7 +51,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: #e5f8ff;
                 padding: 0 25px;
                 font-size: 12px;
                 font-weight: 600;
@@ -85,11 +86,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <p>For Quick, Available and Secure tracking</p>
                 </div>
             </div>
         </div>

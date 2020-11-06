@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    User | BugTraq
+    User Profile
 @endsection
 
 
@@ -89,15 +89,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
 
-                                <div class="col-md-4 px-8">
-                                    <div class="form-group">
-                                        <label>Issues </label>
-                                        <input type="number" class="form-control" disabled="" placeholder="2">
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-md-7">
                                     <a class=" btn btn-primary btn-sm" href="/users/{{Auth::user()->id}}/edit">Edit </a>

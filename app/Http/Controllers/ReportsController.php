@@ -22,12 +22,17 @@ class ReportsController extends Controller
             ->select('status', DB::raw('count(*) as total'))
             ->groupBy('status')
             ->pluck('total','status');
-        //return $bug->keys();
+//        return $bug->keys();
 
         //return $bug->values();
         $chart = new BugChart;
         $chart->labels($bug->keys());
-        $chart->dataset('My dataset 1', 'pie', $bug->values());
+
+        $chart->dataset('My dataset 1', 'pie', $bug->values())
+            ->options([
+                'color' => '#c2ab0f',
+                'backgroundColor' => ['#42f56f','#c2ab0f','#007bff','#ff0040','#4e35b5'],
+            ]);
 
         //To retrieve all bugs
         $bugs = Bug::all();
@@ -44,20 +49,36 @@ class ReportsController extends Controller
     }
 
     public function bug_export(Request $request){
+
+        //To get the chart
+        $bug = DB::table('bugs')
+            ->select('status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->pluck('total','status');
+        //return $bug->keys();
+
+        //return $bug->values();
+        $chart = new BugChart;
+        $chart->labels($bug->keys());
+
+        $chart->dataset('My dataset 1', 'pie', $bug->values());
+
+
 //       dd($request->all());
-        $chart = $request->input('chart_data');
+//        $chart = $request->input('chart_data');
         $data = $request->input('bug_data');
         $pdf = PDF::loadView('reports/temp',compact('data','chart'));
 //        return $pdf->download('bugs.pdf');
         return $pdf->stream('bugs.pdf');
     }
 
-    public function  pdf(){
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($this->
-        convert_projects_data_to_html());
+    public function  pdf_bug($id){
+        $bug = Bug::find($id);
+        //dd($bug);
+        $pdf = PDF::loadView('reports/pdf',compact('bug'));
 
-        $pdf->stream();
+
+       return $pdf->stream();
     }
 
     public function convert_projects_data_to_html(){

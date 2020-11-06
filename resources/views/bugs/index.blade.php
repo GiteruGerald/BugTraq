@@ -1,8 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title')
-    Bugs | BugTraq
-@endsection
+@section('title','Bugs')
 
 
 @section('content')

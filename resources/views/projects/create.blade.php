@@ -1,4 +1,6 @@
 @extends('layouts.dashboard')
+@section('title','Projects')
+
 @section('content')
 
     <div class="content-wrapper">

@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Reports | BugTraq
+    Reports
 @endsection
 
 
@@ -18,7 +18,7 @@
                                     <h4 class="card-title">Projects Reports</h4>
                             </div>
                             <div class="col-md-3">
-                                <a class="pull-right btn btn-primary btn-sm" href="#">Export to PDF </a>
+                                <a class="pull-right btn btn-primary btn-sm" href="{{url('dynamic_pdf/pdf')}}">Export to PDF </a>
                             </div>
                         </div>
                         </div>
@@ -57,7 +57,7 @@
                                     <td>{{$project->pj_name}}</td>
                                     <td>{{$project->pj_type}}</td>
                                     {{--TODO : Check this count function huh--}}
-                                    <td>Fix This</td>
+                                    <td> {{count($project->bugs->toArray())}} </td>
                                     <td>{{$project->owner}}</td>
                                     <td class="text-right">{{$project->created_at}}</td>
                                 </tr>

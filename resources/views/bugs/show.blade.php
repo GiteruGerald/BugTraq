@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
-@section('title')
-    Bugs | BugTraq
-@endsection
+
+
+@section('title','Bugs')
 
 @section('content')
 
@@ -15,7 +15,7 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-9">
-                                        <h4 class="card-title"><strong>{{$bug->title}}</strong> :Bug Information</h4>
+                                        <h4 class="card-title">Bug Information:<strong>{{$bug->title}}</strong> :</h4>
 
                                     </div>
                                 </div>
@@ -240,7 +240,7 @@
                         <br class="list-unstyled">
                         @if(Auth::user()->user_group =='Manager')
                             <li><a href="#edit-bug" data-toggle="modal"><i class="fas fa-edit"></i>Edit</a></li>
-                            <li><a href="{{url('reports/pdfexport/'.$bug->id)}}"><i class="fas fa-print"></i>Print Bug details </a></li>
+                            <li><a href="{{url('/bug_details/'.$bug->id),$bug->id}}" target="_blank"><i class="fas fa-print"></i>Print Bug details </a></li>
                             </br>
                             <li><a href="#" onclick="
                             var  result=confirm('You are about to delete this bug, proceed?')
@@ -260,7 +260,7 @@
                                 </form>
                             </li>
                         @else
-                            <li><a href="{{url('reports/pdfexport/'.$bug->id)}}"><i class="fas fa-print"></i>Print Bug details </a></li>
+                            <li><a href="{{url('/bug_details/'.$bug->id)}}" target="_blank"><i class="fas fa-print"></i>Print Bug details </a></li>
                         @endif
 
                         <br/>
@@ -372,11 +372,7 @@
                                         <option value ="{{$bug->status}}">{{$bug->status}}</option>
                                         <option value="In Progress (By Dev)">In Progress (By Dev)</option>
                                         <option value="In Review(By QA)">In Review(By QA)</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Complete">Complete</option>
-                                        <option value="Deferred">Deferred</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Complete">Complete</option>
+                                        <option value="Approved">Approved & Complete</option>
                                         <option value="Deferred">Deferred</option>
                                         <option value="Rejected">Rejected</option>
 

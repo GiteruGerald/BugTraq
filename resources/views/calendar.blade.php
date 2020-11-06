@@ -77,8 +77,49 @@
                 <!-- /.col -->
             </div>
         <!-- /.row -->
-        </div><!-- /.content-wrapper -->
+        <!-- /.content-wrapper -->
     </section>
+
+    </div>
+    {{-- Day Click dialog--}}
+    <div id="dialog">
+        <div id="dialog-body">
+            <form id="dayClick" action="{{route('events.store')}}">
+                {{csrf_field() }}
+                <div class="form-group">
+                    <label>Event Title</label>
+                    <input type="text" class="form-control" name="title" placeholder="Event Title">
+
+                </div>
+                <div class="form-group">
+                    <label>Start Date/Time</label>
+                    <input type="text" class="form-control" name="start" placeholder="Start date & Time">
+
+                </div>
+                <div class="form-group">
+                    <label>End Date/Time</label>
+                    <input type="text" class="form-control" name="end" placeholder="End date & Time">
+
+                </div>
+                <div class="form-group">
+                    <label>All Day</label>
+                    <input type="checkbox" value="1" name="all_day">All Day
+                    <input type="checkbox" value="1" name="all_day">Partial
+
+
+                </div>
+                <div class="form-group">
+                    <label>Background Color</label>
+                    <input type="color" class="form-control" name="bgColor" placeholder="Event Title">
+
+                </div>
+                <div class="form-group">
+                    <label>Text Color</label>
+                    <input type="color" class="form-control" name="textColor" placeholder="Event Title">
+
+                </div>
+            </form>
+        </div>
     </div>
     @endsection
 
@@ -147,11 +188,23 @@
             });
 
             var calendar = new Calendar(calendarEl, {
+                selectable: true,
                 plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid' ],
                 header    : {
-                    left  : 'prev,next today',
+                    left  : 'prev, next, today',
                     center: 'title',
-                    right : 'dayGridMonth,timeGridWeek,timeGridDay'
+                    right : 'dayGridMonth,timeGridWeek,timeGridDay',
+                },
+                dayClick:function(date, jsEvent, view){
+                    alert('Clicked on: ' + date.format());
+                    $('#dialog').dialog({
+                       title:'Add Event',
+                       width:600,
+                        height:700,
+                        modal:true,
+                        show:{effect:'clip',duration:350},
+                        hide:{effect:'clip',duration:250}
+                    });
                 },
                 //Random default events
                 events    : [
@@ -170,7 +223,7 @@
                         borderColor    : '#f39c12' //yellow
                     },
                     {
-                        title          : 'Meeting',
+                        title          : 'Hello User',
                         start          : new Date(y, m, d, 10, 30),
                         allDay         : false,
                         backgroundColor: '#0073b7', //Blue
@@ -209,8 +262,13 @@
                         // if so, remove the element from the "Draggable Events" list
                         info.draggedEl.parentNode.removeChild(info.draggedEl);
                     }
-                }
+                },
+
+
             });
+
+
+
 
             calendar.render();
             // $('#calendar').fullCalendar()

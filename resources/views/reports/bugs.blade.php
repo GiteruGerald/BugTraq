@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Reports | BugTraq
+    Reports
 @endsection
 
 
@@ -21,12 +21,12 @@
                                     <h4 class="card-title">Bugs Reports</h4>
                             </div>
                             <div class="col-md-3">
-                                <a class="pull-right btn btn-primary btn-sm" href="{{url('pdfexport')}}">Export to PDF </a>
+                                {{--<a class="pull-right btn btn-primary btn-sm" href="{{url('pdfexport')}}">Export to PDF </a>--}}
                                 <form action="{{url('bug_pdf_export')}}" method="post" enctype="multipart/form-data">
                                     {{{csrf_field()}}}
                                     <input type="hidden" name="bug_data" id="bugData">
                                     <input type="hidden" name="chart_data" id="chartData">
-                                    <input type="submit" value="Print Chart">
+                                    <input class="pull-right btn btn-primary btn-sm" type="submit" value="Export to PDF">
                                 </form>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                         <table class="table_bugs">
                             <thead class=" text-primary">
                             <th>
-                                Id
+                                #
                             </th>
                             <th>
                                 Priority
@@ -68,9 +68,10 @@
                                     <td colspan="3">No bugs found</td>
                                 </tr>
                             @else
-                            @foreach($bugs as $bug)
+                            @foreach($bugs as $cnt => $bug)
+
                                 <tr>
-                                    <td>{{$bug->id}}></td>
+                                    <td><b>{{$cnt+1}}.</b></td>
                                     <td>{{$bug->priority}}</td>
                                     <td>{{$bug->title}}</td>
                                     <td>{{$bug->created_at}}</td>
