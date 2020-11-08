@@ -94,6 +94,9 @@
                                     Manager
                                 </th>
                                 @endif
+                                <th>
+                                    Status
+                                </th>
                                 <th class="text-right">
                                     Created On
                                 </th>
@@ -118,6 +121,8 @@
                                      @if(Auth::user()->user_group=='Test Engineer' || Auth::user()->user_group=='Developer')
                                         <td>{{$project->owner}}</td>
                                      @endif
+                                        <td>{{$project->status}}</td>
+
                                         <td class="text-right">{{$project->created_at}}</td>
                                         <td>
 
@@ -167,7 +172,9 @@
                             '<td>'+value[0].pj_name+'</td>' +
                            '<td>'+value[0].pj_type+'</td>' +
                            '<td>'+res[1]+'</td>' +
-                           '<td class="text-right">'+value[0].created_at+'</td>' +
+                            '<td>'+value[0].status+'</td>' +
+
+                            '<td class="text-right">'+value[0].created_at+'</td>' +
 
                             '<td>' +
                                 '<a class="btn btn-sm btn-success" href="'+pjUrl+'" style="color:white">Show</a>' +

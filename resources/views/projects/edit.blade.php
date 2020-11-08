@@ -207,14 +207,14 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item" >
-                        <a href="{{url('calendar')}}" class="nav-link">
-                            <i class="nav-icon fas fa-calendar-alt"></i>
-                            <p>
-                                My Timesheet
-                            </p>
-                        </a>
-                    </li>
+                    {{--<li class="nav-item" >--}}
+                        {{--<a href="{{url('calendar')}}" class="nav-link">--}}
+                            {{--<i class="nav-icon fas fa-calendar-alt"></i>--}}
+                            {{--<p>--}}
+                                {{--My Timesheet--}}
+                            {{--</p>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-copy"></i>
@@ -278,19 +278,18 @@
                                     </div>
                                 </div>
                             </div>
-                            {{--<div class="row">--}}
-                                {{--<div class="col-md-5 px-3">--}}
-                                    {{--<div class="form-group">--}}
-                                            {{--<label for="owner">Change Owner</label>--}}
-                                            {{--<select class="form-control" name="owner" required>--}}
-                                                {{--<option value="">...</option>--}}
-                                                {{--@foreach($users as $user)--}}
-                                                    {{--<option value="{{$user->name.' '.$user->lastname}}">{{$user->name.' '.$user->lastname}}</option>--}}
-                                                {{--@endforeach--}}
-                                            {{--</select>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                            {{--</div>--}}
+                            <div class="row">
+                                <div class="col-md-5 px-3">
+                                    <div class="form-group">
+                                            <label for="owner">Project Status</label>
+                                            <select class="form-control" name="status" required>
+                                                <option value="">...</option>
+                                                <option value="Active">Active</option>
+                                                <option value="Completed">Completed</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-6 px-3">
                                     <div class="form-group">

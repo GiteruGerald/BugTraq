@@ -59,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('project_reports','ReportsController@projects');
     Route::post('bug_pdf_export','ReportsController@bug_export');
     Route::get('/bug_details/{id}','ReportsController@pdf_bug');
-    Route::get('/dynamic_pdf/pdf','ReportsController@pdf');
+    Route::get('projects_pdf_export','ReportsController@project_export');
     Route::post('fileUpload',['as' => 'image.add','uses' => 'UsersController@avatarUpload']);
     Route::post('attachmentUpload',['as' =>'bug_attachment.add', 'uses'=>'BugsController@attachmentUpload']);
     Route::post('/projects/search', ['as' => 'search_projects', 'uses' => 'ProjectsController@search_projects']);

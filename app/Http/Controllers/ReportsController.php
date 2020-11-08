@@ -28,7 +28,7 @@ class ReportsController extends Controller
         $chart = new BugChart;
         $chart->labels($bug->keys());
 
-        $chart->dataset('My dataset 1', 'pie', $bug->values())
+        $chart->dataset('Bug Distribution', 'pie', $bug->values())
             ->options([
                 'color' => '#c2ab0f',
                 'backgroundColor' => ['#42f56f','#c2ab0f','#007bff','#ff0040','#4e35b5'],
@@ -81,46 +81,14 @@ class ReportsController extends Controller
        return $pdf->stream();
     }
 
-    public function convert_projects_data_to_html(){
-        $project_data = Project::all();
+    public function project_export(Request $request){
+        $projects = Project::all();
+//        $projects = $request->input('pj_data');
 
-        $output ='
-        <table class="table">
-                            <thead class=" text-primary">
-                            <th>
-                                Name
-                            </th>
+        $pdf = PDF::loadView('reports/temp',compact('projects'));
 
-                            <th>
-                                Type
-                            </th>
-                            <th>
-                                Issues
-                            </th>
-                            <th>
-                                Manager
-                            </th>
-                            <th class="text-right">
-                                Created On
-                            </th>
 
-                            </thead>
-                            <tbody>
-        ';
-        foreach ($project_data as $project){
-            $output .='
-                <tr>
-                     <td>'.$project->pj_name.'</td>
-                     <td>'.$project->pj_type.'</td>
-//                      Todo: Check this count function huh
-                     <td>'.count($project->bugs->toArray()).'</td>
-                     <td>'.$project->owner.'</td>
-                     <td class="text-right">'.$project->created_at.'</td>
-                   </tr>
-            ';
-        }
-        $output .= '</table>';
-        return $output;
+        return $pdf->stream('projects.pdf');
     }
 
 }

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bug Report</title>
+
+    <style type="text/css">
+        * {
+            font-family: Verdana, Arial, sans-serif;
+        }
+        table{
+            font-size: x-small;
+        }
+        tfoot tr td{
+            font-weight: bold;
+            font-size: x-small;
+        }
+        .gray {
+            background-color: lightgray
+        }
+    </style>
+
+</head>
+<body>
+
+<table width="100%">
+    <tr>
+        <td align="left">
+            <h3>BugTraq</h3>
+
+            <pre>
+                 <h2><b>Bug Information:</b> {{$bug->title}}</h2>
+                 <p>{{$bug->description}}</p>
+            </pre>
+        </td>
+    </tr>
+
+</table>
+
+<table width="100%">
+    <tr>
+        <td><strong>Priority:</strong> {{$bug->priority}}</td>
+        <td><strong>Classification: </strong>{{$bug->type}}</td>
+    </tr>
+
+    <tr>
+        <td><strong>Project</strong> {{$bug->projects->pj_name}}</td>
+        <td><strong>Status </strong>{{$bug->status}}</td>
+    </tr>
+
+    <tr>
+        <td><strong>Assigned To:(Dev)</strong> {{$bug->assigned}}</td>
+        <td><strong>Reported by: </strong>{{$bug->reporter}}</td>
+    </tr>
+    <tr>
+        <td><strong>Date Reported</strong> {{$bug->created_at}}</td>
+        <td><strong>Date modified </strong>{{$bug->updated_at}}</td>
+    </tr>
+
+
+</table>
+
+<br/>
+
+<table width="100%">
+    <thead style="background-color: lightgray;">
+    <tr>
+        <th>Project</th>
+        <th>Status</th>
+        <th>Assigned To:(Dev)</th>
+        <th>Reported by:</th>
+        <th>Created </th>
+        <th>Updated </th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{$bug->projects->pj_name}}</td>
+        <td align="right">{{$bug->status}}</td>
+        <td align="right">{{$bug->assigned}}</td>
+        <td align="right">{{$bug->reporter}}</td>
+        <td align="right">{{$bug->created_at}}</td>
+        <td align="right">{{$bug->updated_at}}</td>
+
+    </tr>
+
+    </tbody>
+
+
+</table>
+
+</body>
+</html>

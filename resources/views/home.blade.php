@@ -29,10 +29,19 @@
                               <div class="col-lg-3 col-xs-6">
                                   <div class="small-box bg-gradient-primary">
                                       <div class="inner">
+                                          @if(Auth::user()->user_group == 'Manager')
                                           <h3>{{App\Project::where('user_id', Auth::user()->id)->count()}}</h3>
+                                              <p>Total Projects Created</p>
 
+                                          @elseif(Auth::user()->user_group == 'Test Engineer')
+                                              <h3>{{count($pj_tester->toArray())}}</h3>
                                               <p>Total Projects Assigned</p>
 
+                                              @elseif(Auth::user()->user_group=='Developer')
+                                              <h3>{{count($pj_dev->toArray())}}</h3>
+                                              <p>Total Projects Assigned</p>
+
+                                                @endif
                                       </div>
                                       <div class="icon">
                                           <i class="ion ion-bag"></i>
@@ -44,9 +53,20 @@
                               <div class="col-lg-3 col-xs-6">
                                     <div class="small-box bg-dark">
                                           <div class="inner">
-                                              <h3>{{count(App\Bug::all()->toArray())}}</h3>
+                                              @if(Auth::user()->user_group == 'Manager')
+                                                  <h3>{{count(App\Bug::all()->toArray())}}</h3>
+                                                  <p>Bugs Reported</p>
 
-                                              <p>Bugs Reported</p>
+                                              @elseif(Auth::user()->user_group == 'Test Engineer')
+                                                  <h3>{{App\Bug::where('reporter', Auth::user()->name .' '.Auth::user()->lastname)->count()}}</h3>
+                                                  <p>Bugs Reported</p>
+
+                                              @elseif(Auth::user()->user_group=='Developer')
+                                                  <h3>{{App\Bug::where('assigned',Auth::user()->name.' '.Auth::user()->lastname)->count()}}</h3>
+                                                  <p>Bugs Assigned</p>
+
+                                              @endif
+
 
                                           </div>
                                           <div class="icon">
@@ -64,7 +84,7 @@
                                         <div class="icon">
                                             <i class="ion ion-stats-bars"></i>
                                         </div>
-                                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                        <a href="{{url('project_reports')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
 
                                     </div>
                               </div>
@@ -92,12 +112,12 @@
                                       <div class="card-header">
                                           <h3 class="card-title">
                                               <i class="fas fa-chart-pie mr-1"></i>
-                                              Bug Status Distribution
+                                             Projects Type Distribution
                                           </h3>
 
                                       </div><!-- /.card-header -->
                                       <div class="card-body">
-                                          {!! $chart->container() !!}
+                                          {!! $pj_chart->container() !!}
                                       </div><!-- /.card-body -->
                                   </div>
                               </div>
@@ -111,5 +131,6 @@
 @endsection
 @section('scripts')
     {!! $chart->script() !!}
+    {!! $pj_chart->script() !!}
 
 @endsection

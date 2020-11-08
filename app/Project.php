@@ -13,6 +13,7 @@ class Project extends Model
         'pj_name',
         'pj_type',
         'owner',
+        'status',
         'pj_description',
         'user_id',
     ];

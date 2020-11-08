@@ -15,16 +15,22 @@
                         <div class="row">
                             <div class="col-md-9">
 
-                                    <h4 class="card-title">Projects Reports</h4>
+                                    <h4 class="card-title">Projects Report</h4>
                             </div>
                             <div class="col-md-3">
-                                <a class="pull-right btn btn-primary btn-sm" href="{{url('dynamic_pdf/pdf')}}">Export to PDF </a>
+
+                                <a class="pull-right btn btn-primary btn-sm" href="{{url('projects_pdf_export')}}" target="_blank">Export to PDF </a>
+                                {{--<form action="{{url('projects_pdf_export')}}" method="post" enctype="multipart/form-data">--}}
+                                    {{--{{{csrf_field()}}}--}}
+                                    {{--<input type="hidden" name="pj_data" id="projectsData">--}}
+                                    {{--<input class="pull-right btn btn-primary btn-sm" type="submit" value="Export to PDF">--}}
+                                {{--</form>--}}
                             </div>
                         </div>
                         </div>
 
 
-                <div class="card-body">
+                <div class="card-body projects_tbl">
                     <div class="table-responsive">
                         <table class="table">
                             <thead class=" text-primary">
@@ -75,5 +81,11 @@
 @endsection
 
 @section('scripts')
+    <script>
+        setTimeout(function () {
+            let projectsData = $('.projects_tbl').html();
+            $('#projectsData').val(projectsData);
+        },1000)
+    </script>
 
 @endsection

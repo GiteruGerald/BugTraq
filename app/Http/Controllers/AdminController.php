@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Bug;
 use App\Project;
 use App\User;
+use App\Charts\BugChart;
+use App\Charts\ProjectChart;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -31,7 +33,34 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin');
+        $bug = DB::table('bugs')
+            ->select('status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->pluck('total','status');
+
+        $chart = new BugChart;
+        $chart->labels($bug->keys());
+        $chart->dataset('Bug Distribution', 'pie', $bug->values())
+            ->options([
+                'color' => '#c2ab0f',
+                'backgroundColor' => ['#42f56f','#c2ab0f','#007bff','#ff0040','#4e35b5'],
+            ]);
+        //Project Chart
+        //$projects = Project::all()->toArray();
+        $projects = DB::table('projects')
+            ->select('pj_type', DB::raw('count(*) as total'))
+            ->groupBy('pj_type')
+            ->pluck('total','pj_type');
+
+        $pj_chart = new ProjectChart();
+        // return $projects->values();
+        $pj_chart->labels($projects->keys());
+
+        $pj_chart->dataset('Project Distribution','doughnut',$projects->values())
+            ->options([
+                'backgroundColor' =>['#c2ab0f','#0cdb93']
+            ]);
+        return view('admin',compact('chart','pj_chart'));
     }
 
     public function  showprojects(){

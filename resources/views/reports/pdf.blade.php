@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bug Report</title>
+    <title>BugTraq Reports</title>
 
     <style type="text/css">
         * {
@@ -24,7 +24,7 @@
 
 </head>
 <body>
-
+@isset($bug)
 <table width="100%">
     <tr>
         <td align="left">
@@ -62,7 +62,8 @@
 
 
 </table>
-
-
+    @endisset
+@isset($projects)
+    @endisset
 </body>
 </html>

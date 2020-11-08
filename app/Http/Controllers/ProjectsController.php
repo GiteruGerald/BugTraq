@@ -153,7 +153,7 @@ class ProjectsController extends Controller
         $projectUpdate = Project::where('id',$project->id)
            ->update([
                'pj_name'=> $request->input('title'),
-//               'owner'=> $request->input('owner'),
+               'status'=> $request->input('status'),
                'pj_description' => $request-> input('pj_description')
 
            ]);
@@ -171,9 +171,10 @@ class ProjectsController extends Controller
     {
         if (Auth::user()->user_group=='Manager') {
 
-            $projects = Project::where('pj_name', 'like', '%' . $request->get('Query') . '%')
+            $projects = Project::where('pj_name', 'like', '%' . $request->get('Query').'%')
                 ->where('user_id', Auth::user()->id)
                 ->get();
+            //TODO:Check this loop
             foreach ($projects as $project) {
                 $cnt = $project->bugs()->count();
                 return json_encode(array($projects, $cnt));
