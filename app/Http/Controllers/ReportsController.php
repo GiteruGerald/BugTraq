@@ -6,6 +6,7 @@ use PDF;
 use App\Bug;
 use App\Project;
 use App\User;
+use App\Charts\ProjectChart;
 use App\Charts\BugChart;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,23 @@ class ReportsController extends Controller
 
         $projects = Project::all();
 
-        return view('reports.projects', ['projects'=>$projects]);
+        //Project Chart
+            //$projects = Project::all()->toArray();
+            $project = DB::table('projects')
+                ->select('status', DB::raw('count(*) as total'))
+                ->groupBy('status')
+                ->pluck('total','status');
+
+            $pj_chart = new ProjectChart();
+           // return $projects->values();
+            $pj_chart->labels($project->keys());
+
+            $pj_chart->dataset('Project Distribution','doughnut',$project->values())
+                ->options([
+                    'backgroundColor' =>['#c2ab0f','#0cdb93']
+                ]);
+
+        return view('reports.projects', ['projects'=>$projects,'chart'=>$pj_chart]);
     }
 
     public function bug_export(Request $request){

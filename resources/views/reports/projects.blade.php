@@ -8,6 +8,23 @@
 @section('content')
     <div class="content-wrapper">
 
+        <div class="row ">
+            <div class="col-md-12">
+                <div class="card" style="margin: 2rem;">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-chart-pie mr-1"></i>
+                            Project Type Distribution
+                        </h3>
+                    </div>
+                    <div class="card-body chrt">
+                        {!! $chart->container() !!}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card" style="margin: 2rem;">
@@ -87,5 +104,6 @@
             $('#projectsData').val(projectsData);
         },1000)
     </script>
+    {!! $chart->script() !!}
 
 @endsection

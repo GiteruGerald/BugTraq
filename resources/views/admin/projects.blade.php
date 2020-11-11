@@ -209,7 +209,7 @@
                 "scrollY":       false,
                 "scrollCollapse": true,
                 "paging":         true,
-                "searching":      true,
+                "searching":      false,
                 "ordering":       true,
             });
         });

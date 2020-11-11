@@ -122,6 +122,70 @@
                                   </div>
                               </div>
                           </div>
+                    @if(Auth::user()->user_group=='Manager')
+                          <div class="row">
+                              <div class="card">
+                                  <div class="card-header">
+                                      <h3 class="card-title">Overdue Bugs</h3>
+
+                                      <div class="card-tools">
+                                          <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                              <i class="fas fa-minus"></i></button>
+                                          <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                              <i class="fas fa-times"></i></button>
+                                      </div>
+                                  </div>
+                                  <div class="card-body">
+                                      <table class="table-responsive">
+                                          <thead class=" text-primary">
+                                          <th>
+                                              #
+                                          </th>
+
+                                          <th>
+                                              Bug Title
+                                          </th>
+
+                                          <th>
+                                              Reporter
+                                          </th>
+                                          <th>
+                                              Dev Assigned
+                                          </th>
+                                          <th>
+                                              Due Date
+                                          </th>
+
+                                          <th>
+                                              Status
+                                          </th>
+                                          </thead>
+                                          <tbody>
+                                          @if(count($overdue) < 1)
+                                              <tr>
+                                                  <td colspan="3">No bugs found</td>
+                                              </tr>
+                                          @else
+                                              @foreach($overdue as $cnt => $bug)
+
+                                                  <tr>
+                                                      <td><b>{{$cnt+1}}.</b></td>
+                                                      <td><a href="/bugs/{{$bug->id}}">{{$bug->title}}</a></td>
+                                                      <td>{{$bug->reporter}}</td>
+                                                      <td>{{$bug->assigned}}</td>
+                                                      <td>{{$bug->due_date}}</td>
+                                                      <td>{{$bug->status}}</td>
+                                                  </tr>
+                                              @endforeach
+                                          @endif
+                                          </tbody>
+                                      </table>
+
+                                  </div>
+                                  <!-- /.card-body -->
+                              </div>
+                          </div>
+                        @endif
                       </div>
                  </div>
         </div>

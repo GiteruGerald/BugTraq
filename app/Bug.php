@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -22,6 +23,9 @@ class Bug extends Model
         'status',
     ];
 
+    protected $dates = ['due_date'];
+
+
     public function projects(){
         return $this->hasOne('App\Project','id','project_id');
     }
@@ -40,5 +44,9 @@ class Bug extends Model
 
     public function bug_attachments(){
         return $this->hasMany('App\BugAttachment');
+    }
+
+    public function getDueDateAttribute($value){
+        return Carbon::parse($value)->diffForHumans();
     }
 }

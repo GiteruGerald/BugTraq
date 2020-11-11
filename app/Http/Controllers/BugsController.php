@@ -76,6 +76,9 @@ class BugsController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,[
+           'due_date' => 'date|after:today'
+        ]);
         if(Auth::check()) {
             $bug = Bug::create([
                 'project_id'=>$request->input('project_id'),
@@ -114,6 +117,7 @@ class BugsController extends Controller
 
         $comments = $bug->comments;
 
+
         return view('bugs.show',['bug'=>$bug,'comments'=>$comments,'devs'=>$devs]);
     }
 
@@ -138,6 +142,9 @@ class BugsController extends Controller
     public function update(Request $request, Bug $bug)
     {
         //
+        $this->validate($request,[
+            'due_date' => 'date|after:today'
+        ]);
         $bugUpdate = Bug::where('id',$bug->id)
             ->update([
                 'type'=>$request->input('bug_type'),
@@ -226,7 +233,7 @@ class BugsController extends Controller
         if($findBug ->delete()){
             $comments->delete();
             return redirect()->route('bugs.index')
-                ->with('success',".$findBug->title.".' (bug) deleted successfully');
+                ->with('success',"$findBug->title".' (bug) deleted successfully');
         }
         return back()->withInput()->with('errors','Bug could not be deleted');
     }

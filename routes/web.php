@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,9 +22,19 @@ Route::get('/dash', function () {
 Route::get('/calendar',function (){
     return view('calendar');
 });
+Route::get('/time', function (){
+    // get the current time
+    $current = new Carbon('First Day of November 2020');
+
+// add 30 days to the current time
+    echo $current->toFormattedDateString();
+
+//    $new = new Carbon('First day of November 2020');
+    echo "<br>";
+    echo $past =$current->subMonth()->diffForHumans();
+});
 
 
-//Route::delete('users/{id}',['as' =>'users.destroy','uses'=>'UsersController@destroy']);
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

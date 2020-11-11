@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Charts\ProjectChart;
 use App\Project;
+use App\Bug;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Charts\BugChart;
@@ -39,7 +41,7 @@ class HomeController extends Controller
 
             $chart = new BugChart;
             $chart->labels($bug->keys());
-            $chart->dataset('Bug Distribution', 'pie', $bug->values())
+            $chart->dataset('Bug Distribution', 'polarArea', $bug->values())
                 ->options([
                     'color' => '#c2ab0f',
                     'backgroundColor' => ['#42f56f','#c2ab0f','#007bff','#ff0040','#4e35b5'],
@@ -71,9 +73,14 @@ class HomeController extends Controller
                         ->join('projects','projects.id','bugs.project_id')
                         ->where('bugs.assigned',Auth::user()->name.' '.Auth::user()->lastname)
                         ->get();
+        //To get Overdue bugs
+//        $total = Project::where( 'created_at', '>=', Carbon::now()->firstOfYear())->get()->toArray();
 
-
-        return view('home',compact('chart','pj_chart','pj_tester','pj_dev'));
+        $overdue = Bug::whereDate('due_date','<=',Carbon::now())
+            ->where('status','!=','Approved')
+            ->get();
+//        dd($overdue);
+        return view('home',compact('chart','pj_chart','pj_tester','pj_dev','overdue'));
     }
 
     public function randColors(){
