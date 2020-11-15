@@ -22,24 +22,25 @@ class ProjectsController extends Controller
     {
 
         $pjID =DB::table('projects')->pluck('id');
-       //TODO - define view for developers and Testesr
         if (Auth::user()->user_group=='Manager') {
-        //to pick projects by a certain user
-            $projects = Project::where('owner', Auth::user()->name.' '.Auth::user()->lastname)->get();
+            //to pick projects by a certain user
+//            $projects = Project::where('owner', Auth::user()->name.' '.Auth::user()->lastname)->get();
+            $projects = Project::where('user_id', Auth::user()->id)->get();
+
             $bugcount = Bug::where('project_id',$pjID)->count();
             //to view all projects
-                //$projects = Project::all();
+            //$projects = Project::all();
             return view('projects.index', ['projects' => $projects,'bugCount'=> $bugcount]);
 
         }elseif(Auth::user()->user_group=='Test Engineer'){
             $bugcount = Bug::where('project_id',$pjID)->count();
 
-                $projects = DB::table('project_user')
-                    ->join('projects','projects.id','project_user.project_id')
-                    ->where('project_user.user_id',Auth::user()->id )
-                    ->get();
+            $projects = DB::table('project_user')
+                ->join('projects','projects.id','project_user.project_id')
+                ->where('project_user.user_id',Auth::user()->id )
+                ->get();
 
-                    return view('projects.index', ['projects' => $projects,'bugCount'=> $bugcount]);
+            return view('projects.index', ['projects' => $projects,'bugCount'=> $bugcount]);
 
         }elseif (Auth::user()->user_group == 'Developer'){
             $bugcount = Bug::where('project_id',$pjID)->count();
@@ -65,16 +66,16 @@ class ProjectsController extends Controller
     {
         //Table::select('name','surname')->where('id', 1)->get();
         $users = DB::table('users')->where('user_group', 'Manager')->get();
-       /*Model::where('id', 1)
-            ->pluck('name', 'surname')
-            ->all();*/
-       /*$users = User::where('user_group','Manager')
-            ->pluck('name','lastname')
+        /*Model::where('id', 1)
+             ->pluck('name', 'surname')
              ->all();*/
+        /*$users = User::where('user_group','Manager')
+             ->pluck('name','lastname')
+              ->all();*/
 
 
-       //return($users->name);
-       return view('projects.create',['users' =>$users]);
+        //return($users->name);
+        return view('projects.create',['users' => $users]);
     }
 
     /**
@@ -147,22 +148,57 @@ class ProjectsController extends Controller
     {
         //
         $testers = DB::table('users')->where('user_group','Test Engineer')->get();
-        //TODO - how to update user id of manager too
+
+        //TODO - add sweet alerts
         $projectUpdate = Project::where('id',$project->id)
-           ->update([
-               'pj_name'=> $request->input('title'),
-               'owner'=> $request->input('owner'),
-               'pj_description' => $request-> input('pj_description')
+            ->update([
+                'pj_name'=> $request->input('title'),
+                'status'=> $request->input('status'),
+                'pj_description' => $request-> input('pj_description')
 
-           ]);
-       //if project was edited successfully
-       if($projectUpdate){
-           return redirect()->route('projects.index')
-               ->with('success','Project updated successfully');
-       }
-       //redirect
-       return back()->withInput();
+            ]);
+        //if project was edited successfully
+        if($projectUpdate){
+            return redirect()->route('projects.index')
+                ->with('success','Project updated successfully');
+        }
+        //redirect
+        return back()->withInput();
 
+    }
+
+    public function search_projects(Request $request)
+    {
+        if (Auth::user()->user_group=='Manager') {
+
+            $projects = Project::where('pj_name', 'like', '%' . $request->get('Query').'%')
+                ->where('user_id', Auth::user()->id)
+                ->get();
+            //TODO:Check this loop
+            foreach ($projects as $project) {
+                $cnt = $project->bugs()->count();
+                return json_encode(array($projects, $cnt));
+
+            }
+
+        }elseif(Auth::user()->user_group=='Test Engineer'){
+            $projects = DB::table('project_user')
+                ->join('projects','projects.id','project_user.project_id')
+                ->where('pj_name','like','%'. $request->get('Query').'%')
+                ->where('project_user.user_id',Auth::user()->id )
+                ->get();
+
+            return json_encode($projects);
+        }elseif (Auth::user()->user_group == 'Developer'){
+            $projects = DB::table('bugs')
+                ->join('projects','projects.id','bugs.project_id')
+                ->where('pj_name','like','%'. $request->get('Query').'%')
+                ->where('bugs.assigned',Auth::user()->name.' '.Auth::user()->lastname)
+                ->get();
+
+            return json_encode($projects);
+
+        }
     }
 
     /**
@@ -171,49 +207,54 @@ class ProjectsController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    //TODO: Works so add restrictions and appropriate views so that admin and manager can delete
     public function destroy(Project $project)
     {
         //
+
         $findProject = Project::find( $project->id);
-        //if(Auth::guard('admin')){
-            if($findProject ->delete()){
-                return redirect()->route('projects.index')
-                    ->with('success',".$findProject->pj_name.".' project deleted successfully');
-            }
-            return back()->withInput()->with('errors','Project could not be deleted');
-      //  }
+
+        if($findProject->bugs()->count()){
+            return back()->with('errors',"$project->pj_name.".'project cannot be deleted, has bug records');
+        }
+
+        if($findProject ->delete()){
+            return
+                redirect()->route('projects.index')
+                    // back()
+                    ->with('success',"$findProject->pj_name.".' project deleted successfully');
+        }
+        return back()->withInput()->with('errors','Project could not be deleted');
+
     }
 
     public  function addtester(Request $request){
         //adds tester by manager to project
         //take a project, add a tester to it
-        //TODO ...error adding user, add first
         $testers = DB::table('users')->where('user_group','Test Engineer')->get();
 
         $project =Project::find($request->input('project_id'));
 
         if(Auth::user()->id == $project->user_id){
 
-        $tester = User::where('email',$request->input('email'))->first();
-        //Checks if user is already added to the project
+            $tester = User::where('email',$request->input('email'))->first();
+            //Checks if user is already added to the project
             $projectUser = ProjectUser::where('user_id',$tester->id)
-                                       ->where('project_id',$project->id)
-                                        ->first();
+                ->where('project_id',$project->id)
+                ->first();
             if($projectUser){
                 //if user already exists
                 return redirect()->route('projects.show',['project'=>$project->id,'testers'=> $testers])
-                    ->with('success',$request->input('email').' is already a member of this project');
+                    ->with('errors',$request->input('email').' is already a member of this project');
             }
 
             if($tester && $project){
                 $project->users()->attach($tester->id);// can use toggle instead of attach, to remove user if alrady in DB
-                    return redirect()->route('projects.show',['project'=>$project->id,'testers'=> $testers])
+                return redirect()->route('projects.show',['project'=>$project->id,'testers'=> $testers])
                     ->with('success',$request->input('email').' was added to the project successfully');
             }
 
         }
         return redirect()->route('projects.show',['project'=>$project->id,'testers'=> $testers])
-            ->with('success','Error adding user to project');
+            ->with('errors','Error adding user to project');
     }
 }

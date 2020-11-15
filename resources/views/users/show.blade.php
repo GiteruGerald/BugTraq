@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    User | BugTraq
+    User Profile
 @endsection
 
 
@@ -12,15 +12,14 @@
 
             <div class="col-md-4 px-5">
                 <div class="card card-user" style="margin-top: 3rem">
-                    <div class="image">
-                        <img src="" alt="...">
-                    </div>
+
                     <div class="card-body">
                         <div class="author">
-                            <a href="#">
-                                <img class="avatar border-gray" src="" alt="...">
-                                <h5 class="title">{{Auth::user()->name.' '.Auth::user()->lastname}}</h5>
-                            </a>
+
+                            <img class="profile-user-img img-fluid"  src="../../uploads/avatars/{{Auth::user()->avatar}}" alt="..." style="height: 200px;width: 300px;">
+                            &nbsp;
+                            <p class="font-weight-bold">{{Auth::user()->name.' '.Auth::user()->lastname}}</p>
+
                             <p class="description">
                                 {{Auth::user()->user_group}}
                             </p>
@@ -29,15 +28,25 @@
                     </div>
                     <hr>
                     <div class="button-container">
-                        <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                            <i class="fab fa-twitter"></i>
-                        </button>
-                        <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                            <i class="fab fa-google-plus-g"></i>
-                        </button>
+
+                        <form method="post" action="{{route('image.add')}}" enctype="multipart/form-data">
+                            {{csrf_field() }}
+                                <input type="file" name="image" id="avatar_upload" hidden>
+                                <span id="custom_text">Change Profile Picture</span>
+                                <button type="button" id="custom_btn"><i class="fas fa-recycle"></i> </button>
+                                <button type="submit" id="upload_save">Save </button>
+
+
+                        </form>
+                        {{--<button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">--}}
+                            {{--<i class="fab fa-facebook-f"></i>--}}
+                        {{--</button>--}}
+                        {{--<button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">--}}
+                            {{--<i class="fab fa-twitter"></i>--}}
+                        {{--</button>--}}
+                        {{--<button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">--}}
+                            {{--<i class="fab fa-google-plus-g"></i>--}}
+                        {{--</button>--}}
                     </div>
                 </div>
             </div>
@@ -82,15 +91,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
 
-                                <div class="col-md-4 px-8">
-                                    <div class="form-group">
-                                        <label>Issues </label>
-                                        <input type="number" class="form-control" disabled="" placeholder="Issues">
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-md-7">
                                     <a class=" btn btn-primary btn-sm" href="/users/{{Auth::user()->id}}/edit">Edit </a>
@@ -112,4 +113,21 @@
 
 @section('scripts')
 
+    <script>
+        const realInputBtn = document.getElementById('avatar_upload');
+        const customBtn = document.getElementById('custom_btn');
+        const customTxt = document.getElementById('custom_text');
+
+        customBtn.addEventListener('click',function () {
+            realInputBtn.click();
+        })
+        realInputBtn.addEventListener('change', function () {
+            console.log(realInputBtn.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1]);
+            if (realInputBtn.value) {
+                customTxt.innerHTML = realInputBtn.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1]+" chosen" ;
+            }else{
+                customTxt.innerHTML="Change Profile Picture";
+            }
+        })
+    </script>
 @endsection

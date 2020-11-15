@@ -19,6 +19,8 @@ class CreateProjectsTable extends Migration
             $table->string('pj_type');
             $table->integer('user_id')->unsigned();
             $table->string('owner');
+            $table->string('status')->default('Active');
+
             $table->longText('pj_description')->nullable();
 
             $table->string('issues')->nullable();

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mockery\Tests\React_WritableStreamInterface;
 
 class UsersController extends Controller
 {
@@ -66,7 +68,7 @@ class UsersController extends Controller
         //
         $user = User::find($user->id);
 
-      //  return view('users.edit',['user'=>$user]);
+        //  return view('users.edit',['user'=>$user]);
         return view('users.edit')->with('user', $user);
     }
 
@@ -79,36 +81,51 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //save data
-       /* $projectUpdate = Project::where('id',$project->id)
+        $userUpdate = User::where('id',$user->id)
             ->update([
                 'name'=> $request->input('name'),
-                'description'=> $request->input('description')
+                'lastname'=>$request->input('lastname'),
+                'email'=>$request->input('email'),
+                'phone_no'=>$request->input('phone'),
 
             ]);
-        //if project was created successfully
-        if($projectUpdate){
-            return redirect()->route('projects.show',['project'=>$project->id])
-                ->with('success','Project updated successfully');
+
+
+        //if user was edited successfully
+        if($userUpdate){
+            return redirect()->route('users.show',['user'=>$user->id])
+                ->with('success','User Details updated successfully');
         }
         //redirect
-        return back()->withInput();*/
-
-       $userUpdate = User::where('id',$user->id)
-           ->update([
-               'name'=> $request->input('name'),
-               'email'=>$request->input('email'),
-                'phone_no'=>$request->input('phone')
-           ]);
-       //if user was edited successfully
-       if($userUpdate){
-           return redirect()->route('users.show',['user'=>$user->id])
-               ->with('success','User Details updated successfully');
-       }
-       //redirect
         return back()->withInput();
     }
 
+    public function avatarUpload(Request $request)
+    {
+        $this->validate($request,[
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+        if($request->hasFile('image')) {
+
+            $avatar = $request->file('image');
+            $input['imagename'] = time() . '.' . $avatar->getClientOriginalExtension();
+            //dd($input['imagename']);
+            $destinationPath = public_path('uploads/avatars');
+            $avatar->move($destinationPath, $input['imagename']);
+
+            $imgUpdate = User::where('id', Auth::user()->id)
+                ->update([
+                    'avatar' => $input['imagename']
+                ]);
+
+            if ($imgUpdate) {
+                return redirect()->route('users.show', ['user' => Auth::user()->id])
+                    ->with('success', 'Image profile added successfully');
+            }
+        }elseif($request->file('image') == null){
+            return back();
+        }
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -117,6 +134,6 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+
     }
 }
