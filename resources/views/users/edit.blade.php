@@ -6,7 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     <title>
-        @yield('title')
+        User Profile | BugTraq
     </title>
 
     <!-- Font Awesome Icons -->
@@ -27,113 +27,14 @@
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
             </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
-            </li>
+            <a class="navbar-brand" href="#">User Profile</a>
+
         </ul>
 
-        <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
-            <!-- Messages Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="far fa-comments"></i>
-                    <span class="badge badge-danger navbar-badge">3</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    Brad Diesel
-                                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">Call me whenever you can...</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    John Pierce
-                                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">I got your message bro</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    Nora Silvester
-                                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">The subject goes here</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                </div>
-            </li>
-            <!-- Notifications Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="far fa-bell"></i>
-                    <span class="badge badge-warning navbar-badge">15</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-item dropdown-header">15 Notifications</span>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-envelope mr-2"></i> 4 new messages
-                        <span class="float-right text-muted text-sm">3 mins</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-users mr-2"></i> 8 friend requests
-                        <span class="float-right text-muted text-sm">12 hours</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-file mr-2"></i> 3 new reports
-                        <span class="float-right text-muted text-sm">2 days</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                </div>
-            </li>
+
             <!-- Authentication Links -->
             @guest
                 <li><a href="{{ route('login') }}">Login</a></li>
@@ -142,7 +43,7 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                         <i class="far fa-user"></i>
-                        {{ Auth::user()->name }} <span class="caret"></span>
+                        {{ Auth::user()->name.' '.Auth::user()->lastname }} <span class="caret"></span>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-sm-right">
@@ -170,8 +71,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{url('home')}}" class="brand-link">
-            <img src="../../../public/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                 style="opacity: .8">
+            <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
             <span class="brand-text font-weight-light">BUG-TRAQ</span>
         </a>
 
@@ -180,10 +80,10 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="dist/img/gerry.jpg" class="img-circle elevation-2" alt="User Image">
+                    <img src="../../uploads/avatars/{{Auth::user()->avatar}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Gerry J</a>
+                    <a href="#" class="d-block">{{Auth::user()->name.' '.Auth::user()->lastname}}</a>
                 </div>
             </div>
 
@@ -196,7 +96,7 @@
                         <a href="{{url('/home')}}" class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
-                                Dashboard
+                                Home
                             </p>
                         </a>
                     </li>
@@ -206,7 +106,10 @@
                             <p>
                                 Projects
                             </p>
-                            <span class="badge badge-info right">2</span>
+                            @if(Auth::user()->user_group =='Manager')
+                                <span class="badge badge-info right">{{\App\Project::where('user_id', Auth::user()->id)->count()}}</span>
+
+                            @endif
 
                         </a>
                     </li>
@@ -218,23 +121,31 @@
                             </p>
                         </a>
                     </li>
+                    {{--<li class="nav-item" >--}}
+                    {{--<a href="{{url('calendar')}}" class="nav-link">--}}
+                    {{--<i class="nav-icon fas fa-calendar-alt"></i>--}}
+                    {{--<p>--}}
+                    {{--My Timesheet--}}
+                    {{--</p>--}}
+                    {{--</a>--}}
+                    {{--</li>--}}
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-copy"></i>
                             <p>
-                                Reports
+                                Reports & Analysis
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav.html" class="nav-link">
+                                <a href="{{url('project_reports')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Project Reports</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                                <a href="{{url('bug_reports')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Bug Reports</p>
                                 </a>
@@ -260,59 +171,70 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-                <div class="row">
+    <div class="content-wrapper">
+        <div class="row">
 
-                    <div class="col-md-12">
-                        <div class="card" style="margin: 3rem;">
-                            <div class="card-header">
-                                <h1 class="title">Edit Profile</h1>
-                            </div>
-                            <div class="card-body">
-
-                                    <form method="post" action ="{{route('users.update',[Auth::user()->id])}}">
-                                        {{csrf_field() }}
-                                        <input type="hidden" name="_method" value="put">
-                                            <div class="row">
-                                                <div class="col-md-5 px-3">
-                                                    <div class="form-group">
-                                                        <label for="email">Email address</label>
-                                                        <input type="email" class="form-control" name="email" placeholder="Email" value="{{$user->email}}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <!--TODO : edit this field to first name and last name-->
-                                            <div class="row">
-                                                <div class="col-md-5 px-3">
-                                                    <div class="form-group">
-                                                        <label for="username">Username</label>
-                                                        <input type="tel" class="form-control" name="name" placeholder="Username" value="{{$user->name}}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-5 px-3">
-                                                    <div class="form-group">
-                                                        <label for="phone">Phone No.</label>
-                                                        <input type="tel" class="form-control" name="phone" placeholder="Contact Phone" value="{{$user->phone_no}}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group">
-                                                    <div class="col-md-3 px-3">
-                                                    <input type="submit" class="btn btn-primary btn-sm"
-                                                           value="Save Changes"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                             </form>
-                            </div><!--Card Body-->
-                        </div>
+            <div class="col-md-12">
+                <div class="card" style="margin: 3rem;">
+                    <div class="card-header">
+                        <h3 class="title">Edit {{ $user->name }}'s Details</h3>
                     </div>
+                    <div class="card-body">
 
+                        <form method="post" action ="{{route('users.update',[Auth::user()->id])}}">
+                            {{csrf_field() }}
+                            <input type="hidden" name="_method" value="put">
+                            <div class="row">
+                                <div class="col-md-5 px-3">
+                                    <div class="form-group">
+                                        <label for="email">First Name</label>
+                                        <input type="text" class="form-control" name="name" placeholder="First Name" value="{{$user->name}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-5 px-3">
+                                    <div class="form-group">
+                                        <label for="email">Last Name</label>
+                                        <input type="text" class="form-control" name="lastname" placeholder="Last Name" value="{{$user->lastname}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 px-3">
+                                    <div class="form-group">
+                                        <label for="email">Email address</label>
+                                        <input type="text" class="form-control" name="email" placeholder="Email" value="{{$user->email}}">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--TODO : Try adding change password in User Mode-->
+
+                            <div class="row">
+                                <div class="col-md-5 px-3">
+                                    <div class="form-group">
+                                        <label for="phone">Phone No.</label>
+                                        <input type="tel" class="form-control" name="phone" placeholder="Contact Phone" value="{{$user->phone_no}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-3 px-3">
+                                        <input type="submit" class="btn btn-primary btn-sm"
+                                               value="Save Changes"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div><!--Card Body-->
                 </div>
             </div>
+
+        </div>
+    </div>
+
     <!-- /.content-wrapper -->
 
     <!-- Control Sidebar -->
@@ -334,13 +256,18 @@
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+    });
+</script>
 <script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- overlayScrollbars -->
 <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
-<script src="{{ asset('dist/js/adminlte.js') }}"></script>
+<script src="{{ asset('../dist/js/adminlte.js') }}"></script>
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>

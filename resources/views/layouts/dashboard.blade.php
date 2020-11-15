@@ -6,163 +6,163 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
   <title>
-      @yield('title')
+    @yield('title')
   </title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css') }}">
+  <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/v4-shims.min.css') }}">
+
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!--Lightbox CSS -->
+  <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- fullCalendar -->
+  <link rel="stylesheet" href="{{asset('plugins/fullcalendar/main.min.css') }}">
+  <link rel="stylesheet" href="{{asset('plugins/fullcalendar-daygrid/main.min.css') }}">
+  <link rel="stylesheet" href="{{asset('plugins/fullcalendar-timegrid/main.min.css') }}">
+  <link rel="stylesheet" href="{{asset('plugins/fullcalendar-bootstrap/main.min.css') }}">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
-    </ul>
+    <div class="container-fluid">
 
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+        </li>
+        <a class="navbar-brand" href="#"> @yield('title')</a>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-comments"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  John Pierce
-                  <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">I got your message bro</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Nora Silvester
-                  <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">The subject goes here</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-        </div>
-      </li>
+      </ul>
+
+
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <!-- Messages Dropdown Menu -->
+      {{--<li class="nav-item dropdown">--}}
+      {{--<a class="nav-link" data-toggle="dropdown" href="#">--}}
+      {{--<i class="far fa-comments"></i>--}}
+      {{--<span class="badge badge-danger navbar-badge">3</span>--}}
+      {{--</a>--}}
+      {{--<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">--}}
+      {{--<a href="#" class="dropdown-item">--}}
+      {{--<!-- Message Start -->--}}
+      {{--<div class="media">--}}
+      {{--<img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">--}}
+      {{--<div class="media-body">--}}
+      {{--<h3 class="dropdown-item-title">--}}
+      {{--Brad Diesel--}}
+      {{--<span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>--}}
+      {{--</h3>--}}
+      {{--<p class="text-sm">Call me whenever you can...</p>--}}
+      {{--<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>--}}
+      {{--</div>--}}
+      {{--</div>--}}
+      {{--<!-- Message End -->--}}
+      {{--</a>--}}
+      {{--<div class="dropdown-divider"></div>--}}
+      {{--<a href="#" class="dropdown-item">--}}
+      {{--<!-- Message Start -->--}}
+      {{--<div class="media">--}}
+      {{--<img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">--}}
+      {{--<div class="media-body">--}}
+      {{--<h3 class="dropdown-item-title">--}}
+      {{--John Pierce--}}
+      {{--<span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>--}}
+      {{--</h3>--}}
+      {{--<p class="text-sm">I got your message bro</p>--}}
+      {{--<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>--}}
+      {{--</div>--}}
+      {{--</div>--}}
+      {{--<!-- Message End -->--}}
+      {{--</a>--}}
+      {{--<div class="dropdown-divider"></div>--}}
+      {{--<a href="#" class="dropdown-item">--}}
+      {{--<!-- Message Start -->--}}
+      {{--<div class="media">--}}
+      {{--<img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">--}}
+      {{--<div class="media-body">--}}
+      {{--<h3 class="dropdown-item-title">--}}
+      {{--Nora Silvester--}}
+      {{--<span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>--}}
+      {{--</h3>--}}
+      {{--<p class="text-sm">The subject goes here</p>--}}
+      {{--<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>--}}
+      {{--</div>--}}
+      {{--</div>--}}
+      {{--<!-- Message End -->--}}
+      {{--</a>--}}
+      {{--<div class="dropdown-divider"></div>--}}
+      {{--<a href="#" class="dropdown-item dropdown-footer">See All Messages</a>--}}
+      {{--</div>--}}
+      {{--</li>--}}
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li>
-        <!-- Authentication Links -->
+      {{--<li class="nav-item dropdown">--}}
+      {{--<a class="nav-link" data-toggle="dropdown" href="#">--}}
+      {{--<i class="far fa-bell"></i>--}}
+      {{--<span class="badge badge-warning navbar-badge">15</span>--}}
+      {{--</a>--}}
+      {{--<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">--}}
+      {{--<span class="dropdown-item dropdown-header">15 Notifications</span>--}}
+      {{--<div class="dropdown-divider"></div>--}}
+      {{--<a href="#" class="dropdown-item">--}}
+      {{--<i class="fas fa-envelope mr-2"></i> 4 new messages--}}
+      {{--<span class="float-right text-muted text-sm">3 mins</span>--}}
+      {{--</a>--}}
+      {{--<div class="dropdown-divider"></div>--}}
+      {{--<a href="#" class="dropdown-item">--}}
+      {{--<i class="fas fa-users mr-2"></i> 8 friend requests--}}
+      {{--<span class="float-right text-muted text-sm">12 hours</span>--}}
+      {{--</a>--}}
+      {{--<div class="dropdown-divider"></div>--}}
+      {{--<a href="#" class="dropdown-item">--}}
+      {{--<i class="fas fa-file mr-2"></i> 3 new reports--}}
+      {{--<span class="float-right text-muted text-sm">2 days</span>--}}
+      {{--</a>--}}
+      {{--<div class="dropdown-divider"></div>--}}
+      {{--<a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>--}}
+      {{--</div>--}}
+      {{--</li>--}}
+      <!-- Authentication Links -->
         @guest
-            <li><a href="{{ route('login') }}">Login</a></li>
-            <li><a href="{{ route('register') }}">Register</a></li>
+          <li><a href="{{ route('login') }}">Login</a></li>
+          <li><a href="{{ route('register') }}">Register</a></li>
         @else
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                    <i class="far fa-user"></i>
-                    {{ Auth::user()->name. ' '.Auth::user()->lastname }} <span class="caret"></span>
-                </a>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+              <i class="far fa-user"></i>
+              {{ Auth::user()->name. ' '.Auth::user()->lastname }} <span class="caret"></span>
+            </a>
 
-                <div class="dropdown-menu dropdown-menu-sm-right">
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
+            <div class="dropdown-menu dropdown-menu-sm-right">
+              <a class="dropdown-item" href="{{ route('logout') }}"
+                 onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
-                            <div class="media">
-                                <div class="media-body">
-                                    Logout
-                                </div>
-                            </div>
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
+                <div class="media">
+                  <div class="media-body">
+                    Logout
+                  </div>
                 </div>
-            </li>
+              </a>
+
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+              </form>
+            </div>
+          </li>
         @endguest
-    </ul>
+      </ul>
+    </div>
+
   </nav>
   <!-- /.navbar -->
 
@@ -180,20 +180,20 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset('dist/img/gerry.jpg') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="../../uploads/avatars/{{Auth::user()->avatar}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Gerry J</a>
+          <a href="#" class="d-block">{{Auth::user()->name.' '.Auth::user()->lastname}}</a>
         </div>
       </div>
 
       <!-- Sidebar Menu -->
-      <nav class="mt-2">
+      <nav class="mt-2" id="sidebar">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{url('/home')}}" class="nav-link active">
+            <a href="{{url('/home')}}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Home
@@ -202,12 +202,14 @@
           </li>
           <li class="nav-item">
             <a href="{{url('projects')}}" class="nav-link">
-              <i class="nav-icon fas fa-calendar-alt"></i>
+              <i class="nav-icon fas fa-briefcase"></i>
               <p>
                 Projects
               </p>
-                <span class="badge badge-info right">2</span>
+              @if(Auth::user()->user_group =='Manager')
+                <span class="badge badge-info right">{{\App\Project::where('user_id', Auth::user()->id)->count()}}</span>
 
+              @endif
             </a>
           </li>
           <li class="nav-item">
@@ -218,23 +220,32 @@
               </p>
             </a>
           </li>
+          {{--TODO: FIX CALENDAAR AND HOW TO ADD EVENTS USING LOCAL STORAGE--}}
+          {{--<li class="nav-item" >--}}
+          {{--<a href="{{url('calendar')}}" class="nav-link">--}}
+          {{--<i class="nav-icon fas fa-calendar-alt"></i>--}}
+          {{--<p>--}}
+          {{--My Calendar--}}
+          {{--</p>--}}
+          {{--</a>--}}
+          {{--</li>--}}
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Reports
+                Reports & Analysis
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
+                <a href="{{url('project_reports')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Project Reports</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                <a href="{{url('bug_reports')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Bug Reports</p>
                 </a>
@@ -260,12 +271,12 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-    <div class="content">
-      @include('partials.errors')
-      @include('partials.success')
+  <div class="content">
+    @include('partials.errors')
+    @include('partials.success')
 
-        @yield('content')
-    </div>
+    @yield('content')
+  </div>
   <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->
@@ -276,7 +287,7 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2019 <a href=url{{'/home'}}>BugTraq.io</a>.</strong>
+    <strong>Copyright &copy; 2020 <a href=url{{'/home'}}>BugTraq.io</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0
@@ -290,6 +301,8 @@
 <script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!--jQuery UI -->
+<script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- overlayScrollbars -->
 <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
@@ -309,6 +322,16 @@
 
 <!-- PAGE SCRIPTS -->
 <script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script>
+<!-- CALENDAR SCRIPTS -->
+<!-- fullCalendar 2.2.5 -->
+<script src="{{ asset('plugins/moment/moment.min.js')}}"></script>
+<script src="{{ asset('plugins/fullcalendar/main.min.js')}}"></script>
+<script src="{{ asset('plugins/fullcalendar-daygrid/main.min.js')}}"></script>
+<script src="{{ asset('plugins/fullcalendar-timegrid/main.min.js')}}"></script>
+<script src="{{ asset('plugins/fullcalendar-interaction/main.min.js')}}"></script>
+<script src="{{ asset('plugins/fullcalendar-bootstrap/main.min.js')}}"></script>
+
+
 @yield('scripts')
 </body>
 </html>

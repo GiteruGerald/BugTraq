@@ -18,7 +18,7 @@
     <link href="../assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../assets/demo/demo.css" rel="stylesheet" />
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet"
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet"/>
 
 </head>
 
@@ -43,7 +43,6 @@
                     </a>
                 </li>
                 <li>
-                    <!--TODO:change these routes and Icon logos-->
                     <a href="{{url('projects')}}">
                         <i class="now-ui-icons education_atom"></i>
                         <p>Projects</p>
