@@ -220,7 +220,6 @@ class ProjectsController extends Controller
         if($findProject ->delete()){
             return
                 redirect()->route('projects.index')
-                    // back()
                     ->with('success',"$findProject->pj_name.".' project deleted successfully');
         }
         return back()->withInput()->with('errors','Project could not be deleted');

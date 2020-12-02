@@ -35,7 +35,11 @@
         .position-ref {
             position: relative;
         }
-
+        .top-left {
+            position: absolute;
+            left: 10px;
+            top: 18px;
+        }
         .top-right {
             position: absolute;
             right: 10px;
@@ -68,13 +72,17 @@
 <body>
 <div class="flex-center position-ref full-height">
     @if (Route::has('login'))
+        <div class="top-left links">
+            {{--TODO Check this--}}<a href="{{ route('admin.login') }}"> Admin Login</a>
+
+        </div>
         <div class="top-right links">
             @auth
 
                 <a href="{{ url('/home') }}">Home</a>
             @else
                 <a href="{{ route('login') }}">Login</a>
-                {{--TODO Check this--}}<a href="{{ route('admin.login') }}"> Admin Login</a>
+                <a href="{{ route('register') }}">Register</a>
             @endauth
 
         </div>
