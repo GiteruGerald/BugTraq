@@ -1,4 +1,6 @@
 @extends('layouts.dashboard')
+@section('title','Create | Bug')
+
 @section('content')
 
     <div class="content-wrapper">
@@ -59,7 +61,7 @@
                                        <select class="form-control" name="assigned" data-placeholder="...">
                                            <option value="">...</option>
                                            @foreach($devs as $dev)
-                                               <option value="{{$dev->name.' '.$dev->lastname}}">{{$dev->name.' '.$dev->lastname}}</option>
+                                               <option value="{{$dev->id}}">{{$dev->name.' '.$dev->lastname}}</option>
                                            @endforeach
                                        </select>
                                    </div>
@@ -88,7 +90,7 @@
                                               </span>
                                             </div>
 
-                                            <input type="text" name="due_date" class="form-control float-right" id="reservation" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                            <input type="date" name="due_date" class="form-control float-right" id="reservation" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                         </div>
                                         <!-- /.input group -->
                                     </div>

@@ -91,8 +91,12 @@ class ReportsController extends Controller
 
     public function  pdf_bug($id){
         $bug = Bug::find($id);
-        //dd($bug);
-        $pdf = PDF::loadView('reports/pdf',compact('bug'));
+        $bugs = DB::table('bugs')
+            ->join('users','users.id','bugs.assigned')
+            ->where('bugs.id',$id)
+            ->first();
+//        dd($bug);
+        $pdf = PDF::loadView('reports/pdf',compact('bug','bugs'));
 
 
        return $pdf->stream();

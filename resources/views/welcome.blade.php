@@ -94,7 +94,7 @@
         </div>
 
         <div class="links">
-            <p>For Quick, Available and Secure tracking</p>
+            <p>Your ideal bug tracking system</p>
         </div>
     </div>
 </div>

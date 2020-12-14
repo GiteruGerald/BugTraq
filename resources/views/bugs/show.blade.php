@@ -32,7 +32,7 @@
                                                     <div class="form-group row">
                                                         <label class="control-label text-right col-md-5">Assigned To:</label>
                                                         <div class="col-md-7">
-                                                            <p class="form-control-static"> {{$bug->assigned}} </p>
+                                                            <p class="form-control-static"> {{$bugs->name.' '.$bugs->lastname}} </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -124,7 +124,10 @@
                                                     <div class="form-group row">
                                                         <label class="control-label text-right col-md-5">Reported by:</label>
                                                         <div class="col-md-7">
+                                                            @if(Auth::user()->user_group!=='Developer')
+
                                                             <p class="form-control-static">{{$bug->reporter}}</p>
+                                                                @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -334,7 +337,7 @@
                                     <select class="form-control" name="dev" value="{{$bug->assigned}}">
 
                                         @foreach($devs as $dev)
-                                            <option value="{{$dev->name.' '.$dev->lastname}}">{{$dev->name.' '.$dev->lastname}}</option>
+                                            <option value="{{$dev->id}}">{{$dev->name.' '.$dev->lastname}}</option>
                                         @endforeach
                                     </select>
                                 </div>

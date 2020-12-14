@@ -52,7 +52,7 @@
 
 
     <tr>
-        <td><strong>Assigned To:(Dev)</strong> {{$bug->assigned}}</td>
+        <td><strong>Assigned To:(Dev)</strong> {{$bugs->name.' '.$bugs->lastname}}</td>
         <td><strong>Reported by: </strong>{{$bug->reporter}}</td>
     </tr>
     <tr>

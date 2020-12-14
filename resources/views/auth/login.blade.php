@@ -21,7 +21,7 @@
 <body class="hold-transition login-page">
 <div class="login-box" style="width: 600px">
     <div class="login-logo">
-        <a href="{{url('home')}}"><b>Bug</b>Traq</a>
+        <a href="{{url('/')}}"><b>Bug</b>Traq</a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
@@ -30,23 +30,32 @@
 
             <form action="{{route('login')}}" method="post">
                 {{ csrf_field() }}
-                <div class="input-group mb-3 {{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-                    <input id="email" value="{{ old('email') }}"  name="email" type="email" class="form-control" placeholder="Email">
 
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
+                <div class="input-group mb-4 {{ $errors->has('email') ? ' has-error' : '' }}">
+
+                        <label for="email" class="col-md-3 control-label">E-Mail Address</label>
+                        <input id="email" value="{{ old('email') }}"  name="email" type="email" class="form-control" placeholder="Email">
+
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
                         </div>
-                    </div>
-                    @if($errors->has('email'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
+                            @if($errors->has('email'))
+                                <div class="row col-12">
+
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                                </div>
+
                     @endif
-                </div>
-                <div class="input-group mb-3{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <label for="password" class="col-md-4 control-label">Password</label>
+
+                    </div>
+
+
+                <div class="input-group mb-3 mr-3{{ $errors->has('password') ? ' has-error' : '' }}">
+                    <label for="password" class="col-md-3 control-label">Password</label>
                     <input id="password"  value="{{ old('password') }}" name="password" type="password" class="form-control" placeholder="Password">
 
                     <div class="input-group-append">
@@ -55,10 +64,12 @@
                         </div>
                     </div>
                     @if($errors->has('password'))
-                        <span class="help-block">
+                        <div class="row col-12">
+                            <span class="help-block">
                             <strong>{{ $errors->first('password') }}</strong>
                         </span>
-                    @endif
+                        </div>
+                        @endif
                 </div>
                 <div class="row">
                     <div class="col-8">

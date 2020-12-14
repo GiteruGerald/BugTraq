@@ -22,19 +22,20 @@ class CreateBugsTable extends Migration
             $table->integer('project_id');
             $table->foreign('project_id')->references('id')->on('users');
 
-            $table->string('assigned');
-            $table->foreign('assigned')->references('name')->on('users');
+            $table->integer('assigned');
+            $table->foreign('assigned')->references('id')->on('users');
 
             $table->string('type');
             $table->date('due_date');
 
             $table->string('reporter');
+            $table->integer('att_id')->nullable()->unsigned();
+            $table->foreign('att_id')->references('id')->on('bug_attachments');
+            $table->integer('reporter_id');
 
             $table->string('priority');
-            $table->foreign('priority')->references('impact')->on('priorities');
 
             $table->string('status')->default('To Do');
-            $table->foreign('status')->references('status')->on('bug_statuses');
 
             $table->timestamps();
         });

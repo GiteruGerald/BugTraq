@@ -17,11 +17,13 @@
     <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
+
 </head>
 <body class="hold-transition register-page">
 <div class="register-box" style="width:800px;">
     <div class="register-logo">
-        <a href="{{ url('home') }}"><b>Bug</b>Traq</a>
+        <a href="{{ url('/') }}"><b>Bug</b>Traq</a>
     </div>
 
     <div class="card">
@@ -70,10 +72,10 @@
 
                 <div class="row">
                     <div class="col-6">
-                        <div class="input-group mb-3 {{ $errors->has('emp_id') ? ' has-error' : '' }}">
+                        <div class="input-group mb-3  {{ $errors->has('emp_id') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Employee ID</label>
 
-                            <input id="emp_id" name="emp_id" type="text" class="form-control" placeholder="Employee ID" required autofocus>
+                            <input id="emp_id" name="emp_id" type="text" value="{{ old('emp_id') }}"class="form-control" placeholder="Employee ID" required />
                             @if($errors->has('emp_id'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('emp_id') }}</strong>
@@ -109,7 +111,8 @@
                         <div class="input-group mb-3" {{ $errors->has('dept') ? ' has-error' : '' }}>
                             <label for="Department" class="col-md-4 control-label">Department</label>
                             <div class="col-8">
-                            <select class="form-control" name="dept">
+                            <select class="form-control" name="dept" required>
+                                <option value="">...</option>
                                 <option>Development</option>
                                 <option>Quality Assurance</option>
                             </select>
@@ -120,7 +123,8 @@
                             <div class="input-group mb-3 {{ $errors->has('user_group') ? ' has-error' : '' }}">
                                 <label for="userGroup" class="col-md-4 control-label">User Role</label>
                                 <div class="col-7">
-                                    <select class="form-control select2bs4" name="user_group">
+                                    <select class="form-control select2bs4" name="user_group" required>
+                                        <option value="">...</option>
                                         <option>Manager</option>
                                         <option>Test Engineer</option>
                                         <option>Developer</option>
@@ -210,27 +214,31 @@
 </div>
 <!-- /.register-box -->
 
-<script>
+<script type="javascript">
     $(function () {
         //Initialize Select2 Elements
-        $('.select2').select2()
+        $('.select2').select2();
 
         //Initialize Select2 Elements
         $('.select2bs4').select2({
             theme: 'bootstrap4'
         })
-    })
+    });
 </script>
+
+
 <!-- jQuery -->
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
 <!-- InputMask -->
 <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
 <script src="{{ asset('plugins/inputmask/min/jquery.inputmask.bundle.min.js') }}"></script>
 <!-- Select2 -->
-<script src="{{ asset('plugins/select2/js/select2.full.min.js') }}'"></script>
+<script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+
 </body>
 </html>

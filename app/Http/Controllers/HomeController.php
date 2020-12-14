@@ -71,7 +71,7 @@ class HomeController extends Controller
         //for developer
         $pj_dev = DB::table('bugs')
             ->join('projects','projects.id','bugs.project_id')
-            ->where('bugs.assigned',Auth::user()->name.' '.Auth::user()->lastname)
+            ->where('bugs.assigned',Auth::user()->id)
             ->get();
         //To get Overdue bugs
 //        $total = Project::where( 'created_at', '>=', Carbon::now()->firstOfYear())->get()->toArray();

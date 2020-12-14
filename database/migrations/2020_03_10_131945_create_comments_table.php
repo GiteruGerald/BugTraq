@@ -17,10 +17,11 @@ class CreateCommentsTable extends Migration
             $table->increments('id');
             $table->longText('body');
             $table->string('url',255)->nullable();
+            $table->string('attachments')->nullable();
+
             $table->integer('user_id')->unsigned();
             $table->integer('commentable_id')->unsigned();
             $table->string('commentable_type');
-
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

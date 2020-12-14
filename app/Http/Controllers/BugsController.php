@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Bug;
 use App\BugAttachment;
 use App\Project;
+use App\ProjectUser;
 use App\User;
+use App\Notifications\AddedToProject;
+
 use App\Charts\BugChart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,13 +36,25 @@ class BugsController extends Controller
 
 
         if (Auth::user()->user_group=='Developer'){
-            $bugs = Bug::where('assigned',Auth::user()->name.' '.Auth::user()->lastname)->get();
+            $bugs = DB::table('users')
+                ->join('bugs','bugs.assigned','users.id')
+                ->where('bugs.assigned',Auth::user()->id)
+                ->get();
+
+
         }
         elseif (Auth::user()->user_group=='Test Engineer'){
-            $bugs = Bug::where('reporter', Auth::user()->name .' '.Auth::user()->lastname)->get();
+//            $bugs = Bug::where('reporter', Auth::user()->name .' '.Auth::user()->lastname)->get();
+
+            $bugs = DB::table('users')
+                ->join('bugs','bugs.assigned','users.id')
+                ->where('reporter_id', Auth::user()->id)
+                ->get();
         }
         else{
-            $bugs = Bug::all();
+            $bugs =DB::table('users')
+                ->join('bugs','bugs.assigned','users.id')
+                ->get();
         }
 
         return view('bugs.index', compact('bugs'));
@@ -82,6 +97,7 @@ class BugsController extends Controller
                 'project_id'=>$request->input('project_id'),
                 'title'=>$request->input('title'),
                 'reporter'=>Auth::user()->name.' '.Auth::user()->lastname,
+                'reporter_id'=>Auth::user()->id,
                 'type'=>$request->input('bug_type'),
                 'description' =>$request->input('description'),
                 'priority'=>$request->input('priority'),
@@ -89,12 +105,32 @@ class BugsController extends Controller
                 'due_date'=>$request->input('due_date')
             ]);
             //dd($bug);
-            //if bug was created successfully
-            if ($bug) {
+            $project =Project::find($request->input('project_id'));
+
+
+
+            if ($bug && $project) { //if bug was created successfully
+
+                $projectUser = ProjectUser::where('user_id',$request->input('assigned'))
+                                            ->where('project_id',$request->input('project_id'))
+                                            ->first();
+                $dev = User::where('id',$request->input('assigned'))->first();
+                if (!$projectUser){
+                    $project->users()->attach($request->input('assigned'));
+
+                    $dev->notify(new AddedToProject($project,$dev));
+                    auth()->user()->notify(new AddedToProject($project,$dev));
+                }
+
+
                 return redirect()->to('/projects/'.$request->input('project_id'))
                     //return redirect()->route('bugs.show', ['bug' => $bug->id])
                     ->with('success', 'Bug created successfully');
+            }else{
+                return back()->withInput()->with('errors','Error creating new bug');
+
             }
+
         }
         //if not created successfully
         return back()->withInput()->with('errors','Error creating new bug');
@@ -111,12 +147,16 @@ class BugsController extends Controller
     {
         //
         $bug = Bug::where('id',$bug->id)->first();
+        $bugs = DB::table('bugs')
+            ->join('users','users.id','bugs.assigned')
+            ->where('bugs.id',$bug->id)
+            ->first();
         $devs = User::where('user_group','Developer')->get();
 
         $comments = $bug->comments;
 
 
-        return view('bugs.show',['bug'=>$bug,'comments'=>$comments,'devs'=>$devs]);
+        return view('bugs.show',['bugs'=>$bugs,'bug'=>$bug,'comments'=>$comments,'devs'=>$devs]);
     }
 
     /**
@@ -164,21 +204,37 @@ class BugsController extends Controller
     public function search_bugs(Request $request)
     {
         if(Auth::user()->user_group == 'Developer'){
-            $bugs = Bug::where('title','like','%' . $request->get('Query').'%')
-                ->where('assigned',Auth::user()->name. ' '.Auth::user()->lastname)
+            $bugs = DB::table('users')
+                ->join('bugs','bugs.assigned','users.id')
+                ->where('title','like','%' . $request->get('Query').'%')
+                ->where('assigned',Auth::user()->id)
                 ->get();
+
+//            $bugs = Bug::where('title','like','%' . $request->get('Query').'%')
+//                ->where('assigned',Auth::user()->name. ' '.Auth::user()->lastname)
+//                ->get();
         }
 
         elseif (Auth::user()->user_group == 'Test Engineer'){
-            $bugs = Bug::where('title', 'like','%'. $request->get('Query').'%')
-                ->where('reporter', Auth::user()->name .' '.Auth::user()->lastname)
+
+            $bugs = DB::table('users')
+                ->join('bugs','bugs.assigned','users.id')
+                ->where('title','like','%' . $request->get('Query').'%')
+                ->where('reporter_id',Auth::user()->id)
                 ->get();
+//            $bugs = Bug::where('title', 'like','%'. $request->get('Query').'%')
+//                ->where('reporter', Auth::user()->name .' '.Auth::user()->lastname)
+//                ->get();
 
         }
 
         else {
-            $bugs = Bug::where('title','like','%'.$request->get('Query').'%')
+            $bugs = DB::table('users')
+                ->join('bugs','bugs.assigned','users.id')
+                ->where('title','like','%'.$request->get('Query').'%')
                 ->get();
+//            $bugs = Bug::
+//                ->get();
 
 
         }

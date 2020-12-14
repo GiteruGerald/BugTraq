@@ -11,6 +11,7 @@ class Bug extends Model
         'title',
         'description',
         'reporter',
+        'reporter_id',
         'project_id',
         'assigned',
         'type',

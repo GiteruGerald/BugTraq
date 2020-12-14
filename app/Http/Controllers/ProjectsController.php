@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bug;
+use App\Notifications\AddedToProject;
 use App\Project;
 use App\ProjectUser;
 use App\User;
@@ -47,9 +48,8 @@ class ProjectsController extends Controller
 
             $projects = DB::table('bugs')
                 ->join('projects','projects.id','bugs.project_id')
-                ->where('bugs.assigned',Auth::user()->name.' '.Auth::user()->lastname)
+                ->where('bugs.assigned',Auth::user()->id)
                 ->get();
-
             $projects = $projects->unique('pj_name');
             $projects = array_slice($projects->values()->all(), 0, 5, true);
 
@@ -193,7 +193,7 @@ class ProjectsController extends Controller
             $projects = DB::table('bugs')
                 ->join('projects','projects.id','bugs.project_id')
                 ->where('pj_name','like','%'. $request->get('Query').'%')
-                ->where('bugs.assigned',Auth::user()->name.' '.Auth::user()->lastname)
+                ->where('bugs.assigned',Auth::user()->id)
                 ->get();
 
             return json_encode($projects);
@@ -248,6 +248,9 @@ class ProjectsController extends Controller
 
             if($tester && $project){
                 $project->users()->attach($tester->id);// can use toggle instead of attach, to remove user if alrady in DB
+                auth()->user()->notify(new AddedToProject($project,$tester));
+                $tester->notify(new AddedToProject($project,$tester));
+
                 return redirect()->route('projects.show',['project'=>$project->id,'testers'=> $testers])
                     ->with('success',$request->input('email').' was added to the project successfully');
             }

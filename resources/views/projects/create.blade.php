@@ -31,10 +31,12 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="owner">Owner</label>
-                                            <select class="form-control" name="owner">
+                                            <label for="owner">Manager</label>
+                                            <select class="form-control" name="owner" required>
                                                @foreach($users as $user)
-                                                     <option value="{{$user->name.' '.$user->lastname}}">{{$user->name.' '.$user->lastname}}</option>
+                                                    <option value="">...</option>
+
+                                                    <option value="{{$user->name.' '.$user->lastname}}">{{$user->name.' '.$user->lastname}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

@@ -15,18 +15,28 @@
                             <div class="col-md-9">
                                 @if(Auth::user()->user_group=='Manager')
                                     <h4 class="card-title">All Bugs Reported</h4></div>
-                            @endif
-                            @if(Auth::user()->user_group=='Test Engineer')
+
+                            @elseif(Auth::user()->user_group=='Test Engineer')
                                 <h4 class="card-title">Bugs Reported</h4></div>
-                        @endif
-                        @if(Auth::user()->user_group=='Developer')
+
+                        @elseif(Auth::user()->user_group=='Developer')
                             <h4 class="card-title">Bugs Assigned</h4></div>
                     @endif
 
                     <div class="col-md-3">
                         <form class="form-inline ml-3">
                             <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" id="search_bug" placeholder="Search" aria-label="Search">
+                                @if(Auth::user()->user_group=='Manager')
+                                    <input class="form-control form-control-navbar" type="search" id="search_bug_mgr" placeholder="Search" aria-label="Search">
+
+                                @elseif(Auth::user()->user_group=='Test Engineer')
+                                    <input class="form-control form-control-navbar" type="search" id="search_bug_tst" placeholder="Search" aria-label="Search">
+
+                                @elseif(Auth::user()->user_group=='Developer')
+                                    <input class="form-control form-control-navbar" type="search" id="search_bug_dev" placeholder="Search" aria-label="Search">
+
+                                @endif
+
                                 <div class="input-group-append">
                                     <button class="btn btn-navbar" type="submit">
                                         <i class="fas fa-search"></i>
@@ -41,25 +51,29 @@
                     <div class="table-responsive">
                         <table class="table">
                             <thead class=" text-primary">
+
+
                             <th>
-                                Id
+                                Bug Title
                             </th>
                             <th>
                                 Priority
                             </th>
                             <th>
-                                Bug Title
-                            </th>
-
-                            <th>
                                 Created
                             </th>
+                            @if(Auth::user()->user_group!=='Test Engineer')
+
                             <th>
                                 Reporter
                             </th>
+                            @endif
+
+                          @if(Auth::user()->user_group!=='Developer')
                             <th>
                                 Dev Assigned
-                            </th>
+                           @endif
+
                             <th>
                                 Due Date
                             </th>
@@ -78,14 +92,20 @@
                                     <td>No bugs found</td>
                                 </tr>
                             @else
-                                @foreach($bugs as $bug)
+                                @foreach($bugs as $indexkey => $bug)
                                     <tr>
-                                        <td>{{$bug->id}}></td>
-                                        <td>{{$bug->priority}}</td>
+                                        {{--<td>{{$indexkey+1}}<b>.</b></td>--}}
                                         <td>{{$bug->title}}</td>
+                                        <td>{{$bug->priority}}</td>
                                         <td>{{$bug->created_at}}</td>
-                                        <td>{{$bug->reporter}}</td>
-                                        <td>{{$bug->assigned}}</td>
+                                        @if(Auth::user()->user_group!=='Test Engineer')
+
+                                             <td>{{$bug->reporter}}</td>
+                                        @endif
+                                        @if(Auth::user()->user_group!=='Developer')
+
+                                         <td>{{$bug->name.' '.$bug->lastname}}</td>
+                                        @endif
                                         <td>{{$bug->due_date}}</td>
                                         <td>{{$bug->status}}</td>
                                         <td>
@@ -110,7 +130,8 @@
 
 
     <script>
-        $('body').on('keyup','#search_bug', function () {
+        //For managers
+        $('body').on('keyup','#search_bug_mgr', function () {
             var Query = $(this).val();
             //console.log(Query)
 
@@ -131,12 +152,12 @@
                     $.each(res, function (index, value) {
                         var bugUrl = '/bugs/'+value.id;
                         tableRow =  '<tr>' +
-                            '<td>'+ value.id +'</td>' +
-                            '<td>'+ value.priority +'</td>' +
+                            // '<td>'+ value.id +'</td>' +
                             '<td>'+ value.title+'</td>' +
+                            '<td>'+ value.priority +'</td>' +
                             '<td>'+ value.created_at+'</td>' +
                             '<td>'+ value.reporter+'</td>' +
-                            '<td>'+ value.assigned+'</td>' +
+                            '<td>'+ value.name+' '+value.lastname+'</td>' +
                             '<td>'+ value.due_date+'</td>' +
                             '<td>'+ value.status+'</td>' +
                             '<td><a class="btn btn-sm btn-success" href="'+bugUrl+'" style="color:white">Show</a> </td>' +
@@ -149,5 +170,89 @@
                 }
             });
         }) ;
+
+        //For test engineers
+        $('body').on('keyup','#search_bug_tst', function () {
+            var Query = $(this).val();
+            //console.log(Query)
+
+            $.ajax({
+                method: "POST",
+                url : '{{route('search_bugs')}}',
+                dataType: 'json',
+                data : {
+                    '_token' : '{{ csrf_token() }}',
+                    Query: Query
+                },
+                success : function (res) {
+                    //console.log(res)
+                    var tableRow = '';
+
+                    $('#dynamic_data').html('');
+
+                    $.each(res, function (index, value) {
+                        var bugUrl = '/bugs/'+value.id;
+                        let a =1;
+                        tableRow =  '<tr>' +
+                            '<td>'+ value.title+'</td>' +
+                            '<td>'+ value.priority +'</td>' +
+                            '<td>'+ value.created_at+'</td>' +
+                            '<td>'+ value.name+' '+value.lastname+'</td>' +
+                            '<td>'+ value.due_date+'</td>' +
+                            '<td>'+ value.status+'</td>' +
+                            '<td><a class="btn btn-sm btn-success" href="'+bugUrl+'" style="color:white">Show</a> </td>' +
+
+
+                            '</tr>';
+
+                        $('#dynamic_data').append(tableRow);
+                        a++;
+
+                    });
+                }
+            });
+        }) ;
+
+
+        //For developers
+        $('body').on('keyup','#search_bug_dev', function () {
+            var Query = $(this).val();
+            //console.log(Query)
+
+            $.ajax({
+                method: "POST",
+                url : '{{route('search_bugs')}}',
+                dataType: 'json',
+                data : {
+                    '_token' : '{{ csrf_token() }}',
+                    Query: Query
+                },
+                success : function (res) {
+                    //console.log(res)
+                    var tableRow = '';
+
+                    $('#dynamic_data').html('');
+
+                    $.each(res, function (index, value) {
+                        var bugUrl = '/bugs/'+value.id;
+                        tableRow =  '<tr>' +
+                            '<td>'+ value.title+'</td>' +
+                            '<td>'+ value.priority +'</td>' +
+                            '<td>'+ value.created_at+'</td>' +
+                            '<td>'+ value.name+' '+value.lastname+'</td>' +
+
+                            '<td>'+ value.due_date+'</td>' +
+                            '<td>'+ value.status+'</td>' +
+                            '<td><a class="btn btn-sm btn-success" href="'+bugUrl+'" style="color:white">Show</a> </td>' +
+
+
+                            '</tr>';
+
+                        $('#dynamic_data').append(tableRow);
+                    });
+                }
+            });
+        }) ;
+
     </script>
 @endsection

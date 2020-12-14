@@ -19,7 +19,7 @@
                                         </div>
                                     @endif
 
-                                    You are logged in as <strong>{{ Auth::user()->user_group }}</strong>!
+                                    {{--You are logged in as <strong>{{ Auth::user()->user_group }}</strong>!--}}
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                                         <p>Bugs Reported</p>
 
                                     @elseif(Auth::user()->user_group=='Developer')
-                                        <h3>{{App\Bug::where('assigned',Auth::user()->name.' '.Auth::user()->lastname)->count()}}</h3>
+                                        <h3>{{App\Bug::where('assigned',Auth::user()->id)->count()}}</h3>
                                         <p>Bugs Assigned</p>
 
                                     @endif

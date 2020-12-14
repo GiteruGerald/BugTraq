@@ -50,16 +50,7 @@
                                     <th>
                                         Type
                                     </th>
-                                    @if(Auth::user()->user_group=='Manager'||'Developer')
-                                        <th>
-                                            Issued by
-                                        </th>
-                                    @endif
-                                    @if(Auth::user()->user_group=='Manager'||'Test Engineer')
-                                        <th>
-                                            Dev Assigned
-                                        </th>
-                                    @endif
+
                                     <th class="text-right">
                                         Reported On
                                     </th>
@@ -75,12 +66,7 @@
                                         <tr>
                                             <td><a href="/bugs/{{$bugs->id}}" >{{$bugs->title}}</a></td>
                                             <td>{{$bugs->type}}</td>
-                                            @if(Auth::user()->user_group=='Manager'||'Developer')
-                                                <td>{{$bugs->reporter}}</td>
-                                            @endif
-                                            @if(Auth::user()->user_group=='Manager'||'Test Engineer')
-                                                <td>{{$bugs->assigned}}</td>
-                                            @endif
+
 
                                             <td class="text-right">{{$bugs->created_at}}</td>
                                             <td class="text-right">{{$bugs->updated_at}}</td>
