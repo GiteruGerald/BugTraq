@@ -75,7 +75,9 @@ class AdminController extends Controller
 
     public function showbugs(){
         if(Auth::guard('admin')){
-            $bugs = Bug::all();
+            $bugs =DB::table('users')
+                ->join('bugs','bugs.assigned','users.id')
+                ->get();
             return view('admin.bugs',['bugs'=> $bugs]);
         }
     }
@@ -179,9 +181,13 @@ class AdminController extends Controller
     public function show_bug_details($id)
     {
         $bug = Bug::where('id',$id)->first();
+        $bugs = DB::table('bugs')
+            ->join('users','users.id','bugs.assigned')
+            ->where('bugs.id',$bug->id)
+            ->first();
         $devs = User::where('user_group','Developer')->get();
 
-        return view('admin.bg_details',compact('bug','devs'));
+        return view('admin.bg_details',compact('bug','devs','bugs'));
     }
 
     public function show_user_details($id)

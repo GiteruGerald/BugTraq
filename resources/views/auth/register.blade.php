@@ -111,10 +111,10 @@
                         <div class="input-group mb-3" {{ $errors->has('dept') ? ' has-error' : '' }}>
                             <label for="Department" class="col-md-4 control-label">Department</label>
                             <div class="col-8">
-                            <select class="form-control" name="dept" required>
+                            <select class="custom-select" name="dept" id="main_menu" required>
                                 <option value="">...</option>
                                 <option>Development</option>
-                                <option>Quality Assurance</option>
+                                <option>QualityAssurance</option>
                             </select>
                             </div>
                         </div>
@@ -123,11 +123,9 @@
                             <div class="input-group mb-3 {{ $errors->has('user_group') ? ' has-error' : '' }}">
                                 <label for="userGroup" class="col-md-4 control-label">User Role</label>
                                 <div class="col-7">
-                                    <select class="form-control select2bs4" name="user_group" required>
+                                    <select class="custom-select" name="user_group" id="sub_menu" required>
                                         <option value="">...</option>
-                                        <option>Manager</option>
-                                        <option>Test Engineer</option>
-                                        <option>Developer</option>
+
                                     </select>
                                 </div>
                             </div>
@@ -239,6 +237,8 @@
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+{{--Dynamic DropDown--}}
+<script src="{{ asset('dist/js/dynamic.js') }}"></script>
 
 </body>
 </html>

@@ -81,11 +81,17 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->validate($request,[
+            'name' => 'string|max:20',
+            'lastname' => 'string|max:20',
+            'phone_no' => 'string|min:13|max:13|unique:users',
+
+        ]);
         $userUpdate = User::where('id',$user->id)
             ->update([
                 'name'=> $request->input('name'),
                 'lastname'=>$request->input('lastname'),
-                'email'=>$request->input('email'),
+//                'email'=>$request->input('email'),
                 'phone_no'=>$request->input('phone'),
 
             ]);
@@ -96,8 +102,11 @@ class UsersController extends Controller
             return redirect()->route('users.show',['user'=>$user->id])
                 ->with('success','User Details updated successfully');
         }
-        //redirect
-        return back()->withInput();
+            //redirect
+            return back()->withInput();
+//            ->with('errors','Error adding attachments');
+
+
     }
 
     public function avatarUpload(Request $request)

@@ -57,7 +57,7 @@
 
                                             <td>{{$bug->created_at}}</td>
                                             <td>{{$bug->reporter}}</td>
-                                            <td>{{$bug->assigned}}</td>
+                                            <td>{{$bug->name.' '.$bug->lastname}}</td>
                                             <td>{{$bug->due_date}}</td>
                                             <td class="text-fuchsia text-right">{{$bug->status}}</td>
                                             <td>

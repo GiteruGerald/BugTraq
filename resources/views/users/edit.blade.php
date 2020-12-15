@@ -34,7 +34,26 @@
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
+            <!-- Notifications Dropdown Menu -->
+            <li class="nav-item dropdown" id="markasread" onclick="markNotificationAsRead()">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="far fa-bell"></i>
+                    <span class="badge badge-warning navbar-badge">{{count(auth()->user()->unreadNotifications)}}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="max_width:400px">
+                    <span class="dropdown-item dropdown-header">Notifications</span>
+                    <div class="dropdown-divider"></div>
 
+                    @forelse( auth()->user()->unreadNotifications as $notification)
+                        @include('partials.notification.'.snake_case(class_basename($notification->type)))
+                    @empty
+                        <a href="#" class="dropdown-item">No unread notifications</a>
+                    @endforelse
+
+                    <div class="dropdown-divider"></div>
+
+                </div>
+            </li>
             <!-- Authentication Links -->
             @guest
                 <li><a href="{{ route('login') }}">Login</a></li>
@@ -172,7 +191,9 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+
         <div class="row">
+            @include('partials.errors')
 
             <div class="col-md-12">
                 <div class="card" style="margin: 3rem;">
@@ -198,15 +219,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-5 px-3">
-                                    <div class="form-group">
-                                        <label for="email">Email address</label>
-                                        <input type="text" class="form-control" name="email" placeholder="Email" value="{{$user->email}}">
-                                    </div>
-                                </div>
+                            {{--<div class="row">--}}
+                                {{--<div class="col-md-5 px-3">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<label for="email">Email address</label>--}}
+                                        {{--<input type="text" class="form-control" name="email" placeholder="Email" value="{{$user->email}}">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
 
-                            </div>
+                            {{--</div>--}}
                             <!--TODO : Try adding change password in User Mode-->
 
                             <div class="row">
@@ -236,7 +257,9 @@
     </div>
 
     <!-- /.content-wrapper -->
-
+    <div class="content">
+        {{--@include('partials.success')--}}
+    </div>
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
         <!-- Control sidebar content goes here -->
@@ -256,11 +279,7 @@
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
-<script type="text/javascript">
-    $(document).ready(function () {
-        bsCustomFileInput.init();
-    });
-</script>
+
 <script src="{{ asset('plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -280,6 +299,8 @@
 <script src="{{ asset('plugins/jquery-mapael/maps/usa_states.min.js') }}"></script>
 <!-- ChartJS -->
 <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
+{{--Notifications--}}
+<script src="{{ asset('js/main.js') }}"></script>
 
 <!-- PAGE SCRIPTS -->
 <script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script>

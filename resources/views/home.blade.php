@@ -58,7 +58,7 @@
                                         <p>Bugs Reported</p>
 
                                     @elseif(Auth::user()->user_group == 'Test Engineer')
-                                        <h3>{{App\Bug::where('reporter', Auth::user()->name .' '.Auth::user()->lastname)->count()}}</h3>
+                                        <h3>{{App\Bug::where('reporter_id', Auth::user()->id)->count()}}</h3>
                                         <p>Bugs Reported</p>
 
                                     @elseif(Auth::user()->user_group=='Developer')
