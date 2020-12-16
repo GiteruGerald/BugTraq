@@ -262,6 +262,10 @@
                                         {{csrf_field()}}
                                     </form>
                                 </li>
+                            @elseif(Auth::user()->user_group =='Developer')
+                                <li><a href="#edit-bug" data-toggle="modal"><i class="fas fa-edit"></i>Edit</a></li>
+                                <li><a href="{{url('/bug_details/'.$bug->id)}}" target="_blank"><i class="fas fa-print"></i>Print Bug details </a></li>
+
                             @else
                                 <li><a href="{{url('/bug_details/'.$bug->id)}}" target="_blank"><i class="fas fa-print"></i>Print Bug details </a></li>
                             @endif

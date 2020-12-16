@@ -20,6 +20,10 @@
     <link rel="stylesheet" href="{{asset('dist/css/jquery.datatables.css')}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+      <!-- Toastr -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+          integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -198,6 +202,28 @@
 
 <!-- PAGE SCRIPTS -->
 <script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script>
+<!--Toastr-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
+<script>
+    @if(Session::has('message'))
+        var type="{{Session::get('alert-type','info')}}"
+        switch (type) {
+            case 'info':
+                toastr.info("{{Session::get('message')}}");
+                break;
+            case 'warning':
+                toastr.warning("{{Session::get('message')}}");
+                break;
+            case 'success':
+                toastr.success("{{Session::get('message')}}");
+                break;
+            case 'error':
+                toastr.error("{{Session::get('message')}}");
+                break;
+
+        }
+        @endif
+</script>
 @yield('scripts')
 </body>
 </html>

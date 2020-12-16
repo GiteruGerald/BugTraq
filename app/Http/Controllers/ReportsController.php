@@ -36,7 +36,9 @@ class ReportsController extends Controller
             ]);
 
         //To retrieve all bugs
-        $bugs = Bug::all();
+        $bugs = DB::table('users')
+            ->join('bugs','bugs.assigned','users.id')
+            ->get();
 
         return view('reports.bugs',compact ('bugs', 'chart'));
 

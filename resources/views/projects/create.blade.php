@@ -33,8 +33,9 @@
                                         <div class="form-group">
                                             <label for="owner">Manager</label>
                                             <select class="form-control" name="owner" required>
-                                               @foreach($users as $user)
-                                                    <option value="">...</option>
+                                                <option value="">...</option>
+
+                                            @foreach($users as $user)
 
                                                     <option value="{{$user->name.' '.$user->lastname}}">{{$user->name.' '.$user->lastname}}</option>
                                                 @endforeach

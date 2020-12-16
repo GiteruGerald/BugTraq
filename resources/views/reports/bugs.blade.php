@@ -36,7 +36,7 @@
                             </div>
                             <div class="col-md-3">
                                 {{--<a class="pull-right btn btn-primary btn-sm" href="{{url('pdfexport')}}">Export to PDF </a>--}}
-                                <form action="{{url('bug_pdf_export')}}" method="post" enctype="multipart/form-data">
+                                <form action="{{url('bug_pdf_export')}}" target="_blank" method="post" enctype="multipart/form-data">
                                     {{{csrf_field()}}}
                                     <input type="hidden" name="bug_data" id="bugData">
                                     <input type="hidden" name="chart_data" id="chartData">
@@ -90,7 +90,7 @@
                                             <td>{{$bug->title}}</td>
                                             <td>{{$bug->created_at}}</td>
                                             <td>{{$bug->reporter}}</td>
-                                            <td>{{$bug->assigned}}</td>
+                                            <td>{{$bug->name.' '.$bug->lastname}}</td>
                                             <td>{{$bug->due_date}}</td>
                                             <td>{{$bug->status}}</td>
                                         </tr>
