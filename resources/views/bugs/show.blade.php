@@ -124,10 +124,8 @@
                                                     <div class="form-group row">
                                                         <label class="control-label text-right col-md-5">Reported by:</label>
                                                         <div class="col-md-7">
-                                                            @if(Auth::user()->user_group!=='Developer')
 
                                                             <p class="form-control-static">{{$bug->reporter}}</p>
-                                                                @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -259,7 +257,6 @@
                                     <form id="delete-bug" action="{{route('bugs.destroy',$bug->id)}}"
                                           method="POST" style="display:none">
                                         <input type="hidden" name="_method" value="delete">
-                                        {{csrf_field()}}
                                     </form>
                                 </li>
                             @elseif(Auth::user()->user_group =='Developer')
@@ -338,9 +335,10 @@
                             <div class="col-5">
                                 <div class="form-group">
                                     <label for="Assigned">Assign To:(Dev)</label>
-                                    <select class="form-control" name="dev" value="{{$bug->assigned}}">
+                                    <select class="form-control" name="dev" value="{{$bug->assigned}}" required>
+                                        <option value="" >...</option>
 
-                                        @foreach($devs as $dev)
+                                    @foreach($devs as $dev)
                                             <option value="{{$dev->id}}">{{$dev->name.' '.$dev->lastname}}</option>
                                         @endforeach
                                     </select>
@@ -375,7 +373,9 @@
                             <div class="col-5">
                                 <div class="form-group">
                                     <label for="bugType">Change Status</label>
-                                    <select class="form-control" name="status">
+                                    <select class="form-control" name="status" required>
+                                        <option value="" >...</option>
+
                                         <option value ="{{$bug->status}}">{{$bug->status}}</option>
                                         <option value="In Progress (By Dev)">In Progress (By Dev)</option>
                                         <option value="In Review(By QA)">In Review(By QA)</option>
