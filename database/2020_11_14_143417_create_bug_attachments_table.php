@@ -18,7 +18,7 @@ class CreateBugAttachmentsTable extends Migration
             $table->string('att_name');
             $table->integer('bug_id')->unsigned();
 
-            $table->foreign('bug_id')->references('id')->on('bugs');
+//            $table->foreign('bug_id')->references('id')->on('bugs');
 
             $table->timestamps();
         });

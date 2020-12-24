@@ -30,7 +30,7 @@ class CreateBugsTable extends Migration
 
             $table->string('reporter');
             $table->integer('att_id')->nullable()->unsigned();
-            $table->foreign('att_id')->references('id')->on('bug_attachments');
+//            $table->foreign('att_id')->references('id')->on('bug_attachments');
             $table->integer('reporter_id');
 
             $table->string('priority');
