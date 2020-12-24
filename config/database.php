@@ -1,7 +1,7 @@
 <?php
 
 
-$DATABASE_URL=parse_url('postgres://dqohjpmsvahheb:b894f5b75beddd5ed684649927e0560efd63eef5ad397222f52923826dd44ddd@ec2-18-232-143-90.compute-1.amazonaws.com:5432/df70aa688gmgjt');
+$DATABASE_URL=parse_url('postgres://usfhfllaqhhqzm:98714b65156b8dba1773c514a0dcf4ac53ee0003a55f8da62ba6e9073bf08a03@ec2-34-204-121-199.compute-1.amazonaws.com:5432/d128bmn7uclqts');
 return [
 
     /*
@@ -43,11 +43,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => isset($DATABASE_URL["host"]) ? $DATABASE_URL["host"] : null,
+            'port' => isset($DATABASE_URL["port"]) ? $DATABASE_URL["port"] : null,
+            'database' => isset($DATABASE_URL["path"]) ? ltrim($DATABASE_URL["path"],"/") : null,
+            'username' => isset($DATABASE_URL["user"]) ? $DATABASE_URL["user"] : null,
+            'password' => isset($DATABASE_URL["pass"]) ? $DATABASE_URL["pass"] : null,
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
