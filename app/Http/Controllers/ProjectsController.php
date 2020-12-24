@@ -28,10 +28,10 @@ class ProjectsController extends Controller
 //            $projects = Project::where('owner', Auth::user()->name.' '.Auth::user()->lastname)->get();
             $projects = Project::where('user_id', Auth::user()->id)->get();
 
-            $bugcount = Bug::where('project_id',$pjID)->count();
+//            $bugcount = Bug::where('project_id',$pjID)->count();
             //to view all projects
             //$projects = Project::all();
-            return view('projects.index', ['projects' => $projects,'bugCount'=> $bugcount]);
+            return view('projects.index', ['projects' => $projects]);
 
         }elseif(Auth::user()->user_group=='Test Engineer'){
             $bugcount = Bug::where('project_id',$pjID)->count();
