@@ -75,6 +75,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('attachmentUpload',['as' =>'bug_attachment.add', 'uses'=>'BugsController@attachmentUpload']);
     Route::post('/projects/search', ['as' => 'search_projects', 'uses' => 'ProjectsController@search_projects']);
     Route::post('bugs/search', ['as' => 'search_bugs', 'uses' => 'BugsController@search_bugs']);
+    Route::get('/help','HelpController@index');
+    Route::get('/faq/{faq}', 'HelpController@show')->name('help.faq');
+
     Route::get('/markAsRead', function (){
         auth()->user()->unreadNotifications->markAsRead();
     });

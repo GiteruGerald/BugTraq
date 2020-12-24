@@ -241,7 +241,7 @@
             $('#pid').val($(this).data('id'));
             $('#name_edit').val($(this).data('title'));
             $('#desc_edit').val($(this).data('desc'));
-            console.log($(this).data('cnt'));
+            // console.log($(this).data('cnt'));
             console.log();
             count = $(this).data('count');
             cnt = $(this).data('cnt');
@@ -279,7 +279,7 @@
 
                     } else {
                         // toastr.success('Successfully updated Post!', 'Success Alert', {timeOut: 5000});
-                        console.log(data);
+                        console.log(data.id);
                         $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'>" +
                             "<td class='col1'><b>"+ data.id +".</b></td>" + //TODO :Check this count
                             "<td>" + data.pj_name + "</td>" +
@@ -341,5 +341,7 @@
                 }
             });
         })
+
     </script>
+
 @endsection

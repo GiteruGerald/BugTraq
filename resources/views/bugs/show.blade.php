@@ -107,7 +107,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!--/span-->
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
                                                         <label class="control-label text-right col-md-5">Updated:</label>
@@ -259,7 +258,7 @@
                                         <input type="hidden" name="_method" value="delete">
                                     </form>
                                 </li>
-                            @elseif(Auth::user()->user_group =='Developer')
+                            @elseif(Auth::user()->user_group =='Test Engineer')
                                 <li><a href="#edit-bug" data-toggle="modal"><i class="fas fa-edit"></i>Edit</a></li>
                                 <li><a href="{{url('/bug_details/'.$bug->id)}}" target="_blank"><i class="fas fa-print"></i>Print Bug details </a></li>
 

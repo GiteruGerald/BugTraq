@@ -254,7 +254,10 @@ class AdminController extends Controller
         $project->pj_description = $request->desc;
 
         $project->save();
+        $notification = array('message'=>'Project edited successfully',
+                                'alert-type' =>'success');
 //        dd($project);
         return response()->json($project);
+//            ->with($notification);
     }
 }

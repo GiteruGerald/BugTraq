@@ -19,7 +19,7 @@
                                         </div>
                                     @endif
 
-                                    You are logged in as <strong>{{ Auth::guard('admin')->user()->user_group }}</strong>!
+                                    {{--You are logged in as <strong>{{ Auth::guard('admin')->user()->user_group }}</strong>!--}}
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
 
                             </div>
                             <div class="icon">
-                                <i class="ion ion-bag"></i>
+                                <i class="ion ion-briefcase"></i>
                             </div>
                             <a href="/admin/projects" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>

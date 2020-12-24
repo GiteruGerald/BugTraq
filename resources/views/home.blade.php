@@ -44,7 +44,7 @@
                                     @endif
                                 </div>
                                 <div class="icon">
-                                    <i class="ion ion-bag"></i>
+                                    <i class="ion ion-briefcase"></i>
                                 </div>
                                 <a href="{{url('projects')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
@@ -149,9 +149,9 @@
                                         <th>
                                             Reporter
                                         </th>
-                                        <th>
-                                            Dev Assigned
-                                        </th>
+                                        {{--<th>--}}
+                                            {{--Dev Assigned--}}
+                                        {{--</th>--}}
                                         <th>
                                             Due Date
                                         </th>
@@ -172,7 +172,7 @@
                                                     <td><b>{{$cnt+1}}.</b></td>
                                                     <td><a href="/bugs/{{$bug->id}}">{{$bug->title}}</a></td>
                                                     <td>{{$bug->reporter}}</td>
-                                                    <td>{{$bug->assigned}}</td>
+                                                    {{--<td>{{$bug->name}}</td>--}}
                                                     <td>{{$bug->due_date}}</td>
                                                     <td>{{$bug->status}}</td>
                                                 </tr>

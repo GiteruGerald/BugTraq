@@ -76,6 +76,9 @@ class HomeController extends Controller
         //To get Overdue bugs
 //        $total = Project::where( 'created_at', '>=', Carbon::now()->firstOfYear())->get()->toArray();
 
+
+
+
         $overdue = Bug::whereDate('due_date','<=',Carbon::now())
             ->where('status','!=','Approved')
             ->get();

@@ -17,7 +17,7 @@
                                 <h4 class="card-title"> List Of Users</h4></div>
                             <div class="col-md-3">
 
-                                {{--<a class="pull-right btn btn-primary btn-sm" href="#new_user" data-toggle="modal"><i class="fas fa-user-plus"></i> Register New user </a></div>--}}
+                                <a class="pull-right btn btn-primary btn-sm" href="#new_user" data-toggle="modal"><i class="fas fa-user-plus"></i> Register New user </a></div>
                         </div>
                     </div>
                     <div class="card-body">
