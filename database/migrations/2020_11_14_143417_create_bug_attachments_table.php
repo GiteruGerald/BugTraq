@@ -13,7 +13,7 @@ class CreateBugAttachmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bug_attachments', function (Blueprint $table) {
+        Schema::create('bug_attachment', function (Blueprint $table) {
             $table->increments('id');
             $table->string('att_name');
             $table->integer('bug_id')->unsigned();

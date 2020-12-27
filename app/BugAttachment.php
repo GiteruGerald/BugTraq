@@ -9,7 +9,7 @@ class BugAttachment extends Model
     //
 
     public $timestamps = false;
-    protected $table="bug_attachments";
+    protected $table="bug_attachment";
 
     protected $fillable = [
         'att_name',
