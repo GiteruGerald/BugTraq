@@ -34,17 +34,17 @@ class ProjectsController extends Controller
             return view('projects.index', ['projects' => $projects]);
 
         }elseif(Auth::user()->user_group=='Test Engineer'){
-            $bugcount = Bug::where('project_id',$pjID)->count();
+//            $bugcount = Bug::where('project_id',$pjID)->count();
 
             $projects = DB::table('project_user')
                 ->join('projects','projects.id','project_user.project_id')
                 ->where('project_user.user_id',Auth::user()->id )
                 ->get();
 
-            return view('projects.index', ['projects' => $projects,'bugCount'=> $bugcount]);
+            return view('projects.index', ['projects' => $projects]);
 
         }elseif (Auth::user()->user_group == 'Developer'){
-            $bugcount = Bug::where('project_id',$pjID)->count();
+//            $bugcount = Bug::where('project_id',$pjID)->count();
 
             $projects = DB::table('bugs')
                 ->join('projects','projects.id','bugs.project_id')
@@ -53,7 +53,7 @@ class ProjectsController extends Controller
             $projects = $projects->unique('pj_name');
             $projects = array_slice($projects->values()->all(), 0, 5, true);
 
-            return view('projects.index',['projects'=>$projects,'bugCount'=> $bugcount]);
+            return view('projects.index',['projects'=>$projects);
         }
 
     }
