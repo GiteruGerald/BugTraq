@@ -53,7 +53,7 @@ class ProjectsController extends Controller
             $projects = $projects->unique('pj_name');
             $projects = array_slice($projects->values()->all(), 0, 5, true);
 
-            return view('projects.index',['projects'=>$projects);
+            return view('projects.index',['projects'=>$projects]);
         }
 
     }
